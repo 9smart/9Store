@@ -1,0 +1,5 @@
+INCLUDEPATH += ../include/curl
+
+HEADERS += *.h
+
+SOURCES += *.c
