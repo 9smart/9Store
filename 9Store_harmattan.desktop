@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.4.1
+Type=Application
+Terminal=false
+Name=9store
+Exec=/usr/bin/invoker --type=d -s /opt/9Store/bin/9Store
+Icon=/usr/share/icons/hicolor/80x80/apps/9Store80.png
+X-Window-Icon=
+X-HildonDesk-ShowInToolbar=true
+X-Osso-Type=application/x-executable

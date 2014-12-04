@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>9store_zh_CN.qm</file>
+        <file>qml/JavaScript/base64.js</file>
+        <file>qml/JavaScript/des.js</file>
+        <file>qml/JavaScript/main.js</file>
+    </qresource>
+</RCC>
