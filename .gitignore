@@ -77,6 +77,15 @@ ABLD.BAT
 
 **/tmp
 
+# 9Store
+!/curl-7.37.0/
+!/debian/
+!/qml/
+!/qmlapplicationviewer/
+!/qtc_packaging/
+!/selectfilesdialog/
+!/src/
+
 # =========================
 # Operating System Files
 # =========================
