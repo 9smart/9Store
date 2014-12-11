@@ -2,7 +2,7 @@ import QtQuick 1.0
 import "Main"
 import "SettingPage"
 import "../JavaScript/main.js" as Script
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 
 MyPage {
     id:downloadpage;

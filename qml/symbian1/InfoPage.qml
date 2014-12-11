@@ -2,8 +2,8 @@ import QtQuick 1.0
 import "Main"
 import "InfoPage"
 import "../JavaScript/main.js" as Script
-import com.nokia.symbian 1.0
-import com.nokia.extras 1.0
+import com.nokia.symbian 1.1
+import com.nokia.extras 1.1
 
 MyPage{
     id:infopage;

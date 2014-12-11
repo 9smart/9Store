@@ -1,12 +1,12 @@
 import QtQuick 1.0
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 import "../Main"
 import "../../JavaScript/main.js" as Script
 
 Component {
     ListItem {
         //platformInverted: true;
-        width: parent.parent.width;
+        width: commentpage.width;
         enabled: false;
         height: column.height+21;
         Column{
