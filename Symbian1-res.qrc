@@ -7,7 +7,6 @@
         <file>qml/symbian1/ListPage.qml</file>
         <file>qml/symbian1/LoginPage.qml</file>
         <file>qml/symbian1/main.qml</file>
-        <file>qml/symbian1/PageStackWindow.qml</file>
         <file>qml/symbian1/RelatedAppsPage.qml</file>
         <file>qml/symbian1/SearchPage.qml</file>
         <file>qml/symbian1/SettingPage.qml</file>
