@@ -1,16 +1,15 @@
 ﻿#include <QThread>
-#include <QPointer>
-#include <QtDebug>
+#include <QDebug>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "Qcurl.h"
-double QCurl::progress;
+//double QCurl::progress;
 
 QCurl::QCurl(QObject *parent):QObject(parent){
-    last=head=current=(struct Qcurldl *)malloc(sizeof(struct Qcurldl));
+    last=head=current=(struct QCurldl *)malloc(sizeof(struct QCurldl));
     curl_global_init(CURL_GLOBAL_ALL );
-    state=0;
+    setState(0);
 }
 
 QCurl::~QCurl(){
@@ -25,7 +24,7 @@ int QCurl::state() const {
     return m_state;
 }
 
-char *QCurl::currentUrl(){
+char *QCurl::currentUrl() {
     return m_currentUrl;
 }
 
@@ -48,7 +47,7 @@ void QCurl::appenddl(QString url,  QString file){
         return;
     }
     if(m_state==1){
-        last->next=(struct Qcurldl*)malloc(sizeof(struct Qcurldl));
+        last->next=(struct QCurldl*)malloc(sizeof(struct QCurldl));
         last=last->next;
         last->next=NULL;
         last->url=new char[url.size()+1];
@@ -90,11 +89,12 @@ size_t QCurl::file_callback(void *ptr, size_t size, size_t nmemb, void *userp){
 }
 
 int QCurl::progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow){
+    //(QCurl *)clientp;
     if(dltotal==0){
-        setProgress(0);
+        ((QCurl *)clientp)->setProgress(0);
         return 0;
     }
-    setProgress(dlnow/dltotal);
+    ((QCurl *)clientp)->setProgress(dlnow/dltotal);
     return 0;
 }
 
@@ -118,6 +118,7 @@ void QCurl::startNextDl(){
     curl_easy_setopt(curl, CURLOPT_URL,current->url);
     setCurrentUrl(current->url);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA,current->fp);
+    curl_easy_setopt(curl, CURLOPT_PROGRESSDATA,this);
     if(thread.isNull()){
         thread = new QThread(this);
         dl = new QCurlPerformer;
@@ -128,7 +129,7 @@ void QCurl::startNextDl(){
         thread->start();
     }
     setState(1);
-    emit startdl(curl);
+    emit startDl(curl);
 }
 
 void QCurl::setState(int state){

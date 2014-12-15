@@ -1,6 +1,7 @@
 #ifndef QCURL_H
 #define QCURL_H
 #include <QObject>
+#include <QPointer>
 #include <curl/curl.h>
 class QCurlPerformer;
 
@@ -22,8 +23,8 @@ public:
     ~QCurl();
 
     int state() const;
-    char *currentUrl() const;
-    static double progress();
+    char *currentUrl();
+    double progress();
 
     Q_INVOKABLE void appenddl(QString url, QString file);
     //Q_INVOKABLE static double getProgress();
@@ -41,10 +42,13 @@ signals:
     void dlSetted();
     void startDl(CURL *curl);
 
+public:
+    void setProgress(double progress);
+
 private:
-    struct Qcurldl *head;
-    struct Qcurldl *current;
-    struct Qcurldl *last;
+    struct QCurldl *head;
+    struct QCurldl *current;
+    struct QCurldl *last;
     CURL *curl;    
 
     QPointer<QThread> thread;
@@ -54,12 +58,11 @@ private slots:
     void startNextDl();
 
     void setState(int state);
-    void setCurrentUrl(char *url);
-    void setProgress(double progress);
+    void setCurrentUrl(char *url);   
 
 private:
     int m_state;
-    static double m_progress;
+    double m_progress;
     char m_currentUrl[3000];
 };
 
