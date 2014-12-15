@@ -73,7 +73,7 @@ symbian{
         DEPLOYMENTFOLDERS -= folder_pic
         RESOURCES += Symbian1-res.qrc
     } else {
-        #DEPLOYMENTFOLDERS += folder_Symbian folder_pic folder_JS
+        DEPLOYMENTFOLDERS += folder_Symbian folder_pic folder_JS
         RESOURCES += Symbian3-res.qrc
     }
     vendorinfo = "%{\"QShen\"}" ":\"QShen\""

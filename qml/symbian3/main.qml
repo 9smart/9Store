@@ -18,7 +18,9 @@ PageStackWindow{
     property string gender;
     property string logintype;
     platformInverted: true;
-
+    Corners{
+        id:corners;
+    }
     ListPage{
         id: listpage;
     }
