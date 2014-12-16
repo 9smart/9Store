@@ -12,19 +12,19 @@ Item
      Image
           {
            x:0;
-           y:632;
+           y:634;
            source: "../../pic/RoundScreencorners03.png";
           }
      Image
           {
-           x:352;
+           x:354;
            y:26;
            source: "../../pic/RoundScreencorners02.png";
           }
      Image
           {
-           x:352;
-           y:632;
+           x:354;
+           y:634;
            source: "../../pic/RoundScreencorners04.png";
           }
     }

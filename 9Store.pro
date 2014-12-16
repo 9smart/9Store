@@ -74,7 +74,7 @@ symbian{
         RESOURCES += Symbian1-res.qrc
     } else {
         DEPLOYMENTFOLDERS += folder_Symbian folder_pic folder_JS
-        RESOURCES += Symbian3-res.qrc
+        #RESOURCES += Symbian3-res.qrc
     }
     vendorinfo = "%{\"QShen\"}" ":\"QShen\""
     my_deployment.pkg_prerules += vendorinfo

@@ -54,7 +54,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     //viewer.setMainQmlFile(QLatin1String("qml/symbian1/main.qml"));
     viewer.setSource(QUrl("qrc:/qml/symbian1/main.qml"));
     #elif defined(Q_OS_SYMBIAN) //Symbian^3
-    viewer.setSource(QUrl("qrc:/qml/symbian3/main.qml"));
+    viewer.setSource(QUrl("qml/symbian3/main.qml"));
     #else //Meego
     viewer.setSource(QUrl("qrc:/qml/meego/main.qml"));
     #endif
