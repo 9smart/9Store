@@ -3,7 +3,5 @@ import QtQuick 1.1
 import "main"
 MyPage{
     id:mainpage;
-    Loader{
 
-    }
 }
