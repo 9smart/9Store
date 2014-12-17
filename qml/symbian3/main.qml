@@ -21,9 +21,13 @@ PageStackWindow{
     Corners{
         id:corners;
     }
-    ListPage{
+    /*ListPage{
         id: listpage;
+    }*/
+    MainPage{
+        id:mainpage;
     }
+
     InfoBanner{
         id: infoBanner;
     }
@@ -65,7 +69,8 @@ PageStackWindow{
         Script.setsignalcenter(signalCenter);
         loadLoginData(userdata.getUserData("LoginData"));
         loadDownloadData(userdata.getUserData("DownloadData"));        
-        pageStack.push(listpage);
+        //pageStack.push(listpage);
+        pageStack.push(mainpage);
     }
 
     function saveDownloadData() {

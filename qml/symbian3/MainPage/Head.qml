@@ -11,6 +11,7 @@ Rectangle{
         anchors.verticalCenter: parent.verticalCenter;
         anchors.left: parent.left;
         anchors.leftMargin: 15;
+        font.pixelSize: 28;
     }
     Image{
         id:shadow;
