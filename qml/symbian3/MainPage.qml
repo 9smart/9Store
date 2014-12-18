@@ -2,14 +2,17 @@
 import QtQuick 1.1
 import "main"
 import "MainPage"
+import "../JavaScript/main.js" as Script
 MyPage{
-    id:mainpage;
+    id:mainpage;    
     Head{
         id:head;
         titleText: qsTr("Home");
+        z:1;
     }
     ToolBar{
         id:toolbar;
+        z:1;
         onBackButtonClicked: {
             if(quitTimer.running)
               {
@@ -23,6 +26,13 @@ MyPage{
                  quitTimer.start();
                 }
         }
+        onHomeButtonClicked: {
+            content.source="MainPage/HomeContent.qml";
+        }
+        onTopchartsButtonClicked: {
+            content.source="MainPage/TopChartsContent.qml";
+        }
+
         Timer
              {
               id: quitTimer;
@@ -30,5 +40,23 @@ MyPage{
               running: false;
               repeat: false;
              }
+    }
+    Loader{
+        id:content;
+        anchors.top: head.bottom;
+        anchors.bottom: toolbar.top;
+        width: parent.width;
+        source: "MainPage/HomeContent.qml";
+    }
+    ListModel{
+        id:covermodel;
+    }
+    ListModel{
+        id:listmodel;
+    }
+
+    Component.onCompleted: {
+        Script.covermodel=covermodel;
+        Script.listmodel=listmodel;
     }
 }

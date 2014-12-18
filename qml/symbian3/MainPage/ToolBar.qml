@@ -3,7 +3,7 @@ import QtQuick 1.1
 import com.nokia.symbian 1.1
 Image {
     id:root;
-    property int highlightItem:-1;
+    property int highlightItem:1;
     signal backButtonClicked;
     signal homeButtonClicked;
     signal topchartsButtonClicked;

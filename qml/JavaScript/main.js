@@ -88,6 +88,19 @@ function loadcategory(oritxt)
              //console.log(categorymodel.get(i).cate);
             }
         }
+var covermodel;
+function getcover(){
+    var url="http://api.9smart.cn/covers?type=app";
+    sendWebRequest(url,loadcover,"GET","");
+}
+function loadcover(oritxt){
+    var obj=JSON.parse(oritxt);
+    covermodel.clear();
+    for(var i in obj.covers){
+        covermodel.append(obj.covers[i]);
+    }
+}
+
 function getlist(os,page,pagesize,category,type,upload_id,order,appname,fields)
         {
          var url="http://api.9smart.cn/apps?system="+os+"&page="+page+"&pagesize="+pagesize+"&category="+category+"&type="+type+"&author="+upload_id+"&order="+order+"&appname="+appname+"&fields="+fields;
