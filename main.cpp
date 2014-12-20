@@ -28,8 +28,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     //translator
     QString locale = QLocale::system().name();
     QTranslator translator;
-    bool a=translator.load( QString("9store_") + locale,":/");
-    qDebug()<<a;
+    translator.load( QString("9store_") + locale,":/");
     app->installTranslator(&translator);
 
     qmlRegisterType<SelectFilesDialog>("com.stars.widgets",1,0,"FilesDialog");

@@ -4,10 +4,11 @@ import "main"
 import "MainPage"
 import "../JavaScript/main.js" as Script
 MyPage{
-    id:mainpage;    
+    id:mainpage;
+    title: qsTr("Home");
     Head{
         id:head;
-        titleText: qsTr("Home");
+        titleText: title;
         z:1;
     }
     ToolBar{
@@ -28,11 +29,16 @@ MyPage{
         }
         onHomeButtonClicked: {
             content.source="MainPage/HomeContent.qml";
+            title=qsTr("Home");
         }
         onTopchartsButtonClicked: {
             content.source="MainPage/TopChartsContent.qml";
+            title=qsTr("Top");
         }
-
+        onSearchButtonClicked: {
+            content.source="MainPage/SearchContent.qml";
+            title=qsTr("Library");
+        }
         Timer
              {
               id: quitTimer;
@@ -54,7 +60,6 @@ MyPage{
     ListModel{
         id:listmodel;
     }
-
     Component.onCompleted: {
         Script.covermodel=covermodel;
         Script.listmodel=listmodel;

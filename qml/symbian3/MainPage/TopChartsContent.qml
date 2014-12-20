@@ -8,26 +8,26 @@ Item{
     property bool firstStart:true;
     onVisibleChanged: if(visible&&firstStart){
                           firstStart=false;
-                          Script.getlist("belle",page.toString(),"15","","","",order,"","");
+                          Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
     }
-    width:parent.width;
+    width:screen.width;
     TopChartsButtons{
         id:topchartsbuttons;
         z:1;
         onNewestClicked: {
             order="";
             page=1;
-            Script.getlist("belle",page.toString(),"15","","","",order,"","");
+            Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
         }
         onMostPopClicked: {
             order="views";
             page=1;
-            Script.getlist("belle",page.toString(),"15","","","",order,"","");
+            Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
         }
         onMostDlClicked: {
             order="downloads";
             page=1;
-            Script.getlist("belle",page.toString(),"15","","","",order,"","");
+            Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
         }
     }
     ListView{
@@ -36,6 +36,7 @@ Item{
         anchors.top: topchartsbuttons.bottom;
         anchors.bottom: parent.bottom;
         model: listmodel;
+        clip: true;
         delegate: ListItemDelegate{}
     }
 }
