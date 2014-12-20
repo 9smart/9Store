@@ -38,5 +38,21 @@ Item{
         model: listmodel;
         clip: true;
         delegate: ListItemDelegate{}
+        footer: Item{
+            width: screen.width;
+            height: 45;
+            Text{
+                anchors.centerIn: parent;
+                text:app.loading?"Loading...":"Next page";
+                color: app.loading?"lightgray":"black";
+            }
+            MouseArea{
+                anchors.fill: parent;
+                onClicked: {
+                    page++;
+                    Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
+                }
+            }
+        }
     }
 }

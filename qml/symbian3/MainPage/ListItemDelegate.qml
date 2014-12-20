@@ -6,6 +6,12 @@ Item{
     width: screen.width;
     height: 80;
     Rectangle{
+        anchors.fill: parent;
+        color: "#1080dd";
+        visible: mousearea.pressed;
+    }
+
+    Rectangle{
         anchors.top: parent.top;
         width: parent.width;
         height: 1;
@@ -45,6 +51,13 @@ Item{
         RankStars{
             ranknum: 5
             size: 13;
+        }
+    }
+    MouseArea{
+        id:mousearea;
+        anchors.fill: parent;
+        onClicked:{
+            pageStack.push(Qt.resolvedUrl("../InfoPage.qml"),{appid:model.appid,title:model.appname,icon:model.icon,summary:model.summary,version:model.version,author:model.author,ratingnum:model.ratingnum,scores:model.scores});
         }
     }
 }

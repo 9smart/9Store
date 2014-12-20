@@ -41,6 +41,11 @@ Rectangle{
             }
         }
     }
+    Image{
+        id:shadow;
+        anchors.top: parent.top;
+        source: "../../pic/HeadShadow.png"
+    }
     Rectangle{
         id:topfocus;
         anchors{
