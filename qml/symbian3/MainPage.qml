@@ -28,14 +28,17 @@ MyPage{
                 }
         }
         onHomeButtonClicked: {
+            content.z=0;
             content.source="MainPage/HomeContent.qml";
             title=qsTr("Home");
         }
         onTopchartsButtonClicked: {
+            content.z=0;
             content.source="MainPage/TopChartsContent.qml";
             title=qsTr("Top");
         }
         onSearchButtonClicked: {
+            content.z=1;
             content.source="MainPage/SearchContent.qml";
             title=qsTr("Library");
         }
@@ -54,6 +57,7 @@ MyPage{
         width: parent.width;
         source: "MainPage/HomeContent.qml";
     }
+
     ListModel{
         id:covermodel;
     }
