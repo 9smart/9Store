@@ -5,12 +5,6 @@ Item{
     id:root;
     property string order:"";
     property int page:1;
-    property bool firstStart:true;
-    onVisibleChanged: if(visible&&firstStart){
-                          firstStart=false;
-                          console.log("here");
-                          Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
-    }
     width:screen.width;
     TopChartsButtons{
         id:topchartsbuttons;
@@ -55,5 +49,8 @@ Item{
                 }
             }
         }
+    }
+    Component.onCompleted: {
+        Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
     }
 }

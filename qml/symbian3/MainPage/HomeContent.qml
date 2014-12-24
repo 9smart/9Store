@@ -4,12 +4,6 @@ import com.nokia.symbian 1.1
 import "../../JavaScript/main.js" as Script
 Flickable{
     id:root;
-    property bool firstStart:true;
-    onVisibleChanged: if(visible&&firstStart){
-                          firstStart=false;
-                          Script.getcover();
-                          Script.getfeatured("belle");
-    }
     contentHeight: cover.height+heading.height+featuredapp.height;
     width:screen.width;
     flickableDirection: Flickable.VerticalFlick;
@@ -65,5 +59,9 @@ Flickable{
             model:featuredmodel;
             delegate: ListItemDelegate{}
         }
+    }
+    Component.onCompleted: {
+        Script.getcover();
+        Script.getfeatured("belle");
     }
 }

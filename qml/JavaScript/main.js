@@ -3,18 +3,15 @@ Qt.include("des.js");
 Qt.include("base64.js")
 var signalcenter;
 var system = "belle";
-function setsignalcenter(mycenter)
-{
+function setsignalcenter(mycenter){
     signalcenter=mycenter;
 }
-function substr(string,length)
-{
+function substr(string,length){
     string.toString();
     string.substr(0,length);
     return string;
 }
-function cutfile(file)
-{
+function cutfile(file){
     file=file.toString();
     return file.substr(7);
 }
@@ -85,17 +82,14 @@ function loadfeatured(oritxt){
 
 var categorymodel;
 var listmodel;
-function getcategory(type)
-{
+function getcategory(type){
     var url="http://api.9smart.cn/apps/categorys?type="+type;
     sendWebRequest(url,loadcategory,"GET","");
 }
-function loadcategory(oritxt)
-{
+function loadcategory(oritxt){
     var obj=JSON.parse(oritxt);
     categorymodel.clear();
-    for(var i in obj)
-    {
+    for(var i in obj){
         categorymodel.append({"cate":obj[i]});
         //console.log(categorymodel.get(i).cate);
     }
@@ -113,20 +107,16 @@ function loadcover(oritxt){
     }
 }
 
-function getlist(os,page,pagesize,category,type,upload_id,order,appname,fields)
-{
+function getlist(os,page,pagesize,category,type,upload_id,order,appname,fields){
     var url="http://api.9smart.cn/apps?system="+os+"&page="+page+"&pagesize="+pagesize+"&category="+category+"&type="+type+"&author="+upload_id+"&order="+order+"&appname="+appname+"&fields="+fields;
     sendWebRequest(url,loadlist,"GET","");
 }
-function loadlist(oritxt)
-{
+function loadlist(oritxt){
     var obj=JSON.parse(oritxt);
-    if(obj.pager.page==="1")
-    {
+    if(obj.pager.page==="1"){
         listmodel.clear();
     }
-    for(var i in obj.apps)
-    {
+    for(var i in obj.apps){
         listmodel.append(obj.apps[i]);
     }
 }
@@ -134,17 +124,14 @@ var category;
 var summary;
 var size;
 var screenshotmodel;
-function getinfo(id)
-{
+function getinfo(id){
     var url ="http://api.9smart.cn/app/"+id;
     sendWebRequest(url,loadinfo,"GET","");
 }
-function loadinfo(oritxt)
-{
+function loadinfo(oritxt){
     var obj=JSON.parse(oritxt);
     screenshotmodel.clear();
-    for(var i in obj.screenshots)
-    {
+    for(var i in obj.screenshots){
         screenshotmodel.append(obj.screenshots[i])
     }
     category=obj.category;
@@ -152,35 +139,30 @@ function loadinfo(oritxt)
     size=obj.size;
     size=parseInt(size);
     if(size<1048576)
-        size=((size/1024).toFixed(2)).toString()+"KB"
-    else size=((size/1048576).toFixed(2)).toString()+"MB"
+        size=((size/1024).toFixed(2)).toString()+"KB";
+    else size=((size/1048576).toFixed(2)).toString()+"MB";
     signalcenter.dlInfoSetted();
 }
 
 
-function getuid(oritxt)
-{
+function getuid(oritxt){
     var obj=JSON.parse(oritxt);
     return obj.uid;
 }
-function getaccesstoken(oritxt)
-{
+function getaccesstoken(oritxt){
     var obj=JSON.parse(oritxt);
     return obj.access_token;
 }
 
 var isexist;
-function getfilehash(filehash)
-{
+function getfilehash(filehash){
     var url="http://api.9smart.cn/apps/exists?myappid=2";
     var postdata="file_md5="+filehash;
     sendWebRequest(url,loadfilehash,"POST",postdata);
 }
-function loadfilehash(oritxt)
-{
+function loadfilehash(oritxt){
     var obj=JSON.parse(oritxt);
-    if(obj.error===0)
-    {
+    if(obj.error===0){
         if(obj.message==="true")
             isexist=1;
         else isexist=0;
@@ -189,39 +171,31 @@ function loadfilehash(oritxt)
 }
 
 var relatedlistmodel;
-function getrelatedlist(system,page,pagesize,id,category)
-{
+function getrelatedlist(system,page,pagesize,id,category){
     var url ="http://api.9smart.cn/apps?system="+system+"&page="+page+"&pagesize="+pagesize+"&category="+category+"&appid="+id;
     sendWebRequest(url,loadrelatedlist,"GET","");
 }
-function loadrelatedlist(oritxt)
-{
+function loadrelatedlist(oritxt){
 
     var obj=JSON.parse(oritxt);
-    if(obj.pager.page==="1")
-    {
+    if(obj.pager.page==="1"){
         relatedlistmodel.clear();
     }
-    for(var i in obj.apps)
-    {
+    for(var i in obj.apps){
         relatedlistmodel.append(obj.apps[i]);
     }
 }
 var commentmodel;
-function getComment(appid,page)
-{
+function getComment(appid,page){
     var url="http://api.9smart.cn/comments/"+appid+"?page="+page;
     sendWebRequest(url,loadComment,"GET","");
 }
-function loadComment(oritxt)
-{
+function loadComment(oritxt){
     var obj=JSON.parse(oritxt);
-    if(obj.pager.page==="1")
-    {
+    if(obj.pager.page==="1"){
         commentmodel.clear();
     }
-    for(var i in obj.comments)
-    {
+    for(var i in obj.comments){
         commentmodel.append(obj.comments[i]);
     }
 }
@@ -247,14 +221,12 @@ function getversion() {
         url = url + "119";
     sendWebRequest(url,loadversion,"GET","");
 }
-function loadversion(oritxt)
-{
+function loadversion(oritxt){
     var obj=JSON.parse(oritxt);
     version=obj.version;
     signalcenter.versionGeted();
 }
-function isnew(currentver,lastver)
-{
+function isnew(currentver,lastver){
     var j = 0,s1,s2;
     var num=new Array;
     for(var i in lastver)
