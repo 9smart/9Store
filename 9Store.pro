@@ -54,7 +54,7 @@ simulator{
 contains(MEEGO_EDITION,harmattan){
          DEFINES += Q_OS_HARMATTAN
          CONFIG += qdeclarative-boostable meegotouch
-         #DEPLOYMENTFOLDERS +=  folder_JS folder_Meego folder_pic
+         DEPLOYMENTFOLDERS +=  folder_JS folder_Meego folder_pic
          RESOURCES += Meego-res.qrc
          OTHER_FILES += \
                        qtc_packaging/debian_harmattan/rules \

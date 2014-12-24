@@ -8,7 +8,7 @@ Flickable{
     onVisibleChanged: if(visible&&firstStart){
                           firstStart=false;
                           Script.getcover();
-                          Script.getlist("belle","1","15","","","","","","");
+                          Script.getfeatured("belle");
     }
     contentHeight: cover.height+heading.height+featuredapp.height;
     width:screen.width;
@@ -62,7 +62,7 @@ Flickable{
         anchors.top: heading.bottom;
         anchors.topMargin: 1;
         Repeater{
-            model:listmodel;
+            model:featuredmodel;
             delegate: ListItemDelegate{}
         }
     }

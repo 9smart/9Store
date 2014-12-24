@@ -1,6 +1,6 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
-import "main"
+import "Main"
 import "MainPage"
 import "../JavaScript/main.js" as Script
 MyPage{
@@ -62,10 +62,14 @@ MyPage{
         id:covermodel;
     }
     ListModel{
+        id:featuredmodel;
+    }
+    ListModel{
         id:listmodel;
     }
     Component.onCompleted: {
         Script.covermodel=covermodel;
+        Script.featuredmodel=featuredmodel;
         Script.listmodel=listmodel;
     }
 }

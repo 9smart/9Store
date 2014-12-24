@@ -48,5 +48,37 @@
         <file>qml/pic/icon-s-common-next.png</file>
         <file>qml/pic/selector.svg</file>
         <file>qml/pic/splash.png</file>
+        <file>qml/symbian3/Main/Corners.qml</file>
+        <file>qml/symbian3/MainPage/CoverDelegate.qml</file>
+        <file>qml/symbian3/MainPage/Head.qml</file>
+        <file>qml/symbian3/MainPage/HomeContent.qml</file>
+        <file>qml/symbian3/MainPage/ListItemDelegate.qml</file>
+        <file>qml/symbian3/MainPage/SearchContent.qml</file>
+        <file>qml/symbian3/MainPage/SearchFiled.qml</file>
+        <file>qml/symbian3/MainPage/ToolBar.qml</file>
+        <file>qml/symbian3/MainPage/TopChartsButtons.qml</file>
+        <file>qml/symbian3/MainPage/TopChartsContent.qml</file>
+        <file>qml/symbian3/MainPage.qml</file>
+        <file>qml/pic/9-MeeGo.png</file>
+        <file>qml/pic/9-Symbian.svg</file>
+        <file>qml/pic/down.svg</file>
+        <file>qml/pic/down_black.svg</file>
+        <file>qml/pic/edit.svg</file>
+        <file>qml/pic/HeadShadow.png</file>
+        <file>qml/pic/icon-s-common-next.png</file>
+        <file>qml/pic/RoundScreencorners01.png</file>
+        <file>qml/pic/RoundScreencorners02.png</file>
+        <file>qml/pic/RoundScreencorners03.png</file>
+        <file>qml/pic/RoundScreencorners04.png</file>
+        <file>qml/pic/selector.svg</file>
+        <file>qml/pic/splash.png</file>
+        <file>qml/pic/Toolbar_inverse.svg</file>
+        <file>qml/pic/Toolbar-Back_inverse.svg</file>
+        <file>qml/pic/ToolbarHighlight.svg</file>
+        <file>qml/pic/Toolbar-Home_inverse.svg</file>
+        <file>qml/pic/Toolbar-Personal_inverse.svg</file>
+        <file>qml/pic/Toolbar-Search_inverse.svg</file>
+        <file>qml/pic/ToolbarShadow.png</file>
+        <file>qml/pic/Toolbar-TopCharts_inverse.svg</file>
     </qresource>
 </RCC>

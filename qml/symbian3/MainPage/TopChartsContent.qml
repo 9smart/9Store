@@ -8,6 +8,7 @@ Item{
     property bool firstStart:true;
     onVisibleChanged: if(visible&&firstStart){
                           firstStart=false;
+                          console.log("here");
                           Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
     }
     width:screen.width;
