@@ -9,7 +9,7 @@ Component{
         width: parent.parent.width;
         Button{
             id: loadBtn;
-            //platformInverted: true;
+            platformInverted: true;
             width: parent.width - 16;
             anchors.centerIn: parent;
             text: qsTr("More");

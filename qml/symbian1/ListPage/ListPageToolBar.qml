@@ -3,7 +3,7 @@ import com.nokia.symbian 1.1
 
 ToolBarLayout {
     ToolButton {
-        //platformInverted: true;
+        platformInverted: true;
         iconSource: privateStyle.toolBarIconPath("toolbar-back");
         onClicked: {
             console.log(iconSource);
@@ -21,10 +21,10 @@ ToolBarLayout {
         text:qsTr("category");
         onClicked:categorymenu.open();
         enabled: type!=="";
-        //platformInverted: true;
+        platformInverted: true;
     }
     ToolButton {
-        //platformInverted:true;
+        platformInverted:true;
         iconSource: privateStyle.toolBarIconPath("toolbar-menu");
         onClicked: mainmenu.open();
     }

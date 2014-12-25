@@ -4,9 +4,9 @@ import com.nokia.extras 1.1
 import "../Main"
 import "../../JavaScript/main.js" as Script
 
-CustomDialog {
+CommonDialog {
     id: uiddia;
-    //platformInverted: true;
+    platformInverted: true;
     titleText: qsTr("pleas input the authorname");
     buttonTexts: [qsTr("OK"),qsTr("Cancel")];
     content: TextField {

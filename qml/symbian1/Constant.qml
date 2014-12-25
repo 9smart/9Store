@@ -12,7 +12,7 @@ QtObject {
     //property color colorDisabled: platformStyle.colorDisabledMid;
 
     // font color
-    property color fontColorNormal: "White";
+    property color fontColorNormal: "Black";
 
     // padding size
     //property int paddingSmall: platformStyle.paddingSmall

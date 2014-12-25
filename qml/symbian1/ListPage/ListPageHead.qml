@@ -39,7 +39,7 @@ Head {
     }
     ToolButton {
         id:typemenukey;
-        //platformInverted: true;
+        platformInverted: true;
         iconSource: "../Resource/selector.svg";
         anchors.right: parent.right;
         anchors.verticalCenter: parent.verticalCenter

@@ -5,7 +5,7 @@ import "../../JavaScript/main.js" as Script
 
 Component {
     ListItem {
-        //platformInverted: true;
+        platformInverted: true;
         width: commentpage.width;
         enabled: false;
         height: column.height+21;
@@ -21,7 +21,7 @@ Component {
                     ranknum: model.score;
                 }
                 ListItemText{
-                    //platformInverted: true;
+                    platformInverted: true;
                     role: "Head";
                     text: qsTr("by ")+model.nickname;
                 }
@@ -40,7 +40,7 @@ Component {
                 }
             }
             ListItemText{
-                //platformInverted: true;
+                platformInverted: true;
                 role: "Subtitle";
                 text: Script.humanedate(model.dateline);
             }

@@ -36,7 +36,7 @@ Component {
             anchors.left: name.left;
         }
         /*Button {
-            //platformInverted: true;
+            platformInverted: true;
             anchors.verticalCenter: parent.verticalCenter;
             anchors.right: parent.right;
             anchors.rightMargin: 15;

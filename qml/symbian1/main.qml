@@ -17,7 +17,7 @@ PageStackWindow {
     property string avatar;
     property string gender;
     property string logintype;
-    //platformInverted: true;
+    platformInverted: true;
 
     Constant {
         id: constant;

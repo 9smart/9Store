@@ -48,5 +48,7 @@
         <file>qml/symbian1/Resource/icon.svg</file>
         <file>qml/symbian1/Resource/right_arrow.png</file>
         <file>qml/symbian1/Resource/selector.svg</file>
+        <file>qml/symbian1/Resource/down_inverted.svg</file>
+        <file>qml/symbian1/Resource/right_arrow_inverted.png</file>
     </qresource>
 </RCC>

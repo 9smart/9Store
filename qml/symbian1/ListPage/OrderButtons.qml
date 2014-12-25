@@ -7,7 +7,9 @@ Rectangle{
     anchors.right: parent.right;
     height: orderbutton.height+12;
     anchors.top: head.bottom;
-    color: "Black";
+
+    property bool platformInverted: true;
+    color: "#F1F1F1";
     z:1;
     ButtonRow{
         id:orderbutton;
@@ -16,7 +18,7 @@ Rectangle{
         checkedButton: b1;
         z:1;
         Button{
-            //platformInverted:true;
+            platformInverted:true;
             id:b1;
             text: qsTr("Newest");
             onClicked:{
@@ -27,7 +29,7 @@ Rectangle{
         }
         Button{
             id:b2;
-            //platformInverted:true;
+            platformInverted:true;
             text: qsTr("most pop");
             onClicked:{
                 listpage.order="views";
@@ -37,7 +39,7 @@ Rectangle{
         }
         Button{
             id:b3;
-            //platformInverted:true;
+            platformInverted:true;
             text: qsTr("most dl");
             onClicked:{
                 listpage.order="downloads";

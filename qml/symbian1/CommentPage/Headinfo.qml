@@ -4,7 +4,7 @@ import "../Main"
 Row{
     ListItem{
         id: maininfo;
-        //platformInverted: true;
+        platformInverted: true;
         enabled: false;
         width: parent.parent.width;
         height: bigicon.height + 24;
@@ -46,7 +46,7 @@ Row{
 
     }
     ListHeading{
-        //platformInverted: true;
+        platformInverted: true;
         ListItemText{
             anchors.fill: parent.paddingItem
             role: "Heading"

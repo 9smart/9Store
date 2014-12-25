@@ -7,7 +7,7 @@ Component {
     id:delegate;
     ListItem {
         id: wrapper;
-        //platformInverted: true;
+        platformInverted: true;
         property int dlnum:-1;
         width: 360;
         height: 84;
@@ -34,7 +34,7 @@ Component {
             //anchors.bottom: parent.bottom;
             anchors.margins: 9;
             ListItemText {
-                //platformInverted: true;
+                platformInverted: true;
                 text: model.appname;
                 role: "Title";
                 smooth: true;
@@ -42,7 +42,7 @@ Component {
             }
             ListItemText {
                 id: authorLabel;
-                //platformInverted: true;
+                platformInverted: true;
                 text: model.author;
                 role: "Subtitle";
                 color: "gray";
@@ -54,11 +54,11 @@ Component {
         }
         Button {
             id: downloadBtn;
-            //platformInverted: true;
+            platformInverted: true;
             width: height;
             anchors.verticalCenter: parent.verticalCenter;
             anchors.right: parent.right; anchors.rightMargin: 15;
-            iconSource: "../Resource/down.svg";
+            iconSource: "../Resource/down_inverted.svg";
             z:1;
             enabled:{
                 if(wrapper.dlnum===-1)

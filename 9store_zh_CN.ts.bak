@@ -1,57 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="zh_CN" sourcelanguage="en">
+<TS version="2.1" language="zh_CN" sourcelanguage="en">
 <context>
     <name>AboutDialog</name>
     <message>
         <source>About</source>
-        <translation>关于</translation>
+        <translation type="unfinished">关于</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>确定</translation>
+        <translation type="unfinished">确定</translation>
     </message>
     <message>
         <source>***About Texts***</source>
-        <translation>    一个关注小众系统的应用商店
-主要功能：
-1、分类浏览；
-2、搜索；
-3、根据人气和下载量浏览；
-4、应用下载列表，直接点击下载列表即可进行安装。
-
-开发团队：
-Qshen负责程序主逻辑及Symbian^3版本的开发；
-沛秦负责S60V5版的移植；
-狂魔负责图标以及界面设计；
-掌叔负责服务器端程序。
-
-久智团队介绍
-团队定位
-国内首支依托Qt跨平台优势，专注小众系统的应用开发，及在国内的发展与推广。
-
-目前成果
-久店（9Store）小众系统应用商店，塞班版，米狗版，旗鱼版开发中。
-久闻（9News）小众系统相关最新资讯。
-
-发展方向
-做中国最专业的小众系统综合网络平台。提供资源下载，新闻资讯，开发教程，手机及配件商城，应用开发外包等一体化服务。
-
-团队组成
-目前团队成员共有六人：
-Qshen目前正在负责塞班3黑莓以及米狗系统下的久店开发与维护。
-沛秦目前负责久店的S60V5版的移植和适配。
-Birdzhang目前负责久店的旗鱼版开发。
-梦梦目前负责久店的图标设计。
-雨后星辰目前负责久闻的开发及Ubuntu版的久店开发。
-掌叔目前负责久店的服务器端开发与web平台的搭建。
-
-欢迎加入欢迎广大移动平台开发和爱好者加入我们，我们热爱技术是一个团结有爱，充满包容并积极向上的团体。
-
-联系方式
-QQ群：346578991
-Email：contact@9smart.cn
-官网：www.9smart.cn</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -76,7 +38,7 @@ Email：contact@9smart.cn
     <name>CommentDelegate</name>
     <message>
         <source>by </source>
-        <translation>评论者： </translation>
+        <translation type="unfinished">评论者：</translation>
     </message>
 </context>
 <context>
@@ -97,11 +59,11 @@ Email：contact@9smart.cn
     <name>DownloadPage</name>
     <message>
         <source>Download list</source>
-        <translation>下载列表</translation>
+        <translation type="unfinished">下载列表</translation>
     </message>
     <message>
         <source>The download list is empty</source>
-        <translation>下载列表为空</translation>
+        <translation type="unfinished">下载列表为空</translation>
     </message>
 </context>
 <context>
@@ -134,19 +96,19 @@ Email：contact@9smart.cn
     <name>Headinfo</name>
     <message>
         <source>By </source>
-        <translation>作者: </translation>
+        <translation type="unfinished">作者：</translation>
     </message>
     <message>
         <source>version:</source>
-        <translation>版本：</translation>
+        <translation type="unfinished">版本：</translation>
     </message>
     <message>
         <source>size:</source>
-        <translation>文件大小：</translation>
+        <translation type="unfinished">文件大小：</translation>
     </message>
     <message>
         <source>Reviews</source>
-        <translation>评论</translation>
+        <translation type="unfinished">评论</translation>
     </message>
 </context>
 <context>
@@ -168,19 +130,19 @@ Email：contact@9smart.cn
     <name>InfoPage</name>
     <message>
         <source>  Reviews</source>
-        <translation>  评论</translation>
+        <translation type="unfinished">  评论</translation>
     </message>
     <message>
         <source>Related APPs</source>
-        <translation>相关应用</translation>
+        <translation type="unfinished">相关应用</translation>
     </message>
     <message>
         <source>  All related apps</source>
-        <translation>  所有相关应用</translation>
+        <translation type="unfinished">  所有相关应用</translation>
     </message>
     <message>
         <source>Send successfully</source>
-        <translation>评论成功</translation>
+        <translation type="unfinished">评论成功</translation>
     </message>
 </context>
 <context>
@@ -234,63 +196,63 @@ Email：contact@9smart.cn
     <name>ListDelegate</name>
     <message>
         <source>Download appended!</source>
-        <translation>已添加入下载列表！</translation>
+        <translation type="unfinished">已添加入下载列表！</translation>
     </message>
     <message>
         <source>Please select an existent path for the download</source>
-        <translation>请在设置中选择一个存在的下载路径</translation>
+        <translation type="unfinished">请在设置中选择一个存在的下载路径</translation>
     </message>
 </context>
 <context>
     <name>ListFooter</name>
     <message>
         <source>More</source>
-        <translation>更多</translation>
+        <translation type="unfinished">更多</translation>
     </message>
 </context>
 <context>
     <name>ListPage</name>
     <message>
         <source>list page</source>
-        <translation>应用列表</translation>
+        <translation type="unfinished">应用列表</translation>
     </message>
 </context>
 <context>
     <name>ListPageHead</name>
     <message>
         <source>9smart</source>
-        <translation>久智</translation>
+        <translation type="unfinished">久智</translation>
     </message>
     <message>
         <source>app</source>
-        <translation>应用</translation>
+        <translation type="unfinished">应用</translation>
     </message>
     <message>
         <source>game</source>
-        <translation>游戏</translation>
+        <translation type="unfinished">游戏</translation>
     </message>
     <message>
         <source>all</source>
-        <translation>所有</translation>
+        <translation type="unfinished">所有</translation>
     </message>
 </context>
 <context>
     <name>ListPageMenu</name>
     <message>
         <source>search</source>
-        <translation>搜索</translation>
+        <translation type="unfinished">搜索</translation>
     </message>
     <message>
         <source>search by the author</source>
-        <translation>获取指定作者应用</translation>
+        <translation type="unfinished">获取指定作者应用</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation>设置</translation>
+        <translation type="unfinished">设置</translation>
     </message>
     <message>
         <source>Download Page</source>
-        <translation>下载页面</translation>
+        <translation type="unfinished">下载页面</translation>
     </message>
     <message>
         <source>Search</source>
@@ -305,11 +267,11 @@ Email：contact@9smart.cn
     <name>ListPageToolBar</name>
     <message>
         <source>Please click again to quit</source>
-        <translation>再点一次退出</translation>
+        <translation type="unfinished">再点一次退出</translation>
     </message>
     <message>
         <source>category</source>
-        <translation>分类</translation>
+        <translation type="unfinished">分类</translation>
     </message>
 </context>
 <context>
@@ -417,7 +379,7 @@ Email：contact@9smart.cn
     <name>LoadingIndicator</name>
     <message>
         <source>loading...</source>
-        <translation>加载中……</translation>
+        <translation type="unfinished">加载中……</translation>
     </message>
 </context>
 <context>
@@ -431,11 +393,11 @@ Email：contact@9smart.cn
     <name>LoginPage</name>
     <message>
         <source>log in</source>
-        <translation>登录</translation>
+        <translation type="unfinished">登录</translation>
     </message>
     <message>
         <source>Login success!</source>
-        <translation>登录成功！</translation>
+        <translation type="unfinished">登录成功！</translation>
     </message>
 </context>
 <context>
@@ -453,79 +415,79 @@ Email：contact@9smart.cn
     <name>MainInfo</name>
     <message>
         <source>By </source>
-        <translation>作者：</translation>
+        <translation type="unfinished">作者：</translation>
     </message>
     <message>
         <source>version:</source>
-        <translation>版本：</translation>
+        <translation type="unfinished">版本：</translation>
     </message>
     <message>
         <source>size:</source>
-        <translation>文件大小：</translation>
+        <translation type="unfinished">文件大小：</translation>
     </message>
     <message>
         <source>download</source>
-        <translation>下载</translation>
+        <translation type="unfinished">下载</translation>
     </message>
     <message>
         <source>Download appended!</source>
-        <translation>已添加入下载列表！</translation>
+        <translation type="unfinished">已添加入下载列表！</translation>
     </message>
     <message>
         <source>Please select an existent path for the download</source>
-        <translation>请在设置中选择一个存在的下载路径</translation>
+        <translation type="unfinished">请在设置中选择一个存在的下载路径</translation>
     </message>
 </context>
 <context>
     <name>OrderButtons</name>
     <message>
         <source>Newest</source>
-        <translation>最新发布</translation>
+        <translation type="unfinished">最新发布</translation>
     </message>
     <message>
         <source>most pop</source>
-        <translation>最受欢迎</translation>
+        <translation type="unfinished">最受欢迎</translation>
     </message>
     <message>
         <source>most dl</source>
-        <translation>下载最多</translation>
+        <translation type="unfinished">下载最多</translation>
     </message>
 </context>
 <context>
     <name>RelatedAppsDelegate</name>
     <message>
         <source>Download appended!</source>
-        <translation>已添加入下载列表！</translation>
+        <translation type="unfinished">已添加入下载列表！</translation>
     </message>
     <message>
         <source>Please select an existent path for the download</source>
-        <translation>请在设置中选择一个存在的下载路径</translation>
+        <translation type="unfinished">请在设置中选择一个存在的下载路径</translation>
     </message>
 </context>
 <context>
     <name>RelatedAppsPage</name>
     <message>
         <source>Related apps</source>
-        <translation>相关应用</translation>
+        <translation type="unfinished">相关应用</translation>
     </message>
     <message>
         <source>  Related apps</source>
-        <translation>  相关应用</translation>
+        <translation type="unfinished">  相关应用</translation>
     </message>
 </context>
 <context>
     <name>SearchByAuthorDialog</name>
     <message>
         <source>pleas input the authorname</source>
-        <translation>请输入作者名称</translation>
+        <translation type="unfinished">请输入作者名称</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>确定</translation>
+        <translation type="unfinished">确定</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation type="unfinished">取消</translation>
     </message>
     <message>
         <source>pleas input the author name</source>
@@ -536,11 +498,11 @@ Email：contact@9smart.cn
     <name>SearchPage</name>
     <message>
         <source>Search</source>
-        <translation>搜索</translation>
+        <translation type="unfinished">搜索</translation>
     </message>
     <message>
         <source>Please input the key</source>
-        <translation>请输入关键字</translation>
+        <translation type="unfinished">请输入关键字</translation>
     </message>
 </context>
 <context>
@@ -566,15 +528,15 @@ Email：contact@9smart.cn
     <name>SendCommentDialog</name>
     <message>
         <source>Review</source>
-        <translation>评论</translation>
+        <translation type="unfinished">评论</translation>
     </message>
     <message>
         <source>Send</source>
-        <translation>发送</translation>
+        <translation type="unfinished">发送</translation>
     </message>
     <message>
         <source>Cancle</source>
-        <translation>取消</translation>
+        <translation type="unfinished">取消</translation>
     </message>
     <message>
         <source>pleas input the comment</source>
@@ -589,59 +551,55 @@ Email：contact@9smart.cn
     <name>SettingPage</name>
     <message>
         <source>Settings</source>
-        <translation>设置</translation>
+        <translation type="unfinished">设置</translation>
     </message>
     <message>
         <source>Download save path</source>
-        <translation>下载路径</translation>
+        <translation type="unfinished">下载路径</translation>
     </message>
     <message>
         <source>Check for new version</source>
-        <translation>检查新版本</translation>
+        <translation type="unfinished">检查新版本</translation>
     </message>
     <message>
         <source>About</source>
-        <translation>关于</translation>
+        <translation type="unfinished">关于</translation>
     </message>
     <message>
         <source>New version has been found</source>
-        <translation>发现新版本</translation>
+        <translation type="unfinished">发现新版本</translation>
     </message>
     <message>
         <source>Whether to download the new version?</source>
-        <translation>是否下载新版本安装包？</translation>
+        <translation type="unfinished">是否下载新版本安装包？</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>是</translation>
+        <translation type="unfinished">是</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>否</translation>
+        <translation type="unfinished">否</translation>
     </message>
     <message>
         <source>Download appended!</source>
-        <translation>已添加入下载列表！</translation>
+        <translation type="unfinished">已添加入下载列表！</translation>
     </message>
     <message>
         <source>This version is the new newest version</source>
-        <translation>已经是最新版本</translation>
+        <translation type="unfinished">已经是最新版本</translation>
     </message>
     <message>
         <source>Clear login data</source>
-        <translation>清除登录信息</translation>
+        <translation type="unfinished">清除登录信息</translation>
     </message>
     <message>
         <source>Clear successfully</source>
-        <translation>清除成功</translation>
+        <translation type="unfinished">清除成功</translation>
     </message>
     <message>
         <source>9Stroe</source>
         <translation type="obsolete">久店</translation>
-    </message>
-    <message>
-        <source>This version is the newest version!</source>
-        <translation>已经是最新版本！</translation>
     </message>
 </context>
 <context>
@@ -710,22 +668,22 @@ Email：contact@9smart.cn
     <name>SpecifiedAuthorAppPage</name>
     <message>
         <source>Related apps</source>
-        <translation>相关应用</translation>
+        <translation type="unfinished">相关应用</translation>
     </message>
 </context>
 <context>
     <name>TypeSelectdialog</name>
     <message>
         <source>All</source>
-        <translation>所有</translation>
+        <translation type="unfinished">所有</translation>
     </message>
     <message>
         <source>Applications</source>
-        <translation>应用</translation>
+        <translation type="unfinished">应用</translation>
     </message>
     <message>
         <source>Games</source>
-        <translation>游戏</translation>
+        <translation type="unfinished">游戏</translation>
     </message>
 </context>
 <context>
@@ -770,67 +728,67 @@ Email：contact@9smart.cn
     <name>UploadPage</name>
     <message>
         <source>..(Parent folder)</source>
-        <translation>上级目录</translation>
+        <translation type="unfinished">上级目录</translation>
     </message>
     <message>
         <source>Upload</source>
-        <translation>上传</translation>
+        <translation type="unfinished">上传</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation>名称：</translation>
+        <translation type="unfinished">名称：</translation>
     </message>
     <message>
         <source>Please input the name</source>
-        <translation>请输入名称</translation>
+        <translation type="unfinished">请输入名称</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation>类型：</translation>
+        <translation type="unfinished">类型：</translation>
     </message>
     <message>
         <source>app or game?</source>
-        <translation>应用或游戏？</translation>
+        <translation type="unfinished">应用或游戏？</translation>
     </message>
     <message>
         <source>category:</source>
-        <translation>分类：</translation>
+        <translation type="unfinished">分类：</translation>
     </message>
     <message>
         <source>select</source>
-        <translation>选择</translation>
+        <translation type="unfinished">选择</translation>
     </message>
     <message>
         <source>Please input the type</source>
-        <translation>请输入类型</translation>
+        <translation type="unfinished">请输入类型</translation>
     </message>
     <message>
         <source>summary:</source>
-        <translation>简介：</translation>
+        <translation type="unfinished">简介：</translation>
     </message>
     <message>
         <source>Please input the summary</source>
-        <translation>请输入简介</translation>
+        <translation type="unfinished">请输入简介</translation>
     </message>
     <message>
         <source>file:</source>
-        <translation>文件：</translation>
+        <translation type="unfinished">文件：</translation>
     </message>
     <message>
         <source>upload</source>
-        <translation>上传</translation>
+        <translation type="unfinished">上传</translation>
     </message>
     <message>
         <source>Please choose the file</source>
-        <translation>请选择文件</translation>
+        <translation type="unfinished">请选择文件</translation>
     </message>
     <message>
         <source>App existed</source>
-        <translation>应用已存在</translation>
+        <translation type="unfinished">应用已存在</translation>
     </message>
     <message>
         <source>Sorry,we can&apos;t upload files which are larger than 10M now</source>
-        <translation>对不起，我们暂时不能上传大于10M的文件</translation>
+        <translation type="unfinished">对不起，我们暂时不能上传大于10M的文件</translation>
     </message>
 </context>
 <context>
@@ -904,11 +862,11 @@ Email：contact@9smart.cn
     <name>main</name>
     <message>
         <source>è¿æ¥éè¯¯,ä»£ç :</source>
-        <translation>Unrecognizable words</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>loading erro...</source>
-        <translation>加载中……</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -11,7 +11,7 @@ MyPage {
     tools: ToolBarLayout {
         ToolButton {
             iconSource: privateStyle.toolBarIconPath("toolbar-back");
-            //platformInverted: true;
+            platformInverted: true;
             onClicked: pageStack.pop();
         }
     }

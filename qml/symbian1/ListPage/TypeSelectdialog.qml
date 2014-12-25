@@ -4,7 +4,7 @@ import "../../JavaScript/main.js" as Script
 
 SelectionDialog {
     id: typeSelect;
-    //platformInverted: true;
+    platformInverted: true;
     titleText: "选择分类"
     model: ListModel {
         ListElement { }
@@ -23,7 +23,7 @@ SelectionDialog {
     delegate: Component {
         MenuItem {
             text: typeSelect.model.listModel_itemName(index);
-            //platformInverted: true;
+            platformInverted: true;
             onClicked: {
                 selectedIndex = index;
                 accept();

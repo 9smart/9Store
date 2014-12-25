@@ -33,7 +33,7 @@ MyPage {
     }
     Menu {
         id:mainmenu;
-        //platformInverted:true;
+        platformInverted:true;
         content: ListPageMenu{}
     }
     TypeSelectdialog {

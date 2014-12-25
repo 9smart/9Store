@@ -10,12 +10,12 @@ MyPage {
         ToolButton {
             iconSource: privateStyle.toolBarIconPath("toolbar-back");
             onClicked: pageStack.pop();
-            //platformInverted: true;
+            platformInverted: true;
         }
         ToolButton {
             iconSource: privateStyle.toolBarIconPath("toolbar-delete");
             enabled: !emptyLabel.visible;
-            //platformInverted: true;
+            platformInverted: true;
             onClicked: {
                 downloadmodel.clear();
                 userdata.setUserData("DownloadData","{\"statuses\":[]}");
