@@ -1,5 +1,5 @@
 import QtQuick 1.0
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 import QtWebKit 1.0
 import "../JavaScript/main.js" as Script
 import "Main"
@@ -11,7 +11,7 @@ MyPage {
     tools: ToolBarLayout {
         ToolButton {
             iconSource: privateStyle.toolBarIconPath("toolbar-back");
-            //platformInverted: true;
+            platformInverted: true;
             onClicked: pageStack.pop();
         }
     }

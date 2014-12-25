@@ -1,7 +1,7 @@
 import QtQuick 1.0
 import "Main"
 import "../JavaScript/main.js" as Script
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 import Qt.labs.folderlistmodel 1.0
 
 Mypage {

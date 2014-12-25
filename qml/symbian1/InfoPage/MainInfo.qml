@@ -1,10 +1,10 @@
 import QtQuick 1.0
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 import "../Main"
 
 ListItem {
     id: maininfo;
-    //platformInverted: true;
+    platformInverted: true;
     enabled: false;
     width: parent.parent.width;
     height: bigicon.height + 24 + dlbutton.height;
@@ -49,7 +49,7 @@ ListItem {
         anchors.right: parent.right;
         anchors.rightMargin: 15;
         text: qsTr("download");
-        //platformInverted: true;
+        platformInverted: true;
         checkable:dlnum===-1?true:false;
         onClicked: {
             if(dlnum===-1) {

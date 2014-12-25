@@ -2,8 +2,8 @@ import QtQuick 1.0
 import "Main"
 import "ListPage"
 import "../JavaScript/main.js" as Script
-import com.nokia.symbian 1.0
-import com.nokia.extras 1.0
+import com.nokia.symbian 1.1
+import com.nokia.extras 1.1
 
 MyPage {
     id:listpage;
@@ -33,7 +33,7 @@ MyPage {
     }
     Menu {
         id:mainmenu;
-        //platformInverted:true;
+        platformInverted:true;
         content: ListPageMenu{}
     }
     TypeSelectdialog {

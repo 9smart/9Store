@@ -2,7 +2,7 @@ import QtQuick 1.0
 import "Main"
 import "DownloadPage"
 import "../JavaScript/main.js" as Script
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 
 MyPage {
     id:downloadpage;
@@ -10,12 +10,12 @@ MyPage {
         ToolButton {
             iconSource: privateStyle.toolBarIconPath("toolbar-back");
             onClicked: pageStack.pop();
-            //platformInverted: true;
+            platformInverted: true;
         }
         ToolButton {
             iconSource: privateStyle.toolBarIconPath("toolbar-delete");
             enabled: !emptyLabel.visible;
-            //platformInverted: true;
+            platformInverted: true;
             onClicked: {
                 downloadmodel.clear();
                 userdata.setUserData("DownloadData","{\"statuses\":[]}");

@@ -1,6 +1,5 @@
-// import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.0
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 import "../JavaScript/main.js" as Script
 import "Main"
 import "RelatedAppsPage"
@@ -19,7 +18,7 @@ MyPage {
     tools: ToolBarLayout{
         ToolButton{
             iconSource: privateStyle.toolBarIconPath("toolbar-back");
-            //platformInverted: true;
+            platformInverted: true;
             onClicked: pageStack.pop();
         }
     }

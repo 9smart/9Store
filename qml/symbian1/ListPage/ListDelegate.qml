@@ -1,5 +1,5 @@
 import QtQuick 1.0
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 import "../../JavaScript/main.js" as Script
 import "../Main"
 
@@ -7,7 +7,7 @@ Component {
     id: delegate;
     ListItem {
         id: wrapper;
-        //platformInverted: true;
+        platformInverted: true;
         property int dlnum: -1;
         width: 360;
         height: 90;
@@ -32,7 +32,7 @@ Component {
             anchors.top: parent.top;
             anchors.margins: 9;
             ListItemText {
-                //platformInverted: true;
+                platformInverted: true;
                 text: model.appname;
                 role: "Title";
                 smooth: true;
@@ -40,7 +40,7 @@ Component {
             }
             ListItemText{
                 id: authorLabel;
-                //platformInverted: true;
+                platformInverted: true;
                 text: model.author;
                 role: "Subtitle";
                 color: "Grey";
@@ -52,11 +52,11 @@ Component {
         }
         Button {
             id: downloadBtn;
-            //platformInverted: true;
+            platformInverted: true;
             width: height;
             anchors.verticalCenter: parent.verticalCenter;
             anchors.right: parent.right; anchors.rightMargin: 15;
-            iconSource: "../Resource/down.svg";
+            iconSource: "../Resource/down_inverted.svg";
             z: 1;
             enabled: {
                 if(wrapper.dlnum === -1)

@@ -2,8 +2,8 @@ import QtQuick 1.0
 import "Main"
 import "InfoPage"
 import "../JavaScript/main.js" as Script
-import com.nokia.symbian 1.0
-import com.nokia.extras 1.0
+import com.nokia.symbian 1.1
+import com.nokia.extras 1.1
 
 MyPage{
     id:infopage;
@@ -25,12 +25,12 @@ MyPage{
                       }
     tools: ToolBarLayout{
         ToolButton{
-            //platformInverted: true;
+            platformInverted: true;
             iconSource: privateStyle.toolBarIconPath("toolbar-back");
             onClicked: pageStack.pop();
         }
         ToolButton{
-            //platformInverted:true;
+            platformInverted:true;
             iconSource: "Resource/edit.svg";
             onClicked: userstate===0?pageStack.push(Qt.resolvedUrl("LoginPage.qml")):sendcommentdialog.open();
 
@@ -60,7 +60,7 @@ MyPage{
                 id:maininfo;
             }
             ListItem{
-                //platformInverted: true;
+                platformInverted: true;
                 enabled: false;
                 height: summ.height+18;
                 Text{
@@ -73,7 +73,7 @@ MyPage{
                     font.pixelSize: 18;
                     wrapMode: Text.WrapAnywhere;
                     text: summary;
-                    color: "White";
+                    //color: "White";
                 }
             }
             ListItem{
@@ -101,12 +101,12 @@ MyPage{
                 }
             }
             ListItem{
-                //platformInverted: true;
+                platformInverted: true;
                 height: 60;
                 Row{
                     anchors.verticalCenter: parent.verticalCenter;
                     ListItemText{
-                        //platformInverted: true;
+                        platformInverted: true;
                         font.pixelSize: 24;
                         text: qsTr("  Reviews")+" ("+ratingnum+") ";
                         }
@@ -119,15 +119,15 @@ MyPage{
                     anchors.verticalCenter: parent.verticalCenter;
                     anchors.right: parent.right;
                     anchors.rightMargin: 9
-                    source: "Resource/right_arrow.png";
+                    source: "Resource/right_arrow_inverted.png";
                 }
                 onClicked: pageStack.push(Qt.resolvedUrl("CommentPage.qml"),{appid:appid,ratingnum:ratingnum,size:size,author:author,icon:icon,scores:scores,title:title})
             }
             ListItem{
-                //platformInverted: true;
+                platformInverted: true;
                 height: 60;
                 ListItemText{
-                    //platformInverted: true;
+                    platformInverted: true;
                     font.pixelSize: 24;
                     text: "  "+author;
                     anchors.verticalCenter: parent.verticalCenter;
@@ -136,18 +136,18 @@ MyPage{
                     anchors.verticalCenter: parent.verticalCenter;
                     anchors.right: parent.right;
                     anchors.rightMargin: 9
-                    source: "Resource/right_arrow.png";
+                    source: "Resource/right_arrow_inverted.png";
                 }
                 onClicked: pageStack.push(Qt.resolvedUrl("SpecifiedAuthorAppPage.qml"),{title:author})
             }
             ListHeading{
                 id: relatedAppsTitle;
-                //platformInverted: true;
+                platformInverted: true;
                 ListItemText{
                     anchors.fill: parent.paddingItem
                     role: "Heading"
                     text: qsTr("Related APPs");
-                    color: "White";
+                    color: "Black";
                 }
             }
             Repeater{
@@ -155,10 +155,10 @@ MyPage{
                 delegate: RelatedAppsDelegate{}
             }
             ListItem{
-                //platformInverted: true;
+                platformInverted: true;
                 height: 60;
                 ListItemText{
-                    //platformInverted: true;
+                    platformInverted: true;
                     font.pixelSize: 24;
                     text: qsTr("  All related apps");
                     anchors.verticalCenter: parent.verticalCenter;
@@ -167,7 +167,7 @@ MyPage{
                     anchors.verticalCenter: parent.verticalCenter;
                     anchors.right: parent.right;
                     anchors.rightMargin: 9
-                    source: "Resource/right_arrow.png";
+                    source: "Resource/right_arrow_inverted.png";
                 }
                 onClicked: pageStack.push(Qt.resolvedUrl("RelatedAppsPage.qml"),{appid:appid,category:category,title:title})
             }

@@ -1,12 +1,12 @@
 import QtQuick 1.0
-import com.nokia.symbian 1.0
-import com.nokia.extras 1.0
+import com.nokia.symbian 1.1
+import com.nokia.extras 1.1
 import "../JavaScript/main.js" as Script
 import "Main"
 
 PageStackWindow {
     id:app;
-    property string version:"0.5.0";
+    property string version:"0.5.1";
     property bool loading;        
     property string downloadpath: settings.getDownloadPath();
 
@@ -17,12 +17,12 @@ PageStackWindow {
     property string avatar;
     property string gender;
     property string logintype;
-    //platformInverted: true;
+    platformInverted: true;
 
     Constant {
         id: constant;
     }
-    ListPage{
+    ListPage {
         id: listpage;
     }
     InfoBanner{

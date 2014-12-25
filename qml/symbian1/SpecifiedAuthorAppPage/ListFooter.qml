@@ -1,5 +1,5 @@
 import QtQuick 1.0
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 import "../../JavaScript/main.js" as Script
 
 Component{
@@ -9,7 +9,7 @@ Component{
         width: parent.parent.width;
         Button{
             id: loadBtn;
-            //platformInverted: true;
+            platformInverted: true;
             width: parent.width - 16;
             anchors.centerIn: parent;
             text: qsTr("More");

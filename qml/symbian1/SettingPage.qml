@@ -2,7 +2,7 @@ import QtQuick 1.0
 import "Main"
 import "SettingPage"
 import "../JavaScript/main.js" as Script
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 
 MyPage {
     id:downloadpage;
@@ -11,7 +11,7 @@ MyPage {
         ToolButton {
             iconSource: privateStyle.toolBarIconPath("toolbar-back");
             onClicked: pageStack.pop();
-            //platformInverted: true;
+            platformInverted: true;
         }
     }
     AboutDialog {
@@ -45,7 +45,7 @@ MyPage {
         anchors.right: parent.right;
         spacing: 20;
         SelectionListItem {
-            //platformInverted: true;
+            platformInverted: true;
             title: qsTr("Download save path");
             subTitle: downloadpath;
             onClicked: {
@@ -54,14 +54,14 @@ MyPage {
             }
         }
         Button {
-            //platformInverted: true;
+            platformInverted: true;
             width: 280;
             anchors.horizontalCenter: parent.horizontalCenter;
             text: qsTr("Check for new version");
             onClicked: Script.getversion();
         }
         Button {
-            //platformInverted: true;
+            platformInverted: true;
             width:280;
             anchors.horizontalCenter: parent.horizontalCenter;
             text: qsTr("About");
@@ -70,7 +70,7 @@ MyPage {
     }
     QueryDialog {
         id:verquerydia;
-        //platformInverted: true;
+        platformInverted: true;
         titleText: qsTr("New version has been found")
         message: qsTr("Whether to download the new version?");
         acceptButtonText: qsTr("Yes");
@@ -87,7 +87,7 @@ MyPage {
         onVersionGeted: {
             newversion=Script.version;
             if(Script.isnew(version,newversion)) {
-                signalCenter.showMessage(qsTr("This version is the new newest version"));
+                signalCenter.showMessage(qsTr("This version is the newest version!"));
             }
             else
                 verquerydia.open();

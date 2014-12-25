@@ -1,5 +1,5 @@
 import QtQuick 1.0
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 
 QtObject {
     id: constant;
@@ -12,7 +12,7 @@ QtObject {
     //property color colorDisabled: platformStyle.colorDisabledMid;
 
     // font color
-    property color fontColorNormal: "White";
+    property color fontColorNormal: "Black";
 
     // padding size
     //property int paddingSmall: platformStyle.paddingSmall

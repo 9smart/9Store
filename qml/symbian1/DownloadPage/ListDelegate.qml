@@ -1,5 +1,5 @@
 import QtQuick 1.0
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 
 Component {
     id:delegate;
@@ -36,7 +36,7 @@ Component {
             anchors.left: name.left;
         }
         /*Button {
-            //platformInverted: true;
+            platformInverted: true;
             anchors.verticalCenter: parent.verticalCenter;
             anchors.right: parent.right;
             anchors.rightMargin: 15;

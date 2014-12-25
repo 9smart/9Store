@@ -29,7 +29,7 @@ include(curl-7.37.0/lib/curl.pri)
 include(curl-7.37.0/lib/vtls/vtls.pri)
 include(selectfilesdialog/selectfilesdialog.pri)
 
-INCLUDEPATH += curl-7.37.0/include\
+INCLUDEPATH += curl-7.37.0/include \
                curl-7.37.0/lib
 
 folder_Meego.source = qml/meego
@@ -69,8 +69,8 @@ contains(MEEGO_EDITION,harmattan){
 symbian{   
     contains(QT_VERSION, 4.7.3){
         DEFINES += Q_OS_S60V5
-        DEPLOYMENTFOLDERS += folder_Symbian1 folder_JS
-        DEPLOYMENTFOLDERS -= folder_pic
+        #DEPLOYMENTFOLDERS += folder_Symbian1 folder_JS
+        #DEPLOYMENTFOLDERS -= folder_pic
         RESOURCES += Symbian1-res.qrc
     } else {
         DEPLOYMENTFOLDERS += folder_Symbian folder_pic folder_JS
