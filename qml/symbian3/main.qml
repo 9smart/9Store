@@ -24,9 +24,9 @@ PageStackWindow{
     /*ListPage{
         id: listpage;
     }*/
-    MainPage{
+    /*MainPage{
         id:mainpage;
-    }
+    }*/
 
     InfoBanner{
         id: infoBanner;
@@ -70,7 +70,7 @@ PageStackWindow{
         loadLoginData(userdata.getUserData("LoginData"));
         loadDownloadData(userdata.getUserData("DownloadData"));        
         //pageStack.push(listpage);
-        pageStack.push(mainpage);
+        pageStack.push(Qt.resolvedUrl("MainPage.qml"));
     }
 
     function saveDownloadData() {

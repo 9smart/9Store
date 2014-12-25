@@ -61,7 +61,9 @@ Flickable{
         }
     }
     Component.onCompleted: {
-        Script.getcover();
-        Script.getfeatured("belle");
+        if(covermodel.count===0)
+            Script.getcover();
+        if(featuredmodel.count===0)
+            Script.getfeatured("belle");
     }
 }

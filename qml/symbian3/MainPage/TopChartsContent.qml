@@ -51,6 +51,7 @@ Item{
         }
     }
     Component.onCompleted: {
-        Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
+        if(listmodel.count===0)
+            Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
     }
 }
