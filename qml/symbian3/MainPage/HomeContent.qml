@@ -1,6 +1,7 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.symbian 1.1
+import "../Delegate"
 import "../../JavaScript/main.js" as Script
 Flickable{
     id:root;
@@ -15,7 +16,7 @@ Flickable{
         clip: true;
         preferredHighlightBegin: 0.5;
         preferredHighlightEnd: 0.5;
-        delegate: CoverDelegate{}
+        delegate: CoverComponent{}
         path: Path{
             startX: -cover.width*cover.count/2+cover.width/2;
             startY: cover.height/2;
@@ -57,7 +58,7 @@ Flickable{
         anchors.topMargin: 1;
         Repeater{
             model:featuredmodel;
-            delegate: ListItemDelegate{}
+            delegate: ListComponent{}
         }
     }
     Component.onCompleted: {

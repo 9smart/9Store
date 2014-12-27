@@ -2,7 +2,7 @@
 import QtQuick 1.1
 Item{
     id:root;
-    property alias clicked:mousearea.clicked();
+    signal clicked;
     width: screen.width;
     height: 80;
     Rectangle{
@@ -27,8 +27,6 @@ Item{
     MouseArea{
         id:mousearea;
         anchors.fill: parent;
-        onClicked:{
-            pageStack.push(Qt.resolvedUrl("../InfoPage.qml"),{appid:model.appid,title:model.appname,icon:model.icon,summary:model.summary,version:model.version,author:model.author,ratingnum:model.ratingnum,scores:model.scores});
-        }
+        onClicked: root.clicked();
     }
 }

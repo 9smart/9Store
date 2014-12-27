@@ -1,9 +1,12 @@
 import QtQuick 1.1
-import "Main"
-import "InfoPage"
-import "../JavaScript/main.js" as Script
 import com.nokia.symbian 1.1
 import com.nokia.extras 1.1
+import "BaseComponent"
+import "Delegate"
+import "Dialog"
+import "InfoPage"
+import "../JavaScript/main.js" as Script
+
 MyPage{
     id:infopage;
     property string appid;
@@ -93,7 +96,7 @@ MyPage{
                         Repeater{
                             id:screenshotview;
                             model: screenshotmodel;
-                            delegate: ScreenShotsDelegate{}
+                            delegate: ScreenShotsComponent{}
                         }
                     }
                 }
@@ -150,7 +153,7 @@ MyPage{
             }
             Repeater{
                 model: relatedlistmodel;
-                delegate: RelatedAppsDelegate{}
+                delegate: ListComponent{}
             }
             ListItem{
                 platformInverted: true;

@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import "../Main"
+import "../BaseComponent"
 Head
     {
      id:head;

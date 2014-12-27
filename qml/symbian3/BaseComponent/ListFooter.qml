@@ -2,7 +2,7 @@
 import QtQuick 1.1
 
 Item{
-    property alias clicked:mousearea.clicked();
+    signal clicked;
     width: screen.width;
     height: 45;
     Text{
@@ -13,5 +13,6 @@ Item{
     MouseArea{
         id:mousearea;
         anchors.fill: parent;
+        onClicked: parent.clicked();
     }
 }

@@ -3,7 +3,7 @@ import QtQuick 1.1
 import com.nokia.symbian 1.1
 import com.nokia.extras 1.1
 import "../JavaScript/main.js" as Script
-import "Main"
+import "BaseComponent"
 PageStackWindow{
     id:app;
     property string version:"0.5.1";
