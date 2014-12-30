@@ -21,12 +21,7 @@ PageStackWindow{
     Corners{
         id:corners;
     }
-    /*ListPage{
-        id: listpage;
-    }*/
-    /*MainPage{
-        id:mainpage;
-    }*/
+
 
     InfoBanner{
         id: infoBanner;

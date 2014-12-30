@@ -20,9 +20,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     splash->show();
     splash->raise();
     #elif defined(Q_OS_SYMBIAN) //Symbian^3
-    QSplashScreen *splash = new QSplashScreen(QPixmap(":/qml/pic/splash.png"));
-    splash->show();
-    splash->raise();    
+    //QSplashScreen *splash = new QSplashScreen(QPixmap(":/qml/pic/splash.png"));
+    //splash->show();
+    //splash->raise();
     #endif
 
     //translator
@@ -60,8 +60,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     viewer.showExpanded();
 
     #ifdef Q_OS_SYMBIAN
-    splash->finish(&viewer);
-    splash->deleteLater();
+    //splash->finish(&viewer);
+    //splash->deleteLater();
     #endif
 
     return app->exec();
