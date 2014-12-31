@@ -7,24 +7,24 @@ Item
           {
            x:0;
            y:26;
-           source: "../../pic/RoundScreencorners01.png";
+           source: "../../pic/General/RoundScreencorners01.png";
           }
      Image
           {
            x:0;
            y:634;
-           source: "../../pic/RoundScreencorners03.png";
+           source: "../../pic/General/RoundScreencorners03.png";
           }
      Image
           {
            x:354;
            y:26;
-           source: "../../pic/RoundScreencorners02.png";
+           source: "../../pic/General/RoundScreencorners02.png";
           }
      Image
           {
            x:354;
            y:634;
-           source: "../../pic/RoundScreencorners04.png";
+           source: "../../pic/General/RoundScreencorners04.png";
           }
     }

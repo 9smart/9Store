@@ -7,6 +7,7 @@ Image{
     source: "../../pic/Loading/Loading_"+num.toString()+".svg";
     NumberAnimation on num{
         running: true;
+        duration: 1000;
         loops: Animation.Infinite;
         from: 1;
         to:8;

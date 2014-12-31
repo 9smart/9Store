@@ -20,14 +20,15 @@ PageStackWindow{
     platformInverted: true;
     Corners{
         id:corners;
-    }
-
-
+    }   
     InfoBanner{
         id: infoBanner;
     }
     LoadingIndicator{
         id:loadingind;
+    }
+    Splash{
+        id:splash;
     }
     SignalCenter{
         id: signalCenter;
@@ -64,7 +65,6 @@ PageStackWindow{
         Script.setsignalcenter(signalCenter);
         loadLoginData(userdata.getUserData("LoginData"));
         loadDownloadData(userdata.getUserData("DownloadData"));        
-        //pageStack.push(listpage);
         pageStack.push(Qt.resolvedUrl("MainPage.qml"));
     }
 

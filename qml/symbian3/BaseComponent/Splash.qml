@@ -15,4 +15,10 @@ Rectangle{
         anchors.right: parent.right;
         anchors.margins: 15;
     }
+    Timer{
+        interval: 3000;
+        running: true;
+        repeat: false;
+        onTriggered: root.visible=false;
+    }
 }

@@ -11,13 +11,13 @@ Image {
     signal personalButtonClicked;
     width: parent.width;
     anchors.bottom: parent.bottom;
-    source: "../../pic/Toolbar_inverse.svg";
+    source: "../../pic/General/Toolbar.svg";
     Image{
         x:72;
         width: 72;
         height: 58;
         anchors.bottom: parent.bottom
-        source: "../../pic/ToolbarHighlight.svg"
+        source: "../../pic/General/Toolbar_Highlight.svg"
         opacity: highlightItem===1?1:0;
     }
     Image{
@@ -25,7 +25,7 @@ Image {
         width: 72;
         height: 58;
         anchors.bottom: parent.bottom
-        source: "../../pic/ToolbarHighlight.svg"
+        source: "../../pic/General/Toolbar_Highlight.svg"
         opacity: highlightItem===2?1:0;
     }
     Image{
@@ -33,7 +33,7 @@ Image {
         width: 72;
         height: 58;
         anchors.bottom: parent.bottom
-        source: "../../pic/ToolbarHighlight.svg"
+        source: "../../pic/General/Toolbar_Highlight.svg"
         opacity: highlightItem===3?1:0;
     }
     Image{
@@ -41,12 +41,12 @@ Image {
         width: 72;
         height: 58;
         anchors.bottom: parent.bottom
-        source: "../../pic/ToolbarHighlight.svg"
+        source: "../../pic/General/Toolbar_Highlight.svg"
         opacity: highlightItem===4?1:0;
     }
     ToolButton{
         id:back;
-        iconSource:  "../../pic/Toolbar-Back_inverse.svg";
+        iconSource:  "../../pic/General/Toolbar_icon_back.svg";
         anchors.verticalCenter: parent.verticalCenter;
         x:8;
         onClicked: {
@@ -55,7 +55,7 @@ Image {
     }
     Image{
         id:home;
-        source: "../../pic/Toolbar-Home_inverse.svg";
+        source: "../../pic/General/Toolbar_icon_Home.svg";
         anchors.verticalCenter: parent.verticalCenter;
         x:93;
         MouseArea{
@@ -70,7 +70,7 @@ Image {
     }
     Image{
         id:topcharts;
-        source: "../../pic/Toolbar-TopCharts_inverse.svg";
+        source: "../../pic/General/Toolbar_icon_Topcharts.svg";
         anchors.verticalCenter: parent.verticalCenter;
         x:165;
         MouseArea{
@@ -85,7 +85,7 @@ Image {
     }
     Image{
         id:search;
-        source: "../../pic/Toolbar-Search_inverse.svg";
+        source: "../../pic/General/Toolbar_icon_Search.svg";
         anchors.verticalCenter: parent.verticalCenter;
         x:237;
         MouseArea{
@@ -100,7 +100,7 @@ Image {
     }
     Image{
         id:personal;
-        source: "../../pic/Toolbar-Personal_inverse.svg";
+        source: "../../pic/General/Toolbar_icon_Personal.svg";
         anchors.verticalCenter: parent.verticalCenter;
         x:309;
         MouseArea{
@@ -115,8 +115,8 @@ Image {
     }
     Image{
         id:shadow;
-        signal clicked;
+        //signal clicked;
         anchors.bottom: parent.top;
-        source: "../../pic/ToolbarShadow.png"        
+        source: "../../pic/General/Toolbar_Shadow.png"
     }
 }
