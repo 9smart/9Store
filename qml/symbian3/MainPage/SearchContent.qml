@@ -3,8 +3,8 @@ import QtQuick 1.1
 
 Item{
     id:root;
-    //width: screen.width;
-    width: 360;
+    width: screen.width;
+    //width: 360;
     SearchFiled{
         id:searchfiled;
     }

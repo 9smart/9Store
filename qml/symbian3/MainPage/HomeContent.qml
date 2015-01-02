@@ -1,10 +1,12 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.symbian 1.1
+import "../BaseComponent"
 import "../Delegate"
 import "../../JavaScript/main.js" as Script
 Flickable{
     id:root;
+    clip: true;
     contentHeight: cover.height+heading.height+featuredapp.height;
     width:screen.width;
     flickableDirection: Flickable.VerticalFlick;
@@ -32,30 +34,32 @@ Flickable{
             onTriggered: cover.incrementCurrentIndex;
         }
     }
-    ListHeading{
+    Image{
+        anchors.bottom: cover.bottom;
+        anchors.right: cover.right;
+        source: {
+            switch(cover.currentIndex){
+                case 0:
+                    return "../../pic/Home/Poster_Pageindicator1.svg";
+                case 1:
+                    return "../../pic/Home/Poster_Pageindicator2.svg";
+                case 2:
+                    return "../../pic/Home/Poster_Pageindicator3.svg";
+                case 3:
+                    return "../../pic/Home/Poster_Pageindicator4.svg";
+            }
+        }
+    }
+    MyListHeading{
         id:heading;
         width: parent.width;
-        platformInverted: true;
         anchors.top: cover.bottom;
-        ListItemText{
-            anchors.fill: parent.paddingItem;
-            platformInverted: true;
-            text: qsTr("Featured");
-            verticalAlignment: Text.AlignVCenter
-            font.pixelSize: 19
-        }
-        Rectangle{
-            width: parent.width;
-            anchors.top: parent.bottom;
-            height: 1
-            color: "#c9c9c9";
-        }
+        text: title;
     }
     Column{
         id:featuredapp;
         width: parent.width;
         anchors.top: heading.bottom;
-        anchors.topMargin: 1;
         Repeater{
             model:featuredmodel;
             delegate: ListComponent{}

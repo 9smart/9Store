@@ -7,6 +7,7 @@ Rectangle {
     width: 360;
     height: 25;
     color: "#B4B4B4";
+    opacity: 0.5;
     Rectangle{
         anchors.bottom: parent.bottom;
         width: parent.width;
@@ -19,7 +20,7 @@ Rectangle {
         anchors.left: parent.left;
         anchors.leftMargin: 15;
         anchors.verticalCenter: parent.verticalCenter;
-        font.pixelSize: 24;
+        font.pixelSize: 20;
         color: "#3c3c3c";
     }
 }

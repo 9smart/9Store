@@ -44,7 +44,7 @@ Rectangle{
     Image{
         id:shadow;
         anchors.top: parent.top;
-        source: "../../pic/HeadShadow.png"
+        source: "../../pic/General/HeadShadow.png"
     }
     Rectangle{
         id:topfocus;
