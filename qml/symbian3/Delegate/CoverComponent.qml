@@ -9,6 +9,42 @@ Image {
     Rectangle{
         anchors.fill: parent;
         color: "lightgray";
-        visible: parent.status == Image.Ready?false:true;
+        visible: parent.status == Image.Loading?true:false;
     }
+    Image{
+        anchors.fill: parent;
+        source: "../../pic/Home/Poster_Error.png"
+        visible: parent.status == Image.Error?true:false;
+    }
+    states: [
+        State{
+            name:"focused";
+            when: parent.parent.currentIndex===index;
+            PropertyChanges{
+                target: root;
+                opacity:0.5;
+            }
+        },
+        State{
+            name:"unfocused";
+            when: parent.parent.currentIndex!==index;
+            PropertyChanges{
+                target: root;
+                opacity:1;
+            }
+        }
+
+    ]
+    transitions: [
+        Transition{
+            from: "focused";
+            to:"unfocused";
+            PropertyAnimation{
+                target: root;
+                properties: "opacity";
+                duration: 500;
+            }
+            reversible: true;
+        }
+    ]
 }

@@ -2,15 +2,21 @@
 import QtQuick 1.1
 Row{
     id:root;
-    property int ranknum: 5;
+    property real ranknum: 5;
     property int size:18;
     property bool optional:  false;
     Repeater{
         model: 5;
-        Text{
-            text: "★";
-            font.pixelSize: size;
-            color: ranknum-1>=index?"lightblue":"gray";
+        Image{
+            height: size;
+            width: size;
+            source: {
+                if((ranknum-index)>=1)
+                    return "../../pic/General/Score_1.svg";
+                else if((ranknum-index)>0&&(ranknum-index)<1)
+                    return "../../pic/General/Score_2.svg";
+                else return "../../pic/General/Score_3.svg"
+            }
             MouseArea{
                 anchors.fill: parent;
                 enabled: optional;

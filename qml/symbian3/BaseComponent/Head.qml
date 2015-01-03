@@ -4,6 +4,7 @@ Image{
     property alias titleText:headtext.text;
     property alias shadowOpacity:shadow.opacity;
     anchors.top: parent.top;
+    height: 55;
     Text{
         id:headtext;
         anchors.verticalCenter: parent.verticalCenter;
