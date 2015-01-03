@@ -50,6 +50,14 @@ Flickable{
             }
         }
     }
+    Image{
+        anchors.top: cover.top;
+        source: "../../pic/Home/Poster_Shadow_01.png";
+    }
+    Image{
+        anchors.bottom: cover.bottom;
+        source: "../../pic/Home/Poster_Shadow_03.png";
+    }
     MyListHeading{
         id:heading;
         width: parent.width;
