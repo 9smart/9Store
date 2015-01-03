@@ -1,13 +1,13 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 
-Rectangle{
+Image{
     id:searchfiled;
     property alias text:searchtext.text;
     property alias deafaltText:deafalttext.text;
     width: parent.width;
     height: 45;
-    color: "#fcfcfc";
+    source: "../../pic/Library/Search_Input_Background.svg"
     TextInput{
         id:searchtext;
         font.pixelSize: 21
