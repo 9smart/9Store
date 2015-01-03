@@ -6,13 +6,7 @@ Rectangle{
     property bool highlight:false;
     width: screen.width;
     height: 60;
-    color: "#f5f5f5";
-    Rectangle{
-        anchors.fill: parent;
-        color: "#787878";
-        opacity: 0.2;
-        visible: mousearea.pressed;
-    }
+    color: "#f5f5f5";    
     Rectangle{
         anchors.top: parent.top;
         width: parent.width;
@@ -26,6 +20,12 @@ Rectangle{
         height: 1;
         color: "#000000";
         opacity: 0.1;
+    }
+    Rectangle{
+        anchors.fill: parent;
+        color: "#787878";
+        opacity: 0.2;
+        visible: mousearea.pressed;
     }
     Rectangle{
         anchors.left: parent.left;
