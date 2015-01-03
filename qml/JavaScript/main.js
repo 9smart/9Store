@@ -90,8 +90,7 @@ function loadcategory(oritxt){
     var obj=JSON.parse(oritxt);
     categorymodel.clear();
     for(var i in obj){
-        categorymodel.append({"cate":obj[i]});
-        //console.log(categorymodel.get(i).cate);
+        categorymodel.append({"category":obj[i]});
     }
 }
 var covermodel;
