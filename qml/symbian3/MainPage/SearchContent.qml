@@ -4,8 +4,19 @@ import QtQuick 1.1
 Item{
     id:root;
     width: screen.width;
-    //width: 360;
     SearchFiled{
         id:searchfiled;
+    }
+    Loader{
+        id:content;
+        anchors.top: searchfiled.bottom;
+        anchors.left: parent.left;
+        anchors.right: parent.right;
+    }
+    ListModel{
+        id:applicationmodel;
+    }
+    ListModel{
+        id:gamemodel;
     }
 }
