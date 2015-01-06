@@ -20,6 +20,9 @@ MyPage{
                 if(content.item.currentContent==="CategoryContent.qml"){
                     content.item.currentContent="LibraryContent.qml";
                 }
+                else if(content.item.currentContent==="ListContent.qml"){
+                    content.item.currentContent="CategoryContent.qml";
+                }
                 else if(quitTimer.running){
                     saveDownloadData();
                     Qt.quit();

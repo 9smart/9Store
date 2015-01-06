@@ -80,19 +80,7 @@ function loadfeatured(oritxt){
     }
 }
 
-var categorymodel;
-var listmodel;
-function getcategory(type){
-    var url="http://api.9smart.cn/apps/categorys?type="+type;
-    sendWebRequest(url,loadcategory,"GET","");
-}
-function loadcategory(oritxt){
-    var obj=JSON.parse(oritxt);
-    categorymodel.clear();
-    for(var i in obj){
-        categorymodel.append({"category":obj[i]});
-    }
-}
+
 var covermodel;
 function getcover(){
     var url="http://api.9smart.cn/covers?type=app";
@@ -106,6 +94,22 @@ function loadcover(oritxt){
     }
 }
 
+
+var categorymodel;
+function getcategory(type){
+    var url="http://api.9smart.cn/apps/categorys?type="+type;
+    sendWebRequest(url,loadcategory,"GET","");
+}
+function loadcategory(oritxt){
+    var obj=JSON.parse(oritxt);
+    categorymodel.clear();
+    for(var i in obj){
+        categorymodel.append({"category":obj[i]});
+    }
+}
+
+
+var listmodel;
 function getlist(os,page,pagesize,category,type,upload_id,order,appname,fields){
     var url="http://api.9smart.cn/apps?system="+os+"&page="+page+"&pagesize="+pagesize+"&category="+category+"&type="+type+"&author="+upload_id+"&order="+order+"&appname="+appname+"&fields="+fields;
     sendWebRequest(url,loadlist,"GET","");
@@ -119,6 +123,32 @@ function loadlist(oritxt){
         listmodel.append(obj.apps[i]);
     }
 }
+
+var applicationmodel;
+function getapplication(os,appname,fields){
+    var url="http://api.9smart.cn/apps?type=app&system="+os+"&appname="+appname+"&fields="+fields;
+    sendWebRequest(url,loadapplication,"GET","");
+}
+function loadapplication(oritxt){
+    var obj=JSON.parse(oritxt);
+    applicationmodel.clear();
+    for(var i in obj.apps){
+        applicationmodel.append(obj.apps[i]);
+    }
+}
+var gamemodel;
+function getapplication(os,appname,fields){
+    var url="http://api.9smart.cn/apps?type=game&system="+os+"&appname="+appname+"&fields="+fields;
+    sendWebRequest(url,loadgame,"GET","");
+}
+function loadgame(oritxt){
+    var obj=JSON.parse(oritxt);
+    gamemodel.clear();
+    for(var i in obj.apps){
+        gamemodel.append(obj.apps[i]);
+    }
+}
+
 var category;
 var summary;
 var size;

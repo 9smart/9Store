@@ -5,6 +5,7 @@ Image{
     id:searchfiled;
     property alias text:searchtext.text;
     property alias deafaltText:deafalttext.text;
+    signal clicked;
     width: parent.width;
     height: 45;
     source: "../../pic/Library/Search_Input_Background.svg"
@@ -14,7 +15,18 @@ Image{
         anchors.verticalCenter: parent.verticalCenter;
         anchors.left: parent.left;
         anchors.leftMargin: 12;
+        anchors.right:searchbutton.left;
+    }
+    Image{
+        id:searchbutton
+        anchors.verticalCenter: parent.verticalCenter;
         anchors.right: parent.right;
+        anchors.rightMargin: 10;
+        source: "../../pic/Library/Search_Input_Search.svg"
+        MouseArea{
+            anchors.fill: parent;
+            onClicked: searchfiled.clicked();
+        }
     }
     Text{
         id:deafalttext;
@@ -25,21 +37,6 @@ Image{
         visible: !searchtext.focus;
         text: qsTr("Search for files...");
         font.pixelSize: 21
-    }
-    Rectangle{
-        width: parent.width;
-        height: 4;
-        anchors.bottom: parent.bottom;
-        gradient: Gradient{
-            GradientStop{
-                position: 1.0;
-                color: "#eeeeee";
-            }
-            GradientStop{
-                position: 0.0;
-                color: "#fcfcfc";
-            }
-        }
     }
     Image{
         id:shadow;

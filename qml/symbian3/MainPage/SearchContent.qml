@@ -4,9 +4,22 @@ import "../../JavaScript/main.js" as Script
 Item{
     id:root;
     property string currentContent:"LibraryContent.qml";
+    property string category;
     width: screen.width;
     SearchFiled{
         id:searchfiled;
+        onClicked: {
+            if(text==="")
+                signalCenter.showMessage(qsTr("Please input the key word"));
+            else if(currentContent==="LibraryContent.qml"){
+                Script.getapplication("belle",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
+            }
+            else if(currentContent==="CategoryContent.qml"){
+                Script.getlist("belle","1","15","","","","",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
+                root.currentContent="ListContent.qml";
+            }
+            else Script.getlist("belle","1","15","","","","",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
+        }
     }
     Loader{
         id:searchcontent;
@@ -24,7 +37,13 @@ Item{
     ListModel{
         id:gamemodel;
     }
+    ListModel{
+        id:listmodel;
+    }
     Component.onCompleted: {
         Script.categorymodel=categorymodel;
+        Script.applicationmodel=applicationmodel;
+        Script.gamemodel=gamemodel;
+        Script.listmodel=listmodel;
     }
 }

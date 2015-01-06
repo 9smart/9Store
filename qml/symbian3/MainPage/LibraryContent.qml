@@ -34,6 +34,7 @@ Column{
         interactive: false;
         model: applicationmodel;
         delegate: ListComponent{}
+        onHeightChanged: console.log(height);
     }
     MyListItem{
         height: 60;
