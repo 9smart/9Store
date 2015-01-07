@@ -33,17 +33,15 @@ Item{
     }    
     ListModel{
         id:applicationmodel;
+        //onCountChanged: console.log("modelcount:"+count);
     }
     ListModel{
         id:gamemodel;
-    }
-    ListModel{
-        id:listmodel;
     }
     Component.onCompleted: {
         Script.categorymodel=categorymodel;
         Script.applicationmodel=applicationmodel;
         Script.gamemodel=gamemodel;
-        Script.listmodel=listmodel;
+        //Script.listmodel=listmodel;
     }
 }

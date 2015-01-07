@@ -3,8 +3,9 @@ import QtQuick 1.1
 import "../../JavaScript/main.js" as Script
 import "../BaseComponent"
 import "../Delegate"
-Column{
+Item{
     MyListItem{
+        id:applicationbutton;
         height: 60;
         Text{
             anchors.verticalCenter: parent.verticalCenter;
@@ -29,14 +30,19 @@ Column{
         }
     }
     ListView{
+        id:applicationlist;
+        anchors.top: applicationbutton.bottom;
         width: screen.width;
-        height: applicationmodel.count*80;
+        height: count*80;
         interactive: false;
         model: applicationmodel;
         delegate: ListComponent{}
-        onHeightChanged: console.log(height);
+        onHeightChanged: console.log("height:"+height);
+        onCountChanged: console.log("viewcount:"+count);
     }
     MyListItem{
+        id:gamebutton;
+        anchors.top: applicationlist.bottom;
         height: 60;
         Text{
             anchors.verticalCenter: parent.verticalCenter;
@@ -61,6 +67,7 @@ Column{
         }
     }
     ListView{
+        anchors.top: gamebutton.bottom;
         width: screen.width;
         height: gamemodel.count*80;
         interactive: false;

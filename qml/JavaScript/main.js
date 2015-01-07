@@ -134,6 +134,7 @@ function loadapplication(oritxt){
     applicationmodel.clear();
     for(var i in obj.apps){
         applicationmodel.append(obj.apps[i]);
+        console.log("modelcount"+applicationmodel.count);
     }
 }
 var gamemodel;
