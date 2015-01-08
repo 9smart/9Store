@@ -3,7 +3,11 @@ import QtQuick 1.1
 import "../../JavaScript/main.js" as Script
 import "../BaseComponent"
 import "../Delegate"
-Item{
+Flickable{
+    width: screen.width;
+    height: 455;
+    contentHeight: 120+applicationlist.height+gamelist.height;
+    clip: true;
     MyListItem{
         id:applicationbutton;
         height: 60;
@@ -28,17 +32,18 @@ Item{
             Script.getcategory("app");
             root.currentContent="CategoryContent.qml";
         }
+        //Component.onCompleted: console.log("b:"+bottom)
     }
-    ListView{
+    Column{
         id:applicationlist;
         anchors.top: applicationbutton.bottom;
         width: screen.width;
-        height: count*80;
-        interactive: false;
-        model: applicationmodel;
-        delegate: ListComponent{}
-        onHeightChanged: console.log("height:"+height);
-        onCountChanged: console.log("viewcount:"+count);
+        height: applicationrepeater.count*80;
+        Repeater{
+            id:applicationrepeater
+            model: applicationmodel;
+            delegate: ListComponent{}
+        }
     }
     MyListItem{
         id:gamebutton;
@@ -66,12 +71,16 @@ Item{
             root.currentContent="CategoryContent.qml";
         }
     }
-    ListView{
+    Column{
+        id:gamelist;
         anchors.top: gamebutton.bottom;
         width: screen.width;
-        height: gamemodel.count*80;
-        interactive: false;
-        model: gamemodel;
-        delegate: ListComponent{}
+        height: gamerepeater.count*80;
+        Repeater{
+            id:gamerepeater
+            model: gamemodel;
+            delegate: ListComponent{}
+        }
     }
+
 }

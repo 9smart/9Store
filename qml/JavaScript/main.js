@@ -133,12 +133,11 @@ function loadapplication(oritxt){
     var obj=JSON.parse(oritxt);
     applicationmodel.clear();
     for(var i in obj.apps){
-        applicationmodel.append(obj.apps[i]);
-        console.log("modelcount"+applicationmodel.count);
+        applicationmodel.append(obj.apps[i]);        
     }
 }
 var gamemodel;
-function getapplication(os,appname,fields){
+function getgame(os,appname,fields){
     var url="http://api.9smart.cn/apps?type=game&system="+os+"&appname="+appname+"&fields="+fields;
     sendWebRequest(url,loadgame,"GET","");
 }

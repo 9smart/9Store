@@ -62,7 +62,7 @@ Flickable{
         id:heading;
         width: parent.width;
         anchors.top: cover.bottom;
-        text: title;
+        text: qsTr("Featured");
     }
     Column{
         id:featuredapp;

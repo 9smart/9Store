@@ -61,6 +61,12 @@ MyPage{
             title=qsTr("Library");
             currentContent="Search";
         }
+        onPersonalButtonClicked: {
+            content.z=0;
+            content.source="MainPage/PersonalContent.qml";
+            title=qsTr("My Stuff");
+            currentContent="Personal";
+        }
         Timer
         {
             id: quitTimer;

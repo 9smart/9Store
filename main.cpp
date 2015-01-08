@@ -4,7 +4,7 @@
 #include "qmlapplicationviewer.h"
 #include "src/FileOperate.h"
 #include "src/Settings.h"
-#include "src/Qcurl.h"
+//#include "src/Qcurl.h"
 #include "src/UserData.h"
 #include "src/Utility.h"
 #include "src/NetworkAccessManagerFactory.h"
@@ -38,13 +38,13 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     Settings settings;
     UserData userdata;
     Utility utility;
-    QCurl qcurl;
+    //QCurl qcurl;
     NetworkAccessManagerFactory factory;
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer.engine()->setNetworkAccessManagerFactory(&factory);
     viewer.rootContext()->setContextProperty("fileoperate",&fileoperate);
     viewer.rootContext()->setContextProperty("settings",&settings);
-    viewer.rootContext()->setContextProperty("qcurl",&qcurl);
+    //viewer.rootContext()->setContextProperty("qcurl",&qcurl);
     viewer.rootContext()->setContextProperty("userdata",&userdata);
     viewer.rootContext()->setContextProperty("utility",&utility);
     viewer.engine()->rootContext()->setContextProperty("fileDialog",new SelectFilesDialog());
@@ -53,6 +53,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     //viewer.setMainQmlFile(QLatin1String("qml/symbian1/main.qml"));
     viewer.setSource(QUrl("qrc:/qml/symbian1/main.qml"));
     #elif defined(Q_OS_SYMBIAN) //Symbian^3
+    viewer.setSource(QUrl("qml/symbian3/main.qml"));
+    #elif defined(Q_WS_SIMULATOR)
     viewer.setSource(QUrl("qml/symbian3/main.qml"));
     #else //Meego
     viewer.setSource(QUrl("qrc:/qml/meego/main.qml"));

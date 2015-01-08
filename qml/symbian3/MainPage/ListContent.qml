@@ -8,7 +8,7 @@ ListView{
     width: screen.width;
     height: 455;
     contentHeight: listmodel.count*80;
-    model: mainpage.listmodel;
+    model: listmodel;
     clip: true;
     delegate: ListComponent{}
     footer: ListFooter{

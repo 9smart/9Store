@@ -20,7 +20,9 @@ Rectangle {
         anchors.left: parent.left;
         anchors.leftMargin: 15;
         anchors.verticalCenter: parent.verticalCenter;
-        font.pixelSize: 20;
-        color: "#3c3c3c";
+        anchors.verticalCenterOffset: -1;
+        font.pixelSize: 17;
+        //color: "#3c3c3c";
+        color: "#000000";
     }
 }

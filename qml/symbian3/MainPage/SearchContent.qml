@@ -13,6 +13,7 @@ Item{
                 signalCenter.showMessage(qsTr("Please input the key word"));
             else if(currentContent==="LibraryContent.qml"){
                 Script.getapplication("belle",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
+                Script.getgame("belle",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
             }
             else if(currentContent==="CategoryContent.qml"){
                 Script.getlist("belle","1","15","","","","",text,"appname,author,appid,icon,summary,version,scores,ratingnum");

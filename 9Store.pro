@@ -9,28 +9,28 @@ RESOURCES += \
     9Store.qrc
 QT += network webkit
 
-DEFINES += BUILDING_LIBCURL CURL_STATICLIB
+#DEFINES += BUILDING_LIBCURL CURL_STATICLIB
 SOURCES += main.cpp \
-    src/Qcurl.cpp \
+    #src/Qcurl.cpp \
     src/Settings.cpp \
     src/FileOperate.cpp \
     src/UserData.cpp \
     src/Utility.cpp \
     src/NetworkAccessManagerFactory.cpp
 HEADERS += \
-    src/Qcurl.h \
+    #src/Qcurl.h \
     src/Settings.h \
     src/FileOperate.h \
     src/UserData.h \
     src/Utility.h \
     src/NetworkAccessManagerFactory.h
 
-include(curl-7.37.0/lib/curl.pri)
-include(curl-7.37.0/lib/vtls/vtls.pri)
+#include(curl-7.37.0/lib/curl.pri)
+#include(curl-7.37.0/lib/vtls/vtls.pri)
 include(selectfilesdialog/selectfilesdialog.pri)
 
-INCLUDEPATH += curl-7.37.0/include \
-               curl-7.37.0/lib
+#INCLUDEPATH += curl-7.37.0/include \
+#               curl-7.37.0/lib
 
 folder_Meego.source = qml/meego
 folder_Meego.target = qml
