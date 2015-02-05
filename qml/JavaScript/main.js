@@ -149,6 +149,7 @@ function loadgame(oritxt){
     }
 }
 
+var type
 var category;
 var summary;
 var size;
@@ -163,6 +164,7 @@ function loadinfo(oritxt){
     for(var i in obj.screenshots){
         screenshotmodel.append(obj.screenshots[i])
     }
+    type=obj.type;
     category=obj.category;
     summary=obj.summary;
     size=obj.size;

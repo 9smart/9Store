@@ -62,10 +62,13 @@ MyPage{
             currentContent="Search";
         }
         onPersonalButtonClicked: {
-            content.z=0;
-            content.source="MainPage/PersonalContent.qml";
-            title=qsTr("My Stuff");
-            currentContent="Personal";
+            if(userstate!==0){
+                content.z=0;
+                content.source="MainPage/PersonalContent.qml";
+                title=qsTr("My Stuff");
+                currentContent="Personal";
+            }
+            else pageStack.push(Qt.resolvedUrl("LoginPage.qml"))
         }
         Timer
         {

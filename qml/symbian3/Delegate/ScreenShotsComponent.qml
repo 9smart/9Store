@@ -2,14 +2,19 @@
 import QtQuick 1.1
 Component{
     Image{
-        height:320;
-        width:180;
+        height:215;
+        width:120;
         smooth:true;
         source:model.thumburl;
-        Rectangle{
+        Image{
             anchors.fill: parent;
-            color: "lightgray";
-            visible: parent.status!=Image.Ready;
+            source: "../../pic/Details/App_Datail_Loading.svg";
+            visible: parent.status==Image.Loading;
+        }
+        Image{
+            anchors.fill: parent;
+            source: "../../pic/Details/App_Datail_Error.svg";
+            visible: parent.status==Image.Error;
         }
     }
 }

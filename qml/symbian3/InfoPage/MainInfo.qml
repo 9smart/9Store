@@ -1,49 +1,48 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.symbian 1.1
-import "../Main"
-ListItem{
+import "../BaseComponent"
+Rectangle{
     id: maininfo;
-    platformInverted: true;
-    enabled: false;
-    width: parent.parent.width;
-    height: bigicon.height + 24 + dlbutton.height;
+    width: screen.width;
+    height: 90;
+    color: "#f5f5f5";
     Image{
         id:bigicon;
         anchors.left: parent.left;
         anchors.top: parent.top;
-        anchors.margins: 9;
-        width: 108;
-        height: 108;
+        anchors.leftMargin: 15;
+        anchors.topMargin: 10;
+        width: 80;
+        height: 80;
         source: icon;
         smooth: true;
     }
     Column{
-        anchors.verticalCenter: bigicon.verticalCenter;
+        anchors.bottom: parent.bottom;
         anchors.left: bigicon.right;
-        anchors.leftMargin: 12;
-        spacing: 2;
+        anchors.leftMargin: 15;
         RankStars{
-            ranknum: ratingnum==="0"?0:(scores/ratingnum).toFixed();
+            ranknum: ratingnum==="0"?0:(scores/ratingnum);
             size: 21;
         }
         Text{
-            text: qsTr("By ")+author;
-            font.pixelSize: 18
+            text: qsTr("By:")+author;
+            font.pixelSize: 14;
             color: "gray";
         }
         Text{
-            text: qsTr("version:")+version;
-            font.pixelSize: 18;
+            text: type+" > "+category;
+            font.pixelSize: 14;
             color: "gray"
         }
         Text{
-            text: qsTr("size:")+ size;
-            font.pixelSize: 18;
+            text: "v"+version+" - "+size;
+            font.pixelSize: 14;
             color: "gray"
         }
     }
-    ToolButton{
+    /*ToolButton{
         id:dlbutton;
         anchors.top: bigicon.bottom;
         anchors.right: parent.right;
@@ -62,5 +61,5 @@ ListItem{
                 else signalCenter.showMessage(qsTr("Please select an existent path for the download"));
             }
         }
-    }
+    }*/
 }

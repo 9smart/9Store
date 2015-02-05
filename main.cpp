@@ -8,6 +8,7 @@
 #include "src/UserData.h"
 #include "src/Utility.h"
 #include "src/NetworkAccessManagerFactory.h"
+#include "src/MyImage.h"
 #include "selectfilesdialog.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
@@ -32,6 +33,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     app->installTranslator(&translator);
 
     qmlRegisterType<SelectFilesDialog>("com.stars.widgets",1,0,"FilesDialog");
+    qmlRegisterType<MyImage>("com.stars.widgets",1,0,"MyImage");
 
     QmlApplicationViewer viewer;
     FileOperate fileoperate;

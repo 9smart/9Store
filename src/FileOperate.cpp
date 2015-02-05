@@ -9,6 +9,11 @@
 #include <QUrl>
 #include <QProcess>
 #include <QByteArray>
+#ifdef Q_OS_SYMBIAN
+#include <SWInstApi.h>
+#include <SWInstDefs.h>
+#include "AOSync.h"
+#endif
 FileOperate::FileOperate(QObject *parent) :QObject(parent){
     pkgmgr=NULL;
 
@@ -46,8 +51,45 @@ void FileOperate::openFile(int key, QString filename){
     }
 }
 #else
-void FileOperate::openFile(QString filename){
-    QDesktopServices::openUrl(QUrl("file:///"+filename));
+void FileOperate::openFile(int key,QString filename){
+    //QDesktopServices::openUrl(QUrl("file:///"+filename));
+    switch(key){
+    case 1://Installation package
+
+        _LIT( KTempPath , "E:\\QVideo.sis" );
+
+        //CAOSync* waiter = CAOSync::NewL();
+        //CleanupStack::PushL( waiter );
+
+        SwiUI::RSWInstSilentLauncher iLauncher;
+        SwiUI::TInstallOptions iOptions;
+        SwiUI::TInstallOptionsPckg iOptionsPckg;
+
+        iOptions.iUpgrade = SwiUI::EPolicyNotAllowed;
+        iOptions.iOCSP = SwiUI::EPolicyAllowed;
+        //iOptions.iUntrusted = SwiUI::EPolicyNotAllowed;
+        iOptions.iDrive = 'C'; //同样可以使用67 69表示C E
+
+        iOptionsPckg = iOptions;
+
+        int a=iLauncher.Connect();
+        qDebug()<<"connect ok";
+        qDebug()<<a;
+
+        TBufC<50> FName(KTempPath);
+
+        a=iLauncher.SilentInstall(FName,iOptionsPckg);
+
+        //waiter->Execute();
+
+        //CleanupStack::PopAndDestroy( waiter );
+        qDebug()<<"install start";
+
+        iLauncher.Close();
+        qDebug()<<"install finish";
+        qDebug()<<a;
+        break;
+    }
 }
 #endif
 QString FileOperate::selectFolder(){

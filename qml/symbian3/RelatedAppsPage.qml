@@ -2,8 +2,8 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
 import "../JavaScript/main.js" as Script
-import "Main"
-import "RelatedAppsPage"
+import "BaseComponent"
+import "Delegate"
 MyPage{
     id:relatedappspage;
     property string appid;
@@ -15,41 +15,27 @@ MyPage{
                           Script.getrelatedlist("belle",page.toString(),"15",appid,category);
                       }
     title: qsTr("Related apps");
-    tools: ToolBarLayout{
-        ToolButton{
-            iconSource: "toolbar-back";
-            platformInverted: true;
-            onClicked: pageStack.pop();
-        }
+    ToolBar{
+        id:toolbar;
+        z:1;
+        homeButtonVisible: false;
+        topChartsButtonVisible: false;
+        searchButtonVisible: false;
+        personalButtonVisible: false;
+        highlightItem: 0;
+        onBackButtonClicked: pageStack.pop();
     }
     Head{
         id:head;
-        color: "DarkGrey";
+        titleText: title;
         z:1;
-        Image{
-            id:icon;
-            anchors.verticalCenter: parent.verticalCenter;
-            anchors.left: parent.left;
-            anchors.leftMargin: 12;
-            height: 42;
-            width: 42;
-            smooth: true;
-            source: "../pic/9-Symbian.svg";
-        }
-        Text{
-            text: title+qsTr("  Related apps");
-            font.pixelSize: 24;
-            anchors.verticalCenter: parent.verticalCenter;
-            anchors.left: icon.right;
-            anchors.leftMargin: 9;
-        }
     }
     ListView{
         id:listview;
         anchors.fill:parent;
         anchors.topMargin: head.height;
         model: ListModel{ id:relatedlistmodel; }
-        delegate:ListDelegate{ id:listdelegate; }
+        delegate:ListComponent{ id:listdelegate; }
         footer: ListFooter{}
     }
     Component.onCompleted:{

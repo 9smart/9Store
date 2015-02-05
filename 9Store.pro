@@ -16,14 +16,16 @@ SOURCES += main.cpp \
     src/FileOperate.cpp \
     src/UserData.cpp \
     src/Utility.cpp \
-    src/NetworkAccessManagerFactory.cpp
+    src/NetworkAccessManagerFactory.cpp \
+    src/MyImage.cpp
 HEADERS += \
     #src/Qcurl.h \
     src/Settings.h \
     src/FileOperate.h \
     src/UserData.h \
     src/Utility.h \
-    src/NetworkAccessManagerFactory.h
+    src/NetworkAccessManagerFactory.h \
+    src/MyImage.h
 
 #include(curl-7.37.0/lib/curl.pri)
 #include(curl-7.37.0/lib/vtls/vtls.pri)
@@ -76,6 +78,11 @@ symbian{
         DEPLOYMENTFOLDERS += folder_Symbian folder_pic folder_JS
         #RESOURCES += Symbian3-res.qrc
     }
+    #INCLUDEPATH += $$[QT_INSTALL_PREFIX]/epoc32/include/platform/mw
+    SOURCES += src/AOSync.cpp
+
+    HEADERS += src/AOSync.h
+
     vendorinfo = "%{\"QShen\"}" ":\"QShen\""
     my_deployment.pkg_prerules += vendorinfo
     DEPLOYMENT.display_name = 久店
@@ -83,7 +90,12 @@ symbian{
 
     CONFIG += localize_deployment
     TARGET.UID3 = 0xE5735851
-    TARGET.CAPABILITY += NetworkServices
+    TARGET.CAPABILITY += NetworkServices \
+                         TrustedUI
+
+    LIBS *= \
+         -lswinstcli
+
 
     DEFINES -= VER=\\\"$$VERSION\\\"
     DEFINES += VER=\"$$VERSION\"

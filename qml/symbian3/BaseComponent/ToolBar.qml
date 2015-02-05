@@ -3,6 +3,12 @@ import QtQuick 1.1
 import com.nokia.symbian 1.1
 Image {
     id:root;
+    property alias backButtonVisible:back.visible;
+    property alias homeButtonVisible:home.visible;
+    property alias topChartsButtonVisible:topcharts.visible;
+    property alias searchButtonVisible:search.visible;
+    property alias personalButtonVisible:personal.visible;
+    property alias personalSource:personal.source;
     property int highlightItem:1;
     signal backButtonClicked;
     signal homeButtonClicked;

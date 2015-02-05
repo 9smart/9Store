@@ -3,21 +3,22 @@ import QtQuick 1.1
 import com.nokia.symbian 1.1
 import QtWebKit 1.0
 import "../JavaScript/main.js" as Script
-import "Main"
+import "BaseComponent"
 MyPage
       {
        id:loginpage;
        title:qsTr("log in");
        property string weburl;
-       tools: ToolBarLayout
-                           {
-                            ToolButton
-                                    {
-                                     iconSource: "toolbar-back";
-                                     platformInverted: true;
-                                     onClicked: pageStack.pop();
-                                    }
-                           }
+       ToolBar{
+           id:toolbar;
+           z:1;
+           homeButtonVisible: false;
+           topChartsButtonVisible: false;
+           searchButtonVisible: false;
+           personalButtonVisible: false;
+           highlightItem: 0;
+           onBackButtonClicked: pageStack.pop();
+       }
        WebView
               {
                Text
@@ -29,7 +30,7 @@ MyPage
                     anchors.bottom:parent.bottom;
                     opacity: 0.5;
                    }
-               anchors.fill: parent;
+               anchors.fill: parent;               
                preferredHeight: parent.height;
                preferredWidth: parent.width;
                url:"http://www.9smart.cn/member/login";

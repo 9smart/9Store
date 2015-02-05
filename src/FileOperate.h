@@ -15,7 +15,7 @@ public:
 #ifdef Q_OS_HARMATTAN
     Q_INVOKABLE void openFile(int key, QString filename);
 #else
-    Q_INVOKABLE void openFile(QString filename);
+    Q_INVOKABLE void openFile(int key, QString filename);
 #endif
     Q_INVOKABLE QString selectFolder();
     Q_INVOKABLE void deletFile(QString path);

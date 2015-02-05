@@ -1,7 +1,7 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.symbian 1.1
-import "../Main"
+import "../BaseComponent"
 import "../../JavaScript/main.js" as Script
 import "../../JavaScript/des.js" as Des
 CommonDialog{
