@@ -33,4 +33,9 @@ ListView{
             root.currentContent="ListContent.qml";
         }
     }
+    NumberAnimation on x{
+        from: 360;
+        to:0;
+        duration: 200;
+    }
 }

@@ -64,7 +64,8 @@ MyPage{
                 id:downloadbutton1;
             }
             MyListItem{
-                height: 120;
+                id:screenshot;
+                //height: 120;
                 enabled:false;
                 visible: screenshotmodel.count!=0;
                 state: "close";
@@ -73,7 +74,9 @@ MyPage{
                     anchors.left: parent.left;
                     anchors.top: parent.top;
                     anchors.leftMargin: 15;
-                    anchors.topMargin: 15;
+                    anchors.right: parent.right;
+                    height: 215;
+                    contentWidth: screenshotmodel.count*130;
                     flickableDirection: Flickable.HorizontalFlick;
                     Row{
                         spacing: 10;
@@ -87,21 +90,7 @@ MyPage{
                     id:screenshotmask
                     anchors.bottom: parent.bottom;
                     source: "../pic/Details/Details_Mask.png";                  
-                }
-                Image{
-                    id:morebutton;
-                    anchors.horizontalCenter: parent.horizontalCenter;
-                    anchors.bottom: parent.bottom;
-                    anchors.bottomMargin: 20;
-                    source: "../pic/General/icon-m-toolbar-next.png";
-                    rotation: 90;
-                    height: 20;
-                    width: 20;
-                    MouseArea{
-                        anchors.fill: parent;
-                        onClicked: parent.state=="close"?parent.state="open":parent.state="close";
-                    }
-                }
+                }      
                 Image{
                     anchors.top: parent.top;
                     source: "../pic/Home/Poster_Shadow_01.png";
@@ -110,16 +99,30 @@ MyPage{
                     anchors.bottom: parent.bottom;
                     source: "../pic/Home/Poster_Shadow_03.png";
                 }
+                Image{
+                    id:morebutton;
+                    anchors.horizontalCenter: parent.horizontalCenter;
+                    anchors.bottom: parent.bottom;
+                    anchors.bottomMargin: 15;
+                    source: "../pic/General/icon-m-toolbar-next.png";
+                    //rotation: 90;
+                    height: 20;
+                    width: 20;
+                    MouseArea{
+                        anchors.fill: parent;
+                        onClicked: screenshot.state=="close"?screenshot.state="open":screenshot.state="close";
+                    }
+                }
                 states: [
                     State{
                         name: "open";
                         PropertyChanges {
-                            target: parent.parent;
+                            target: screenshot;
                             height:285;
                         }
                         PropertyChanges{
                             target: screenshotmask;
-                            opacity:0;
+                            visible:false;
                         }
                         PropertyChanges{
                             target: screenshotview;
@@ -133,12 +136,12 @@ MyPage{
                     State{
                         name:"close";
                         PropertyChanges {
-                            target: parent.parent;
+                            target: screenshot;
                             height:120;
                         }
                         PropertyChanges{
                             target: screenshotmask;
-                            opacity:1;
+                            visible:true;
                         }
                         PropertyChanges{
                             target: screenshotview;
@@ -157,24 +160,19 @@ MyPage{
                         to:"open";
                         reversible: true;
                         PropertyAnimation{
-                            target: parent.parent;
+                            target: screenshot;
                             property: "height";
-                            duration: 500;
-                        }
-                        PropertyAnimation{
-                            target: screenshotmask;
-                            property: "opacity";
-                            duration: 500;
-                        }
+                            duration: 250;
+                        }               
                         PropertyAnimation{
                             target: screenshotview;
                             property: "anchors.topMargin";
-                            duration: 500;
+                            duration: 250;
                         }
                         PropertyAnimation{
                             target: morebutton;
                             property: "rotation";
-                            duration: 500;
+                            duration: 250;
                         }
                     }
                 ]

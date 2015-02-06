@@ -17,5 +17,9 @@ ListView{
             Script.getlist("belle",page.toString(),"15",root.category,"","","",searchfiled.text,"appname,author,appid,icon,summary,version,scores,ratingnum");
         }
     }
-
+    NumberAnimation on x{
+        from: 360;
+        to:0;
+        duration: 200;
+    }
 }
