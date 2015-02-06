@@ -67,7 +67,9 @@ MyPage{
                 height: 120;
                 enabled:false;
                 visible: screenshotmodel.count!=0;
+                state: "close";
                 Flickable{
+                    id:screenshotview;
                     anchors.left: parent.left;
                     anchors.top: parent.top;
                     anchors.leftMargin: 15;
@@ -84,15 +86,20 @@ MyPage{
                 Image{
                     id:screenshotmask
                     anchors.bottom: parent.bottom;
-                    source: "../pic/Details/Details_Mask.png";
-                    Image{
-                        anchors.horizontalCenter: parent.horizontalCenter;
-                        anchors.bottom: parent.bottom;
-                        anchors.bottomMargin: 20;
-                        source: "../pic/General/icon-m-toolbar-next.png";
-                        rotation: 90;
-                        height: 20;
-                        width: 20;
+                    source: "../pic/Details/Details_Mask.png";                  
+                }
+                Image{
+                    id:morebutton;
+                    anchors.horizontalCenter: parent.horizontalCenter;
+                    anchors.bottom: parent.bottom;
+                    anchors.bottomMargin: 20;
+                    source: "../pic/General/icon-m-toolbar-next.png";
+                    rotation: 90;
+                    height: 20;
+                    width: 20;
+                    MouseArea{
+                        anchors.fill: parent;
+                        onClicked: parent.state=="close"?parent.state="open":parent.state="close";
                     }
                 }
                 Image{
@@ -103,6 +110,74 @@ MyPage{
                     anchors.bottom: parent.bottom;
                     source: "../pic/Home/Poster_Shadow_03.png";
                 }
+                states: [
+                    State{
+                        name: "open";
+                        PropertyChanges {
+                            target: parent.parent;
+                            height:285;
+                        }
+                        PropertyChanges{
+                            target: screenshotmask;
+                            opacity:0;
+                        }
+                        PropertyChanges{
+                            target: screenshotview;
+                            anchors.topMargin: 20;
+                        }
+                        PropertyChanges{
+                            target: morebutton;
+                            rotation:-90;
+                        }
+                    },
+                    State{
+                        name:"close";
+                        PropertyChanges {
+                            target: parent.parent;
+                            height:120;
+                        }
+                        PropertyChanges{
+                            target: screenshotmask;
+                            opacity:1;
+                        }
+                        PropertyChanges{
+                            target: screenshotview;
+                            anchors.topMargin: 15;
+                        }
+                        PropertyChanges{
+                            target: morebutton;
+                            rotation:90;
+                        }
+                    }
+
+                ]
+                transitions: [
+                    Transition{
+                        from: "close";
+                        to:"open";
+                        reversible: true;
+                        PropertyAnimation{
+                            target: parent.parent;
+                            property: "height";
+                            duration: 500;
+                        }
+                        PropertyAnimation{
+                            target: screenshotmask;
+                            property: "opacity";
+                            duration: 500;
+                        }
+                        PropertyAnimation{
+                            target: screenshotview;
+                            property: "anchors.topMargin";
+                            duration: 500;
+                        }
+                        PropertyAnimation{
+                            target: morebutton;
+                            property: "rotation";
+                            duration: 500;
+                        }
+                    }
+                ]
             }
             MyListItem{
                 height: summ.height+30;

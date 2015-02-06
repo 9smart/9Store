@@ -46,4 +46,9 @@ Item{
         if(listmodel.count===0)
             Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
     }
+    NumberAnimation on opacity {
+        from: 0;
+        to:1;
+        duration: 300;
+    }
 }

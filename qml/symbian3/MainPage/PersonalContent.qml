@@ -92,4 +92,9 @@ Flickable{
             }
         }
     }
+    NumberAnimation on opacity {
+        from: 0;
+        to:1;
+        duration: 300;
+    }
 }

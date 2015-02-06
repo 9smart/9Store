@@ -45,4 +45,9 @@ Item{
         Script.gamemodel=gamemodel;
         //Script.listmodel=listmodel;
     }
+    NumberAnimation on opacity {
+        from: 0;
+        to:1;
+        duration: 300;
+    }
 }

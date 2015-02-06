@@ -50,13 +50,21 @@ void FileOperate::openFile(int key, QString filename){
         break;
     }
 }
+#elif defined(Q_WS_SIMULATOR)
+void FileOperate::openFile(int key, QString filename){
+    switch(key){
+    case 1://Installation package
+        qDebug()<<"install "<<filename;
+        break;
+    }
+}
 #else
 void FileOperate::openFile(int key,QString filename){
     //QDesktopServices::openUrl(QUrl("file:///"+filename));
     switch(key){
     case 1://Installation package
 
-        _LIT( KTempPath , "E:\\QVideo.sis" );
+        _LIT( KTempPath , "C:\\211.sis" );
 
         //CAOSync* waiter = CAOSync::NewL();
         //CleanupStack::PushL( waiter );
@@ -65,7 +73,7 @@ void FileOperate::openFile(int key,QString filename){
         SwiUI::TInstallOptions iOptions;
         SwiUI::TInstallOptionsPckg iOptionsPckg;
 
-        iOptions.iUpgrade = SwiUI::EPolicyNotAllowed;
+        //iOptions.iUpgrade = SwiUI::EPolicyNotAllowed;
         iOptions.iOCSP = SwiUI::EPolicyAllowed;
         //iOptions.iUntrusted = SwiUI::EPolicyNotAllowed;
         iOptions.iDrive = 'C'; //同样可以使用67 69表示C E
