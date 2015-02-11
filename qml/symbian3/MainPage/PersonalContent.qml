@@ -23,10 +23,12 @@ Flickable{
         }
         MyImage{
             id:avatar;
-            anchors.left: parent.left;
-            anchors.leftMargin: 15;
-            anchors.bottom: parent.bottom;
-            anchors.bottomMargin: -20;
+            anchors{
+                left: parent.left;
+                leftMargin: 15;
+                bottom: parent.bottom;
+                bottomMargin: -20;
+            }
             width: 80;
             height: 80;
             smooth: true;
@@ -34,10 +36,12 @@ Flickable{
             maskSource: "../../pic/Personal/HeadPortrait_Mask_x2.bmp";
         }
         Column{
-            anchors.left: avatar.right;
-            anchors.leftMargin: 15;
-            anchors.bottom: parent.bottom;
-            anchors.bottomMargin: 10;
+            anchors{
+                left: avatar.right;
+                leftMargin: 15;
+                bottom: parent.bottom;
+                bottomMargin: 10;
+            }
             Text{
                 font.pixelSize: 30;
                 text: app.nickname;
@@ -54,17 +58,21 @@ Flickable{
         }
         MyListItem{
             Text{
-                anchors.verticalCenter: parent.verticalCenter;
-                anchors.left: parent.left;
-                anchors.leftMargin: 15;
+                anchors{
+                    verticalCenter: parent.verticalCenter;
+                    left: parent.left;
+                    leftMargin: 15;
+                }
                 text: qsTr("Download");
                 color: "#3c3c3c";
                 font.pixelSize: 24;
             }
             Image{
-                anchors.verticalCenter: parent.verticalCenter;
-                anchors.right: parent.right;
-                anchors.rightMargin: 15;
+                anchors{
+                    verticalCenter: parent.verticalCenter;
+                    right: parent.right;
+                    rightMargin: 15;
+                }
                 height: 25;
                 width: 25;
                 source: "../../pic/General/icon-m-toolbar-next.png";
@@ -75,21 +83,49 @@ Flickable{
         }
         MyListItem{
             Text{
-                anchors.verticalCenter: parent.verticalCenter;
-                anchors.left: parent.left;
-                anchors.leftMargin: 15;
+                anchors{
+                    verticalCenter: parent.verticalCenter;
+                    left: parent.left;
+                    leftMargin: 15;
+                }
                 text: qsTr("Installation preferences");
                 color: "#3c3c3c";
                 font.pixelSize: 24;
             }
             Image{
-                anchors.verticalCenter: parent.verticalCenter;
-                anchors.right: parent.right;
-                anchors.rightMargin: 15;
+                anchors{
+                    verticalCenter: parent.verticalCenter;
+                    right: parent.right;
+                    rightMargin: 15;
+                }
                 height: 25;
                 width: 25;
                 source: "../../pic/General/icon-m-toolbar-next.png";
             }
+            onClicked: pageStack.push(Qt.resolvedUrl("../InstallSettingPage.qml"))
+        }
+        MyListItem{
+            Text{
+                anchors{
+                    verticalCenter: parent.verticalCenter;
+                    left: parent.left;
+                    leftMargin: 15;
+                }
+                text: qsTr("About");
+                color: "#3c3c3c";
+                font.pixelSize: 24;
+            }
+            Image{
+                anchors{
+                    verticalCenter: parent.verticalCenter;
+                    right: parent.right;
+                    rightMargin: 15;
+                }
+                height: 25;
+                width: 25;
+                source: "../../pic/General/icon-m-toolbar-next.png";
+            }
+            onClicked: pageStack.push(Qt.resolvedUrl("../AboutPage.qml"))
         }
     }
     NumberAnimation on opacity {

@@ -11,15 +11,19 @@ Rectangle{
     radius:8;
     BusyIndicator{
         id:indicator
-        anchors.verticalCenter: parent.verticalCenter;
-        anchors.left: parent.left
-        anchors.leftMargin:7;
+        anchors{
+            verticalCenter: parent.verticalCenter;
+            left: parent.left
+            leftMargin:7;
+        }
         running: parent.visible;
     }
     Text{
-        anchors.verticalCenter: parent.verticalCenter;
-        anchors.left: indicator.right;
-        anchors.leftMargin: 7;
+        anchors{
+            verticalCenter: parent.verticalCenter;
+            left: indicator.right;
+            leftMargin: 7;
+        }
         text: qsTr("loading...");
         font.pixelSize: 22;
     }

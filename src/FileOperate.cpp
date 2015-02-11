@@ -101,7 +101,7 @@ void FileOperate::openFile(int key,QString filename){
 }
 #endif
 QString FileOperate::selectFolder(){
-    return  QFileDialog::getExistingDirectory();
+    return  QFileDialog::getExistingDirectory(0,tr("Select a directory"),"E://",QFileDialog::ShowDirsOnly);
 }
 void FileOperate::deletFile(QString path){
     QFile fp(path);

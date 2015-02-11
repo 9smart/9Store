@@ -6,9 +6,11 @@ Rectangle {
     height: 70;
     color: "#f5f5f5";
     Text{
-        anchors.verticalCenter: parent.verticalCenter;
-        anchors.left: parent.left;
-        anchors.leftMargin: 20;
+        anchors{
+            verticalCenter: parent.verticalCenter;
+            left: parent.left;
+            leftMargin: 20;
+        }
         font.bold: true;
         font.pixelSize: 21;
         color: "gray";
@@ -16,9 +18,11 @@ Rectangle {
     }
     Button{
         platformInverted: true;
-        anchors.verticalCenter: parent.verticalCenter;
-        anchors.right: parent.right;
-        anchors.rightMargin: 5;
+        anchors{
+            verticalCenter: parent.verticalCenter;
+            right: parent.right;
+            rightMargin: 5;
+        }
         //checked: true;
         text: qsTr("Download");
     }

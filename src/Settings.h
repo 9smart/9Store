@@ -7,22 +7,22 @@ class QSettings;
 QT_END_NAMESPACE
 
 class Settings : public QObject
-     {
-      Q_OBJECT
-      Q_PROPERTY(QString downloadPath READ getDownloadPath WRITE setDownloadPath NOTIFY downloadPathChanged)
-      public:
-            explicit Settings(QObject *parent = 0);
-            ~Settings();
-            Q_INVOKABLE QString getDownloadPath();
-            Q_INVOKABLE void setDownloadPath(QString newDownloadPath);
-      signals:
-             void downloadPathChanged();
-      public slots:
-                  void loadSettings();
-                  void saveSettings();
-                  void clear();
-      private:
-             QSettings *settings;
-             QString downloadPath;
-     };
+{
+    Q_OBJECT
+    Q_PROPERTY(QString downloadPath READ getDownloadPath WRITE setDownloadPath NOTIFY downloadPathChanged)
+public:
+    explicit Settings(QObject *parent = 0);
+    ~Settings();
+    Q_INVOKABLE QString getDownloadPath();
+    Q_INVOKABLE void setDownloadPath(QString newDownloadPath);
+signals:
+    void downloadPathChanged();
+public slots:
+    void loadSettings();
+    void saveSettings();
+    void clear();
+private:
+    QSettings *settings;
+    QString downloadPath;
+};
 #endif // SETTINGS_H

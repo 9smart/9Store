@@ -21,7 +21,7 @@ Image {
     Image{
         x:72;
         width: 72;
-        height: 58;
+        height: 60;
         anchors.bottom: parent.bottom
         source: "../../pic/General/Toolbar_Highlight.svg"
         opacity: highlightItem===1?1:0;
@@ -29,7 +29,7 @@ Image {
     Image{
         x:144;
         width: 72;
-        height: 58;
+        height: 60;
         anchors.bottom: parent.bottom
         source: "../../pic/General/Toolbar_Highlight.svg"
         opacity: highlightItem===2?1:0;
@@ -37,7 +37,7 @@ Image {
     Image{
         x:216;
         width: 72;
-        height: 58;
+        height: 60;
         anchors.bottom: parent.bottom
         source: "../../pic/General/Toolbar_Highlight.svg"
         opacity: highlightItem===3?1:0;
@@ -45,7 +45,7 @@ Image {
     Image{
         x:288;
         width: 72;
-        height: 58;
+        height: 60;
         anchors.bottom: parent.bottom
         source: "../../pic/General/Toolbar_Highlight.svg"
         opacity: highlightItem===4?1:0;

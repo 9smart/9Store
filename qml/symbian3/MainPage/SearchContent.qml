@@ -24,9 +24,11 @@ Item{
     }
     Loader{
         id:searchcontent;
-        anchors.top: searchfiled.bottom;
-        anchors.left: parent.left;
-        anchors.right: parent.right;
+        anchors{
+            top: searchfiled.bottom;
+            left: parent.left;
+            right: parent.right;
+        }
         source: currentContent;
     }
     ListModel{

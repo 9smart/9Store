@@ -32,6 +32,7 @@ MyPage{
         id:listview;
         anchors.fill:parent;
         anchors.topMargin: head.height;
+        clip:true;
         model: ListModel{ id:listmodel; }
         delegate:ListComponent{ id:listdelegate; }
         footer: ListFooter{}

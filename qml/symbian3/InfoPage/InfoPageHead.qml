@@ -12,18 +12,22 @@ Rectangle{
         opacity: 0.75;
     }
     Rectangle{
-        anchors.bottom: parent.bottom;
-        anchors.bottomMargin: 1;
-        anchors.topMargin: 1;
+        anchors{
+            bottom: parent.bottom;
+            bottomMargin: 1;
+            topMargin: 1;
+        }
         width: parent.width;
         height: 1;
         color: "#000000";
         opacity: 0.1;
     }
     Text{
-        anchors.verticalCenter: parent.verticalCenter;
-        anchors.left: parent.left;
-        anchors.leftMargin: 15;
+        anchors{
+            verticalCenter: parent.verticalCenter;
+            left: parent.left;
+            leftMargin: 15;
+        }
         font.pixelSize: 27;
         text: title;
     }

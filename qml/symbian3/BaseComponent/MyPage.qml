@@ -3,6 +3,5 @@ import com.nokia.symbian 1.1
 Page
     {
      id: root;
-
      property string title: "";     
     }

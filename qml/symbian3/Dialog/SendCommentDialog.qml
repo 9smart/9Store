@@ -23,10 +23,11 @@ CommonDialog{
         TextField{
             id:comments
             platformInverted: true;
-            anchors.left: parent.left;
-            anchors.right: parent.right;
-            anchors.margins: 18;
-
+            anchors{
+                left: parent.left;
+                right: parent.right;
+                margins: 18;
+            }
         }
     }
     onButtonClicked: {

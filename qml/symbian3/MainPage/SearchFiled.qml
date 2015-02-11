@@ -12,16 +12,20 @@ Image{
     TextInput{
         id:searchtext;
         font.pixelSize: 21
-        anchors.verticalCenter: parent.verticalCenter;
-        anchors.left: parent.left;
-        anchors.leftMargin: 12;
-        anchors.right:searchbutton.left;
+        anchors{
+            verticalCenter: parent.verticalCenter;
+            left: parent.left;
+            leftMargin: 12;
+            right:searchbutton.left;
+        }
     }
     Image{
-        id:searchbutton
-        anchors.verticalCenter: parent.verticalCenter;
-        anchors.right: parent.right;
-        anchors.rightMargin: 10;
+        id:searchbutton;
+        anchors{
+            verticalCenter: parent.verticalCenter;
+            right: parent.right;
+            rightMargin: 10;
+        }
         source: "../../pic/Library/Search_Input_Search.svg"
         MouseArea{
             anchors.fill: parent;
@@ -30,9 +34,11 @@ Image{
     }
     Text{
         id:deafalttext;
-        anchors.verticalCenter: parent.verticalCenter;
-        anchors.left: parent.left;
-        anchors.leftMargin: 12;
+        anchors{
+            verticalCenter: parent.verticalCenter;
+            left: parent.left;
+            leftMargin: 12;
+        }
         color: "lightgray";
         visible: !searchtext.focus;
         text: qsTr("Search for files...");

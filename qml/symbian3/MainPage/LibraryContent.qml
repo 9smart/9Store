@@ -12,17 +12,21 @@ Flickable{
         id:applicationbutton;
         height: 60;
         Text{
-            anchors.verticalCenter: parent.verticalCenter;
-            anchors.left: parent.left;
-            anchors.leftMargin: 15;
+            anchors{
+                verticalCenter: parent.verticalCenter;
+                left: parent.left;
+                leftMargin: 15;
+            }
             text: qsTr("Applications");
             color: "#3c3c3c";
             font.pixelSize: 24;
         }
         Image{
-            anchors.verticalCenter: parent.verticalCenter;
-            anchors.right: parent.right;
-            anchors.rightMargin: 15;
+            anchors{
+                verticalCenter: parent.verticalCenter;
+                right: parent.right;
+                rightMargin: 15;
+            }
             height: 25;
             width: 25;
             source: "../../pic/General/icon-m-toolbar-next.png";
@@ -50,17 +54,21 @@ Flickable{
         anchors.top: applicationlist.bottom;
         height: 60;
         Text{
-            anchors.verticalCenter: parent.verticalCenter;
-            anchors.left: parent.left;
-            anchors.leftMargin: 15;
+            anchors{
+                verticalCenter: parent.verticalCenter;
+                left: parent.left;
+                leftMargin: 15;
+            }
             text: qsTr("Games");
             color: "#3c3c3c";
             font.pixelSize: 24;
         }
         Image{
-            anchors.verticalCenter: parent.verticalCenter;
-            anchors.right: parent.right;
-            anchors.rightMargin: 15;
+            anchors{
+                verticalCenter: parent.verticalCenter;
+                right: parent.right;
+                rightMargin: 15;
+            }
             height: 25;
             width: 25;
             source: "../../pic/General/icon-m-toolbar-next.png";

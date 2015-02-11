@@ -9,36 +9,50 @@ Rectangle{
     color: "#f5f5f5";
     Image{
         id:bigicon;
-        anchors.left: parent.left;
-        anchors.top: parent.top;
-        anchors.leftMargin: 15;
-        anchors.topMargin: 10;
+        anchors{
+            left: parent.left;
+            top: parent.top;
+            leftMargin: 15;
+            topMargin: 10;
+        }
         width: 80;
         height: 80;
         source: icon;
         smooth: true;
+        Image{
+            anchors.fill: parent;
+            source: "../../pic/General/App_icon_Loading.svg";
+            visible: parent.status==Image.Loading;
+        }
+        Image{
+            anchors.fill: parent;
+            source: "../../pic/General/App_icon_Error.svg";
+            visible: parent.status==Image.Error;
+        }
     }
     Column{
-        anchors.bottom: parent.bottom;
-        anchors.left: bigicon.right;
-        anchors.leftMargin: 15;
+        anchors{
+            bottom: parent.bottom;
+            left: bigicon.right;
+            leftMargin: 15;
+        }
         RankStars{
             ranknum: ratingnum==="0"?0:(scores/ratingnum);
             size: 21;
         }
         Text{
             text: qsTr("By:")+author;
-            font.pixelSize: 14;
+            font.pixelSize: 15;
             color: "gray";
         }
         Text{
             text: type+" > "+category;
-            font.pixelSize: 14;
+            font.pixelSize: 15;
             color: "gray"
         }
         Text{
             text: "v"+version+" - "+size;
-            font.pixelSize: 14;
+            font.pixelSize: 15;
             color: "gray"
         }
     }

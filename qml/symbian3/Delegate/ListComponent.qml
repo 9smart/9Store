@@ -11,9 +11,11 @@ MyListItem{
         sourceSize.width: 60;
         height: sourceSize.height;
         width:sourceSize.width;
-        anchors.verticalCenter: parent.verticalCenter;
-        anchors.left: parent.left;
-        anchors.leftMargin: 12;
+        anchors{
+            verticalCenter: parent.verticalCenter;
+            left: parent.left;
+            leftMargin: 12;
+        }
         source: model.icon;
         Image{
             anchors.fill: parent;
@@ -27,23 +29,25 @@ MyListItem{
         }
     }
     Column{
-        anchors.verticalCenter: parent.verticalCenter;
-        anchors.left: icon.right;
-        anchors.leftMargin: 9;
+        anchors{
+            verticalCenter: parent.verticalCenter;
+            left: icon.right;
+            leftMargin: 9;
+        }
         spacing: 3;
         Text{
             text: model.appname;
-            font.pixelSize: 18;
+            font.pixelSize: 19;
             color: "#3c3c3c";
         }
         Text{
             text: model.author;
-            font.pixelSize: 12;
+            font.pixelSize: 13;
             color: "#787878";
         }
         RankStars{
             ranknum: model.ratingnum==="0"?0:(scores/ratingnum);
-            size: 13;
+            size: 15;
         }
     }
     onClicked:{

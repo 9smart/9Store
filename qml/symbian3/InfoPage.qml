@@ -35,7 +35,7 @@ MyPage{
         personalSource: "../pic/Details/edit.svg";
         highlightItem: 0;
         onBackButtonClicked: pageStack.pop();
-        onPersonalButtonClicked: fileoperate.openFile(1,"a");
+        onPersonalButtonClicked: sendcommentdialog.open();
     }
     ListModel{
         id:screenshotmodel;
@@ -71,10 +71,12 @@ MyPage{
                 state: "close";
                 Flickable{
                     id:screenshotview;
-                    anchors.left: parent.left;
-                    anchors.top: parent.top;
-                    anchors.leftMargin: 15;
-                    anchors.right: parent.right;
+                    anchors{
+                        left: parent.left;
+                        top: parent.top;
+                        leftMargin: 15;
+                        right: parent.right;
+                    }
                     height: 215;
                     contentWidth: screenshotmodel.count*130;
                     flickableDirection: Flickable.HorizontalFlick;
@@ -101,9 +103,11 @@ MyPage{
                 }
                 Image{
                     id:morebutton;
-                    anchors.horizontalCenter: parent.horizontalCenter;
-                    anchors.bottom: parent.bottom;
-                    anchors.bottomMargin: 15;
+                    anchors{
+                        horizontalCenter: parent.horizontalCenter;
+                        bottom: parent.bottom;
+                        bottomMargin: 15;
+                    }
                     source: "../pic/General/icon-m-toolbar-next.png";
                     //rotation: 90;
                     height: 20;
@@ -182,11 +186,13 @@ MyPage{
                 enabled:false;
                 Text{
                     id:summ;
-                    anchors.verticalCenter: parent.verticalCenter;
-                    anchors.left: parent.left;
-                    anchors.right: parent.right;
-                    anchors.leftMargin: 12;
-                    anchors.rightMargin: 12;
+                    anchors{
+                        verticalCenter: parent.verticalCenter;
+                        left: parent.left;
+                        right: parent.right;
+                        leftMargin: 12;
+                        rightMargin: 12;
+                    }
                     font.pixelSize: 15;
                     wrapMode: Text.WrapAnywhere;
                     text: summary;
@@ -194,9 +200,11 @@ MyPage{
             }
             MyListItem{
                 Row{
-                    anchors.verticalCenter: parent.verticalCenter;
-                    anchors.left: parent.left;
-                    anchors.leftMargin: 15;
+                    anchors{
+                        verticalCenter: parent.verticalCenter;
+                        left: parent.left;
+                        leftMargin: 15;
+                    }
                     Text{
                         font.pixelSize: 21;
                         text: qsTr("Reviews")+" ("+ratingnum+") ";
@@ -208,9 +216,11 @@ MyPage{
                     }
                 }
                 Image{
-                    anchors.verticalCenter: parent.verticalCenter;
-                    anchors.right: parent.right;
-                    anchors.rightMargin: 15;
+                    anchors{
+                        verticalCenter: parent.verticalCenter;
+                        right: parent.right;
+                        rightMargin: 15;
+                    }
                     width: 20;
                     height: 20;
                     smooth: true;
@@ -222,14 +232,18 @@ MyPage{
                 Text{
                     font.pixelSize: 24;
                     text: author;
-                    anchors.left: parent.left;
-                    anchors.leftMargin: 15;
-                    anchors.verticalCenter: parent.verticalCenter;
+                    anchors{
+                        left: parent.left;
+                        leftMargin: 15;
+                        verticalCenter: parent.verticalCenter;
+                    }
                 }
                 Image{
-                    anchors.verticalCenter: parent.verticalCenter;
-                    anchors.right: parent.right;
-                    anchors.rightMargin: 15;
+                    anchors{
+                        verticalCenter: parent.verticalCenter;
+                        right: parent.right;
+                        rightMargin: 15;
+                    }
                     width: 20;
                     height: 20;
                     smooth: true;
@@ -249,14 +263,18 @@ MyPage{
                 Text{
                     font.pixelSize: 24;
                     text: qsTr("All related apps");
-                    anchors.left: parent.left;
-                    anchors.leftMargin: 15;
-                    anchors.verticalCenter: parent.verticalCenter;
+                    anchors{
+                        left: parent.left;
+                        leftMargin: 15;
+                        verticalCenter: parent.verticalCenter;
+                    }
                 }
                 Image{
-                    anchors.verticalCenter: parent.verticalCenter;
-                    anchors.right: parent.right;
-                    anchors.rightMargin: 15;
+                    anchors{
+                        verticalCenter: parent.verticalCenter;
+                        right: parent.right;
+                        rightMargin: 15;
+                    }
                     width: 20;
                     height: 20;
                     smooth: true;

@@ -10,9 +10,11 @@ Component{
         Column{
             id:column;
             spacing: 9;
-            anchors.verticalCenter: parent.verticalCenter;
-            anchors.left:parent.left;
-            anchors.leftMargin: 15;
+            anchors{
+                verticalCenter: parent.verticalCenter;
+                left:parent.left;
+                leftMargin: 15;
+            }
             Row{
                 spacing: 5;
                 RankStars{
@@ -21,7 +23,6 @@ Component{
                     ranknum: model.score;
                 }
                 Text{
-
                     font.pixelSize: 14;
                     text: "by";
                 }

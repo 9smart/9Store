@@ -18,9 +18,9 @@ MyPage{
     property int ratingnum;
     property int page: 1;
     onVisibleChanged: if (visible && firstStart) {
-        firstStart = false
-        Script.getComment(appid,page.toString());
-    }
+                          firstStart = false
+                          Script.getComment(appid,page.toString());
+                      }
     ToolBar{
         id:toolbar;
         z:1;
@@ -31,35 +31,42 @@ MyPage{
         personalSource: "../pic/Details/edit.svg";
         highlightItem: 0;
         onBackButtonClicked: pageStack.pop();
+        onPersonalButtonClicked: sendcommentdialog.open();
     }
     ListModel{
         id:commentmodel;
     }
+    Column{
+        InfoPageHead{
+            id:infopagehead;
+        }
+        MainInfo{
+            id:maininfo;
+        }
+        Rectangle{
+            height: 15;
+            width: screen.width;
+            color: "#f5f5f5";
+            Image{
+                anchors.top: parent.bottom;
+                source: "../pic/General/HeadShadow.png";
+                opacity: 0.75;
+                z:1;
+            }
+        }
+    }
     Flickable{
         id:flick;
-        flickableDirection: Flickable.VerticalFlick
-        anchors.fill: parent;
-        anchors.bottomMargin: toolbar.height;
+        flickableDirection: Flickable.VerticalFlick;
+        anchors{
+            fill: parent;
+            topMargin: infopagehead.height+maininfo.height+15;
+            bottomMargin: toolbar.height;
+        }
         contentHeight: commentColumn.height;
+        clip: true;
         Column{
             id:commentColumn;
-            InfoPageHead{
-                id:infopagehead;
-            }
-            MainInfo{
-                id:maininfo;
-            }
-            Rectangle{
-                height: 15;
-                width: screen.width;
-                color: "#f5f5f5";
-                Image{
-                    anchors.top: parent.bottom;
-                    source: "../pic/General/HeadShadow.png";
-                    opacity: 0.75;
-                    z:1;
-                }
-            }
             Repeater{
                 model: commentmodel;
                 delegate: CommentComponent{}
