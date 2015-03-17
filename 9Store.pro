@@ -27,8 +27,8 @@ HEADERS += \
     src/NetworkAccessManagerFactory.h \
     src/MyImage.h
 
-#include(curl-7.37.0/lib/curl.pri)
-#include(curl-7.37.0/lib/vtls/vtls.pri)
+include(curl-7.37.0/lib/curl.pri)
+include(curl-7.37.0/lib/vtls/vtls.pri)
 include(selectfilesdialog/selectfilesdialog.pri)
 
 #INCLUDEPATH += curl-7.37.0/include \
