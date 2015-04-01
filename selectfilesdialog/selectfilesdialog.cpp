@@ -4,6 +4,7 @@
 #include <QDeclarativeEngine>
 #include <QDeclarativeContext>
 #include <QDeclarativeView>
+#include <QtDeclarative>
 #include <QFile>
 #include <QGraphicsObject>
 #ifdef Q_OS_SYMBIAN
@@ -14,12 +15,13 @@
 SelectFilesDialog::SelectFilesDialog() :
     QObject(0)
 {
+    qmlRegisterType<SelectFilesDialog>("com.star.utility", 1, 0, "FilesDialog");
+
     m_chooseType = FileType;
     m_chooseMode = MultipleChoice;
     m_inverseTheme = false;
     isShow = false;
     m_showImageContent = false;
-    m_canOpenSystemDrive = true;
     eventLoop = NULL;
     qmlView = NULL;
 
@@ -81,13 +83,12 @@ bool SelectFilesDialog::showImageContent() const
     return m_showImageContent;
 }
 
-bool SelectFilesDialog::canOpenSystemDrive() const
+QString SelectFilesDialog::nameFilters() const
 {
-    return m_canOpenSystemDrive;
+    return m_nameFilters;
 }
 
-int SelectFilesDialog::exec(const QString initPath, const QString &nameFilters,
-                            Filters filters, SortFlags sortflags)
+int SelectFilesDialog::exec(const QString initPath, Filters filters, SortFlags sortflags)
 {
     if(!eventLoop.isNull()){
         this->qmlView->showFullScreen();
@@ -100,6 +101,14 @@ int SelectFilesDialog::exec(const QString initPath, const QString &nameFilters,
     eventLoop = &loop;
     connect(this, SIGNAL(closeLoop()), &loop, SLOT(quit()));
 
+    if(initPath=="")
+        dir.setPath(QDir::currentPath());
+    else
+        dir.setPath(QDir(initPath).absolutePath());
+
+    dir.setFilter((QDir::Filters)((int)filters));
+    dir.setSorting((QDir::SortFlags)((int)sortflags));
+
     QDeclarativeView qmlView;
     this->qmlView = &qmlView;
     qmlView.engine()->rootContext()->setContextProperty("fileDialog", this);
@@ -108,19 +117,6 @@ int SelectFilesDialog::exec(const QString initPath, const QString &nameFilters,
 #else
     qmlView.setSource(QUrl("qrc:/selectfilesdialog/symbian.qml"));
 #endif
-
-    if(initPath=="")
-        dir.setPath(QDir::currentPath());
-    else
-        dir.setPath(QDir(initPath).absolutePath());
-
-    dir.setFilter((QDir::Filters)((int)filters));
-    dir.setSorting((QDir::SortFlags)((int)sortflags));
-    if(nameFilters!=""){
-        QStringList temp_list = nameFilters.split(";");
-        dir.setNameFilters(temp_list);
-    }
-
     qmlView.showFullScreen();
 
     int result = eventLoop->exec(QEventLoop::DialogExec);
@@ -134,20 +130,20 @@ QVariant SelectFilesDialog::firstSelection() const
 {
     if(files.length()>0)
         return files.first();
-    return "undefined";
+    return QVariant();
 }
 
 QVariant SelectFilesDialog::lastSelection() const
 {
     if(files.length()>0)
         return files.last();
-    return "undefined";
+    return QVariant();
 }
 
 QVariant SelectFilesDialog::at(int index) const
 {
     if(index<0||index>=files.length())
-        return "undefined";
+        return QVariant();
     return files[index];
 }
 
@@ -163,6 +159,10 @@ QVariantList SelectFilesDialog::getCurrentFilesInfo() const
     foreach(QFileInfo file_info, dir.entryInfoList()){
         if(file_info.fileName()=="."||file_info.fileName()=="..")
             continue;
+
+        if(file_info.isFile()&&(!containsNameFilters(file_info.fileName()))){
+            continue;
+        }
 
         QVariantMap temp_map;
         temp_map["name"] = file_info.fileName();
@@ -350,14 +350,6 @@ void SelectFilesDialog::setShowImageContent(bool arg)
     }
 }
 
-void SelectFilesDialog::setCanOpenSystemDrive(bool arg)
-{
-    if(m_canOpenSystemDrive != arg){
-        m_canOpenSystemDrive = arg;
-        emit canOpenSystemDriveChanged(arg);
-    }
-}
-
 bool SelectFilesDialog::dirIsEmpty(const QFileInfo &fileInfo) const
 {
     QDir dir = fileInfo.dir();
@@ -378,7 +370,32 @@ QString SelectFilesDialog::sizeConvert(const qint64 &size) const
     }
 }
 
+bool SelectFilesDialog::containsNameFilters(const QString &fileName) const
+{
+    if(m_nameFilters=="")
+        return true;
+
+    QStringList name_filters = m_nameFilters.split(";");
+
+    foreach (QString temp_str, name_filters) {
+        QRegExp reg(temp_str);
+        if(reg.exactMatch(fileName)){
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void SelectFilesDialog::close()
 {
     emit closeLoop();
+}
+
+void SelectFilesDialog::setNameFilters(QString arg)
+{
+    if (m_nameFilters != arg) {
+        m_nameFilters = arg;
+        emit nameFiltersChanged(arg);
+    }
 }

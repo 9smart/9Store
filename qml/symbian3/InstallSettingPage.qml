@@ -21,7 +21,7 @@ MyPage{
         id:head;
         titleText: title;
         z:1;
-    }   
+    }
     Column{
         id:scolumn;
         anchors{
@@ -41,16 +41,13 @@ MyPage{
             title: qsTr("Download save path");
             subTitle: downloadpath;
             onClicked:{
-                fileDialog.inverseTheme = false//设置主题模式
+                fileDialog.inverseTheme = true//设置主题模式
                 fileDialog.chooseMode = FilesDialog.IndividualChoice
-                fileDialog.chooseType = FilesDialog.AllType
-                if(fileDialog.exec(downloadpath, "", FilesDialog.Dirs|FilesDialog.Drives,
-                                   FilesDialog.Name)){
-                    console.log("here1")
-                    var file = fileDialog.firstSelection()
-                    downloadpath =file.filePath;
-                    settings.setDownloadPath(downloadpath);
-                }
+                fileDialog.chooseType = FilesDialog.FolderType
+                fileDialog.exec(downloadpath,FilesDialog.Dirs|FilesDialog.Drives)
+                var file = fileDialog.firstSelection()
+                downloadpath =file.filePath;
+                settings.setDownloadPath(downloadpath);
             }
         }
         SelectionListItem{
