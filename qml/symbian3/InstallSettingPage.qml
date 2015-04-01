@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
+import com.stars.widgets 1.0
 import "../JavaScript/main.js" as Script
 import "BaseComponent"
 import "Dialog"
@@ -40,8 +41,16 @@ MyPage{
             title: qsTr("Download save path");
             subTitle: downloadpath;
             onClicked:{
-                downloadpath=(fileoperate.selectFolder()||settings.getDownloadPath());
-                settings.setDownloadPath(downloadpath);
+                fileDialog.inverseTheme = false//设置主题模式
+                fileDialog.chooseMode = FilesDialog.IndividualChoice
+                fileDialog.chooseType = FilesDialog.AllType
+                if(fileDialog.exec(downloadpath, "", FilesDialog.Dirs|FilesDialog.Drives,
+                                   FilesDialog.Name)){
+                    console.log("here1")
+                    var file = fileDialog.firstSelection()
+                    downloadpath =file.filePath;
+                    settings.setDownloadPath(downloadpath);
+                }
             }
         }
         SelectionListItem{

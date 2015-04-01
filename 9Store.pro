@@ -9,7 +9,7 @@ RESOURCES += \
     9Store.qrc
 QT += network webkit
 
-#DEFINES += BUILDING_LIBCURL CURL_STATICLIB
+DEFINES += BUILDING_LIBCURL CURL_STATICLIB
 SOURCES += main.cpp \
     #src/Qcurl.cpp \
     src/Settings.cpp \
@@ -27,12 +27,12 @@ HEADERS += \
     src/NetworkAccessManagerFactory.h \
     src/MyImage.h
 
-include(curl-7.37.0/lib/curl.pri)
-include(curl-7.37.0/lib/vtls/vtls.pri)
+#include(curl-7.37.0/lib/curl.pri)
+#include(curl-7.37.0/lib/vtls/vtls.pri)
 include(selectfilesdialog/selectfilesdialog.pri)
 
-#INCLUDEPATH += curl-7.37.0/include \
-#               curl-7.37.0/lib
+INCLUDEPATH += curl-7.37.0/include \
+               curl-7.37.0/lib
 
 folder_Meego.source = qml/meego
 folder_Meego.target = qml
@@ -78,7 +78,7 @@ symbian{
         DEPLOYMENTFOLDERS += folder_Symbian folder_pic folder_JS
         #RESOURCES += Symbian3-res.qrc
     }
-    #INCLUDEPATH += $$[QT_INSTALL_PREFIX]/epoc32/include/platform/mw
+    INCLUDEPATH += $$[QT_INSTALL_PREFIX]/epoc32/include/platform/mw
     SOURCES += src/AOSync.cpp
 
     HEADERS += src/AOSync.h

@@ -40,7 +40,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     Settings settings;
     UserData userdata;
     Utility utility;
-    //QCurl qcurl;
+   // QCurl qcurl;
     NetworkAccessManagerFactory factory;
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer.engine()->setNetworkAccessManagerFactory(&factory);

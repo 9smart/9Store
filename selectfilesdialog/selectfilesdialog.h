@@ -27,6 +27,7 @@ class SelectFilesDialog : public QObject
     //记录当前所在的绝对路径
     Q_PROPERTY(bool showImageContent READ showImageContent WRITE setShowImageContent NOTIFY showImageContentChanged)
     //记录是否在管理器中把图片当做自己个图标显示（可能会导致滑动不流畅）
+    Q_PROPERTY(bool canOpenSystemDrive READ canOpenSystemDrive WRITE setCanOpenSystemDrive NOTIFY canOpenSystemDriveChanged)
 
     Q_ENUMS(ChooseType)
     Q_ENUMS(ChooseMode)
@@ -118,6 +119,7 @@ public:
     bool inverseTheme() const;
     QString currentPath() const;
     bool showImageContent() const;
+    bool canOpenSystemDrive() const;
 
 public Q_SLOTS:
     int exec(const QString initPath="", const QString& nameFilters="",
@@ -146,6 +148,7 @@ public Q_SLOTS:
     //返回当前目录是否是根目录
     QVariantList getDrivesInfoList() const;
     void setShowImageContent(bool arg);
+    void setCanOpenSystemDrive(bool arg);
 
     void close();
 Q_SIGNALS:
@@ -156,6 +159,7 @@ Q_SIGNALS:
     void currentPathChanged();
     void selectionCountChanged();
     void showImageContentChanged(bool arg);
+    void canOpenSystemDriveChanged(bool arg);
 
 private Q_SLOTS:
 
@@ -177,6 +181,7 @@ private:
     bool isShow;//记录文件对话框是否正在显示中
     QString m_currentPath;//记录当前绝对路径
     bool m_showImageContent;//记录是否把图片资源当做自己的图标显示
+    bool m_canOpenSystemDrive;
 
     bool dirIsEmpty(const QFileInfo& fileInfo) const;
     //判断一个文件夹是否为空的
