@@ -28,13 +28,21 @@ MyPage{
             top: head.bottom;
             left: parent.left;
             right: parent.right;
+            topMargin: 20;
         }
-        spacing: 20;
         CheckBox {
+            id:autoinstall;
+            anchors.leftMargin: 10;
             text: qsTr("Install autoly when download finish");
             platformInverted: true;
-            //checked: 00;
-            //onClicked: 00;
+            checked: autoInstall;
+            onClicked: {
+                if(autoInstall){
+                    autoInstall = false;
+                }
+                else autoInstall = true;
+                settings.setAutoInstall(autoInstall);
+            }
         }
         SelectionListItem{
             platformInverted: true;
@@ -46,20 +54,28 @@ MyPage{
                 fileDialog.chooseType = FilesDialog.FolderType
                 fileDialog.exec(downloadpath,FilesDialog.Dirs|FilesDialog.Drives)
                 var file = fileDialog.firstSelection()
-                downloadpath =file.filePath;
+                if(file.filePath)
+                    downloadpath =file.filePath;
                 settings.setDownloadPath(downloadpath);
             }
         }
         SelectionListItem{
             platformInverted: true;
-            title: qsTr("Installation path");
-            subTitle: "E://";
-            /*onClicked:{
-                downloadpath=(fileoperate.selectFolder()||settings.getDownloadPath());
-                settings.setDownloadPath(downloadpath);
-            }*/
+            title: qsTr("Installation driver");
+            subTitle: installdriver;
+            onClicked:{
+                fileDialog.inverseTheme = true//设置主题模式
+                fileDialog.chooseMode = FilesDialog.IndividualChoice
+                fileDialog.chooseType = FilesDialog.FolderType
+                fileDialog.exec(installdriver,FilesDialog.Drives)
+                var file = fileDialog.firstSelection()
+                if(file.filePath)
+                    installdriver =file.filePath;
+                settings.setInstallDriver(installdriver);
+            }
         }
         Button{
+            anchors.topMargin: 20;
             platformInverted: true;
             width: 300;
             anchors.horizontalCenter: parent.horizontalCenter;

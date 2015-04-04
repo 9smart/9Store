@@ -22,6 +22,7 @@ SelectFilesDialog::SelectFilesDialog() :
     m_inverseTheme = false;
     isShow = false;
     m_showImageContent = false;
+    m_canOpenSystemDrive = true;
     eventLoop = NULL;
     qmlView = NULL;
 
@@ -87,6 +88,11 @@ QString SelectFilesDialog::nameFilters() const
 {
     return m_nameFilters;
 }
+bool SelectFilesDialog::canOpenSystemDrive() const
+{
+    return m_canOpenSystemDrive;
+}
+
 
 int SelectFilesDialog::exec(const QString initPath, Filters filters, SortFlags sortflags)
 {
@@ -347,6 +353,14 @@ void SelectFilesDialog::setShowImageContent(bool arg)
     if (m_showImageContent != arg) {
         m_showImageContent = arg;
         emit showImageContentChanged(arg);
+    }
+}
+
+void SelectFilesDialog::setCanOpenSystemDrive(bool arg)
+{
+    if(m_canOpenSystemDrive != arg){
+        m_canOpenSystemDrive = arg;
+        emit canOpenSystemDriveChanged(arg);
     }
 }
 

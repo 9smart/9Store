@@ -159,6 +159,7 @@ PageStackWindow{
                     break
                 }
                 case FilesDialog.DriveType:{
+                    console.log(fileInfo.name);
                     fileDialog.cdPath(fileInfo.name)
                     fileDialog.clearSelection()
                     updateFileList()

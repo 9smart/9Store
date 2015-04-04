@@ -7,8 +7,11 @@ import "BaseComponent"
 PageStackWindow{
     id:app;
     property string version:"0.5.1";
-    property bool loading;        
+    property bool loading;
+
     property string downloadpath: settings.getDownloadPath();
+    property string installdriver: settings.getInstallDriver();
+    property bool autoInstall:settings.autoInstall;
 
     property int userstate:0;
     property string uid;
