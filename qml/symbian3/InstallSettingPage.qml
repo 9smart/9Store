@@ -32,6 +32,7 @@ MyPage{
         }
         CheckBox {
             id:autoinstall;
+            anchors.left: parent.left;
             anchors.leftMargin: 10;
             text: qsTr("Install autoly when download finish");
             platformInverted: true;
@@ -74,8 +75,12 @@ MyPage{
                 settings.setInstallDriver(installdriver);
             }
         }
+        Item{
+            height: 20;
+            width: 1;
+        }
         Button{
-            anchors.topMargin: 20;
+            //anchors.topMargin: 20;
             platformInverted: true;
             width: 300;
             anchors.horizontalCenter: parent.horizontalCenter;

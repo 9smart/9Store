@@ -10,15 +10,26 @@ MyListItem{
     height: 80;
     Image{
         id:sicon;
+        sourceSize.height: 60;
+        sourceSize.width: 60;
+        height: sourceSize.height;
+        width:sourceSize.width;
         anchors{
-            left: parent.left;
-            leftMargin: 15;
             verticalCenter: parent.verticalCenter;
+            left: parent.left;
+            leftMargin: 12;
         }
-        height: 60;
-        width: 60;
-        smooth: true;
         source: model.icon;
+        Image{
+            anchors.fill: parent;
+            source: "../../pic/General/App_icon_Loading.svg";
+            visible: parent.status==Image.Loading;
+        }
+        Image{
+            anchors.fill: parent;
+            source: "../../pic/General/App_icon_Error.svg";
+            visible: parent.status==Image.Error;
+        }
     }
     Text{
         id:name;
@@ -30,59 +41,42 @@ MyListItem{
     }
     ProgressBar{
         id:progress;
-        anchors.top: name.bottom;
-        anchors.topMargin: 15;
         width: 195;
-        anchors.left: name.left;
+        anchors{
+            top: name.bottom;
+            topMargin: 15;
+            left: name.left;
+        }
+        //value:
     }
-    /*Button
-                     {
-                      platformInverted: true;
-                      anchors.verticalCenter: parent.verticalCenter;
-                      anchors.right: parent.right;
-                      anchors.rightMargin: 15;
-                      iconSource:"toolbar-delete";
-                     }*/
-    Rectangle
-    {
-        anchors.left: parent.left;
-        anchors.right: parent.right;
-        anchors.bottom: parent.bottom;
-        color: "lightgray";
-        height: 2;
-    }
-    MouseArea
-    {
+    MouseArea{
         anchors.fill: parent;
-        onClicked:
-        {
+        onClicked:{
             if(progress.value===1)
                 fileoperate.openFile(model.file);
         }
     }
-    Timer
-    {
-        interval: 500;
-        running: true;
-        repeat: true;
-        triggeredOnStart: true;
-        onTriggered:
-        {
-            currenturl=qcurl.iscurrenturl(model.url);
-            fileexist=qcurl.isfileexist(model.file);
-            if(currenturl===true)
-            {
-                progress.value=qcurl.getprogress();
-            }
-            if((currenturl===false)&&(fileexist===false))
-            {
-                progress.value=0;
-            }
-            if((currenturl===false)&&(fileexist===true))
-            {
-                progress.value=1;
-                running=false;
-            }
+    states: [
+        State {
+            name: "Waiting";
+        },
+        State{
+            name:"Downloading";
+        },
+        State{
+            name:"Downloaded";
+        },
+        State{
+            name:"Installing";
+        },
+        State{
+            name:"Installed";
+        }
+    ]
+    Connections{
+        target: qcurl;
+        onStateChanged:{
+
         }
     }
 }

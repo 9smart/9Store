@@ -6,13 +6,15 @@
 #include "Qcurl.h"
 //double QCurl::progress;
 
-QCurl::QCurl(QObject *parent):QObject(parent){
+QCurl::QCurl(QObject *parent):QObject(parent)
+{
     last=head=current=(struct QCurldl *)malloc(sizeof(struct QCurldl));
     curl_global_init(CURL_GLOBAL_ALL );
     setState(0);
 }
 
-QCurl::~QCurl(){
+QCurl::~QCurl()
+{
     if (!thread.isNull()){
         thread->terminate();
         thread->wait();
@@ -20,19 +22,23 @@ QCurl::~QCurl(){
     }
 }
 
-int QCurl::state() const {
+int QCurl::state() const
+{
     return m_state;
 }
 
-char *QCurl::currentUrl() {
+QString QCurl::currentUrl() const
+{
     return m_currentUrl;
 }
 
-double QCurl::progress(){
+double QCurl::progress() const
+{
     return m_progress;
 }
 
-void QCurl::appenddl(QString url,  QString file){
+void QCurl::appenddl(QString url,  QString file)
+{
     QByteArray ba = url.toLatin1();
     char *urlc=ba.data();
     ba = file.toUtf8();
@@ -56,16 +62,19 @@ void QCurl::appenddl(QString url,  QString file){
     }
 }
 
-bool QCurl::isCurrentUrl(QString url){
-    QByteArray ba = url.toLatin1();
-    char *urlc=ba.data();
-    if(strcmp(urlc,m_currentUrl)==0){
+bool QCurl::isCurrentUrl(QString url)
+{
+    //QByteArray ba = url.toLatin1();
+    //char *urlc=ba.data();
+    //if(strcmp(urlc,m_currentUrl)==0){
+    if(url == m_currentUrl){
         return true;
     }
     return false;
 }
 
-bool QCurl::isFileExist(QString file){
+bool QCurl::isFileExist(QString file)
+{
     QByteArray ba = file.toUtf8();
     char *filename=ba.data();
     FILE *fp;
@@ -81,15 +90,16 @@ bool QCurl::isFileExist(QString file){
     return true;
 }
 
-size_t QCurl::file_callback(void *ptr, size_t size, size_t nmemb, void *userp){
+size_t QCurl::file_callback(void *ptr, size_t size, size_t nmemb, void *userp)
+{
     FILE *fp = (FILE *)userp;
     ptr=(char *)ptr;
     size_t return_size = fwrite(ptr, size, nmemb, fp);
     return return_size;
 }
 
-int QCurl::progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow){
-    //(QCurl *)clientp;
+int QCurl::progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow)
+{
     if(dltotal==0){
         ((QCurl *)clientp)->setProgress(0);
         return 0;
@@ -98,7 +108,8 @@ int QCurl::progress_callback(void *clientp, double dltotal, double dlnow, double
     return 0;
 }
 
-void QCurl::startNextDl(){
+void QCurl::startNextDl()
+{
     if(current==last&&m_state==3){
         fclose(current->fp);
         setCurrentUrl("/0");
@@ -116,7 +127,7 @@ void QCurl::startNextDl(){
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, QCurl::file_callback);
     curl_easy_setopt(curl,CURLOPT_PROGRESSFUNCTION,QCurl::progress_callback);
     curl_easy_setopt(curl, CURLOPT_URL,current->url);
-    setCurrentUrl(current->url);
+    setCurrentUrl(QString(current->url));
     curl_easy_setopt(curl, CURLOPT_WRITEDATA,current->fp);
     curl_easy_setopt(curl, CURLOPT_PROGRESSDATA,this);
     if(thread.isNull()){
@@ -132,16 +143,18 @@ void QCurl::startNextDl(){
     emit startDl(curl);
 }
 
-void QCurl::setState(int state){
+void QCurl::setState(int state)
+{
     if(m_state!=state){
         m_state=state;
         emit stateChanged();
     }
 }
 
-void QCurl::setCurrentUrl(char *url){
-    if(strcmp(m_currentUrl,url)!=0){
-        strcpy(m_currentUrl,url);
+void QCurl::setCurrentUrl(QString url)
+{
+    if(url != m_currentUrl){
+        m_currentUrl = url;
         emit currentUrlChanged();
     }
 }

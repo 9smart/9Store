@@ -11,7 +11,7 @@ QT += network webkit
 
 DEFINES += BUILDING_LIBCURL CURL_STATICLIB
 SOURCES += main.cpp \
-    #src/Qcurl.cpp \
+    src/Qcurl.cpp \
     src/Settings.cpp \
     src/FileOperate.cpp \
     src/UserData.cpp \
@@ -19,7 +19,7 @@ SOURCES += main.cpp \
     src/NetworkAccessManagerFactory.cpp \
     src/MyImage.cpp
 HEADERS += \
-    #src/Qcurl.h \
+    src/Qcurl.h \
     src/Settings.h \
     src/FileOperate.h \
     src/UserData.h \
@@ -27,8 +27,8 @@ HEADERS += \
     src/NetworkAccessManagerFactory.h \
     src/MyImage.h
 
-#include(curl-7.37.0/lib/curl.pri)
-#include(curl-7.37.0/lib/vtls/vtls.pri)
+include(curl-7.37.0/lib/curl.pri)
+include(curl-7.37.0/lib/vtls/vtls.pri)
 include(selectfilesdialog/selectfilesdialog.pri)
 
 INCLUDEPATH += curl-7.37.0/include \
