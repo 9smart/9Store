@@ -54,6 +54,7 @@ simulator{
 }
 
 contains(MEEGO_EDITION,harmattan){
+
          DEFINES += Q_OS_HARMATTAN
          CONFIG += qdeclarative-boostable meegotouch
          DEPLOYMENTFOLDERS +=  folder_JS folder_Meego folder_pic
@@ -67,7 +68,6 @@ contains(MEEGO_EDITION,harmattan){
                        qtc_packaging/debian_harmattan/compat \
                        qtc_packaging/debian_harmattan/changelog
 }
-
 symbian{   
     contains(QT_VERSION, 4.7.3){
         DEFINES += Q_OS_S60V5
