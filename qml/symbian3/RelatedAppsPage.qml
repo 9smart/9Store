@@ -34,10 +34,11 @@ MyPage{
         id:listview;
         anchors.fill:parent;
         anchors.topMargin: head.height;
+        anchors.bottomMargin: toolbar.height;
         clip:true;
         model: ListModel{ id:relatedlistmodel; }
         delegate:ListComponent{ id:listdelegate; }
-        footer: ListFooter{}
+        footer: ListFooter{ id: listfooter; }
     }
     Component.onCompleted:{
         Script.relatedlistmodel=relatedlistmodel;

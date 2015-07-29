@@ -67,7 +67,8 @@ MyPage{
             onClicked:{
                 fileDialog.inverseTheme = true//设置主题模式
                 fileDialog.chooseMode = FilesDialog.IndividualChoice
-                fileDialog.chooseType = FilesDialog.FolderType
+                fileDialog.chooseType = FilesDialog.DriveType
+                fileDialog.canOpenSystemDrive = false;
                 fileDialog.exec(installdriver,FilesDialog.Drives)
                 var file = fileDialog.firstSelection()
                 if(file.filePath)

@@ -159,7 +159,6 @@ PageStackWindow{
                     break
                 }
                 case FilesDialog.DriveType:{
-                    console.log(fileInfo.name);
                     fileDialog.cdPath(fileInfo.name)
                     fileDialog.clearSelection()
                     updateFileList()
@@ -254,6 +253,7 @@ PageStackWindow{
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
+                    console.log(fileInfo.name);
                     switch(fileDialog.chooseType){
                     case FilesDialog.FolderType:{
                         if(fileInfo.type == FilesDialog.FolderType||
@@ -279,8 +279,10 @@ PageStackWindow{
                         break;
                     }
                     case FilesDialog.DriveType:{
-                        if(fileInfo.type == FilesDialog.DriveType){
-                            editStatus()
+                        if(fileInfo.type === FilesDialog.DriveType){
+                            if(fileDialog.canOpenSystemDrive === true || fileInfo.name !== "C:/" ){
+                                editStatus();
+                            }
                         }else{
                             openFile()
                         }
