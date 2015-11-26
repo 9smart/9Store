@@ -4,6 +4,7 @@
 QT_BEGIN_NAMESPACE
 class QProcess;
 QT_END_NAMESPACE
+
 class FileOperate : public QObject
 {
     Q_OBJECT

@@ -7,9 +7,11 @@ TRANSLATIONS = 9store_zh_CN.ts
 
 RESOURCES += \
     9Store.qrc
+
 QT += network webkit
 
 DEFINES += BUILDING_LIBCURL CURL_STATICLIB
+
 SOURCES += main.cpp \
     src/Qcurl.cpp \
     src/Settings.cpp \
@@ -18,6 +20,7 @@ SOURCES += main.cpp \
     src/Utility.cpp \
     src/NetworkAccessManagerFactory.cpp \
     src/MyImage.cpp
+
 HEADERS += \
     src/Qcurl.h \
     src/Settings.h \
@@ -54,7 +57,6 @@ simulator{
 }
 
 contains(MEEGO_EDITION,harmattan){
-
          DEFINES += Q_OS_HARMATTAN
          CONFIG += qdeclarative-boostable meegotouch
          DEPLOYMENTFOLDERS +=  folder_JS folder_Meego folder_pic

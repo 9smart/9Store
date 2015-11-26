@@ -1,5 +1,5 @@
 #include "FileOperate.h"
-#include <stdio.h>
+//#include <stdio.h>
 #include <QFile>
 #include <QTextStream>
 #include <QFileDialog>

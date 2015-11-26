@@ -2,13 +2,16 @@
 import QtQuick 1.1
 import com.nokia.meego 1.1
 import com.nokia.extras 1.1
-import "Main"
 import "../JavaScript/main.js" as Script
+import "BaseComponent"
 PageStackWindow{
     id:app;
     property string version:"0.5.1";
     property bool loading;
+
     property string downloadpath: settings.getDownloadPath();
+    property string installdriver: settings.getInstallDriver();
+    property bool autoInstall:settings.autoInstall;
 
     property int userstate:0;
     property string uid;
@@ -17,12 +20,7 @@ PageStackWindow{
     property string avatar;
     property string gender;
     property string logintype;
-    style: PageStackWindowStyle{}
-    ListPage{
-        id: listpage;
-    }
     InfoBanner{
-        topMargin: 40;
         id: infoBanner;
     }
     LoadingIndicator{
@@ -34,7 +32,7 @@ PageStackWindow{
     Timer{
         id:processingtimer;
         interval: 60000;
-        onTriggered: signalcenter.loadFailed("erro");
+        onTriggered: signalCenter.loadFailed("erro");
     }
     ListModel{
         id:downloadmodel;
@@ -58,23 +56,14 @@ PageStackWindow{
             signalCenter.showMessage(errorstring);
         }
     }
-    /*Loader
-                      {
-                       id:launchloader;
-                       anchors.fill: parent;
-                       source: "Component/Launcher.qml";
-                      }
-                Connections
-                           {
-                            target: launchloader.item;
-                            onNChanged:launchloader.item.n===6?launchloader.source="":"";
-                           }*/
+
     Component.onCompleted:{
         Script.setsignalcenter(signalCenter);
         loadLoginData(userdata.getUserData("LoginData"));
-        loadDownloadData(userdata.getUserData("DownloadData"));
-        pageStack.push(listpage);
+        loadDownloadData(userdata.getUserData("DownloadData"));        
+        pageStack.push(Qt.resolvedUrl("MainPage.qml"));
     }
+
     function saveDownloadData() {
         var arry=[];
         for(var i=0;i<downloadmodel.count;i++) {
