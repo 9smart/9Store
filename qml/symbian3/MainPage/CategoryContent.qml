@@ -5,7 +5,7 @@ import "../../JavaScript/main.js" as Script
 ListView{
     width: screen.width;
     height: 455;
-    contentHeight:categorymodel.count*60;
+    contentHeight: categorymodel.count * 60;
     clip: true;
     model: categorymodel;
     delegate: MyListItem{
@@ -33,10 +33,12 @@ ListView{
         onClicked: {
             root.category=model.category;
             listmodel.clear();
-            Script.getlist("belle","1","15",root.category,"","","","","appname,author,appid,icon,summary,version,scores,ratingnum");
+            page = "";
+            Script.getlist("Symbian%5e3", root.category, "", page,"12","");
             root.currentContent="ListContent.qml";
-        }
+        }       
     }
+
     NumberAnimation on x{
         from: 360;
         to:0;

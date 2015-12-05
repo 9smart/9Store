@@ -13,13 +13,10 @@ PageStackWindow{
     property string installdriver: settings.getInstallDriver();
     property bool autoInstall:settings.autoInstall;
 
-    property int userstate:0;
-    property string uid;
-    property string accesstoken;
-    property string nickname;
-    property string avatar;
-    property string gender;
-    property string logintype;
+    property bool userstate: false;
+    property string userId;
+    property string auth;
+    property string userName;
     platformInverted: true;
     Corners{
         id:corners;
@@ -93,12 +90,9 @@ PageStackWindow{
             return;
         }
         var obj=JSON.parse(oritxt);
-        uid=obj.uid;
-        accesstoken=obj.accesstoken;
-        nickname=obj.nickname;
-        avatar=obj.avatar;
-        gender=obj.gender;
-        logintype=obj.logintype;
-        userstate=1;
+        userId = obj.userId;
+        auth = obj.auth;
+        userName = obj.userName;
+        userstate = true;
     }
 }

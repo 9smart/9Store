@@ -11,7 +11,7 @@ class Settings : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString downloadPath READ getDownloadPath WRITE setDownloadPath NOTIFY downloadPathChanged)
-#ifdef Q_OS_SYMBIAN
+#if defined(Q_OS_SYMBIAN) | defined(Q_WS_SIMULATOR)
     Q_PROPERTY(QString installDriver READ getInstallDriver WRITE setInstallDriver NOTIFY installDriverChanged)
 #endif
     Q_PROPERTY(bool autoInstall READ autoInstall WRITE setAutoInstall NOTIFY autoInstallChanged)
@@ -22,7 +22,7 @@ public:
 
     Q_INVOKABLE QString getDownloadPath();
     Q_INVOKABLE void setDownloadPath(QString newDownloadPath);
-#ifdef Q_OS_SYMBIAN
+#if defined(Q_OS_SYMBIAN) | defined(Q_WS_SIMULATOR)
     Q_INVOKABLE QString getInstallDriver();
     Q_INVOKABLE void setInstallDriver(QString newInstallDriver);
 #endif
@@ -31,7 +31,7 @@ public:
 
 signals:
     void downloadPathChanged();
-#ifdef Q_OS_SYMBIAN
+#if defined(Q_OS_SYMBIAN) | defined(Q_WS_SIMULATOR)
     void installDriverChanged();
 #endif
     void autoInstallChanged();
@@ -44,7 +44,7 @@ public slots:
 private:
     QSettings *settings;
     QString m_downloadPath;
-#ifdef Q_OS_SYMBIAN
+#if defined(Q_OS_SYMBIAN) | defined(Q_WS_SIMULATOR)
     QString m_installDriver;
 #endif
     bool m_autoInstall;

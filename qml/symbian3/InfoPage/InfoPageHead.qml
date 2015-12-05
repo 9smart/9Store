@@ -1,7 +1,6 @@
 import QtQuick 1.1
 Rectangle{
     width: screen.width;
-    //width: 360;
     height: 55;
     color: "#f5f5f5";
     Rectangle{

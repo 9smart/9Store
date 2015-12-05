@@ -8,23 +8,32 @@ import "InfoPage"
 import "../JavaScript/main.js" as Script
 MyPage{
     id:infopage;
-    property string appid;
+    property string _id;
     property string icon;
-    property string author;
-    property string summary;
-    property string version;
+    property string score_num;
+    property string scores;
+    property string developer;
     property string type;
     property string category;
+    property string version;
     property string size;
-    property string ratingnum;
-    property string scores;
+    property string summary;
+    property string comment_num
+
     property int dlnum:-1;
-    property string dlurl:"http://api.9smart.cn/app/"+appid+"?download=download";
+    //property string dlUrl:"http://api.9smart.cn/app/download/"+_id+"?auth";
     property bool firstStart: true;
+
+    property alias screenShotsModel: screenshotmodel;
+    property alias relatedAppsModel: relatedlistmodel;
     onVisibleChanged: if (visible && firstStart) {
                           firstStart = false
-                          Script.getinfo(appid);
+                          Script.getinfo(_id);
                       }
+    onCategoryChanged: if (category != ""){
+                           Script.getrelatedlist("Symbian%5e3", category, "", "2");
+                       }
+
     ToolBar{
         id:toolbar;
         z:1;
@@ -66,8 +75,8 @@ MyPage{
             MyListItem{
                 id:screenshot;
                 //height: 120;
-                enabled:false;
-                visible: screenshotmodel.count!=0;
+                enabled: false;
+                visible: screenshotmodel.count != 0;
                 state: "close";
                 Flickable{
                     id:screenshotview;
@@ -78,7 +87,7 @@ MyPage{
                         right: parent.right;
                     }
                     height: 215;
-                    contentWidth: screenshotmodel.count*130;
+                    contentWidth: screenshotmodel.count * 130;
                     flickableDirection: Flickable.HorizontalFlick;
                     Row{
                         spacing: 10;
@@ -89,7 +98,7 @@ MyPage{
                     }
                 }
                 Image{
-                    id:screenshotmask
+                    id: screenshotmask
                     anchors.bottom: parent.bottom;
                     source: "../pic/Details/Details_Mask.png";                  
                 }      
@@ -102,7 +111,7 @@ MyPage{
                     source: "../pic/Home/Poster_Shadow_03.png";
                 }
                 Image{
-                    id:morebutton;
+                    id: morebutton;
                     anchors{
                         horizontalCenter: parent.horizontalCenter;
                         bottom: parent.bottom;
@@ -114,7 +123,7 @@ MyPage{
                     width: 20;
                     MouseArea{
                         anchors.fill: parent;
-                        onClicked: screenshot.state=="close"?screenshot.state="open":screenshot.state="close";
+                        onClicked: screenshot.state=="close"? screenshot.state="open" : screenshot.state="close";
                     }
                 }
                 states: [
@@ -182,8 +191,8 @@ MyPage{
                 ]
             }
             MyListItem{
-                height: summ.height+30;
-                enabled:false;
+                height: summ.height + 30;
+                enabled: false;
                 Text{
                     id:summ;
                     anchors{
@@ -207,12 +216,12 @@ MyPage{
                     }
                     Text{
                         font.pixelSize: 21;
-                        text: qsTr("Reviews")+" ("+ratingnum+") ";
+                        text: qsTr("Reviews")+" ("+ comment_num +") ";
                     }
                     RankStars{
                         size: 21;
                         anchors.verticalCenter: parent.verticalCenter;
-                        ranknum: ratingnum==="0"?0:(scores/ratingnum);
+                        ranknum: score_num === "0"? 0 : (scores / score_num);
                     }
                 }
                 Image{
@@ -226,12 +235,12 @@ MyPage{
                     smooth: true;
                     source: "../pic/General/icon-m-toolbar-next.png";
                 }
-                onClicked: pageStack.push(Qt.resolvedUrl("CommentPage.qml"),{appid:appid,ratingnum:ratingnum,size:size,author:author,type:type,category:category,icon:icon,scores:scores,title:title})
+                //onClicked: pageStack.push(Qt.resolvedUrl("CommentPage.qml"),{appid:appid,ratingnum:ratingnum,size:size,author:author,type:type,category:category,icon:icon,scores:scores,title:title})
             }
             MyListItem{
                 Text{
                     font.pixelSize: 24;
-                    text: author;
+                    text: developer;
                     anchors{
                         left: parent.left;
                         leftMargin: 15;
@@ -249,7 +258,7 @@ MyPage{
                     smooth: true;
                     source: "../pic/General/icon-m-toolbar-next.png";
                 }
-                onClicked: pageStack.push(Qt.resolvedUrl("SpecifiedAuthorAppPage.qml"),{title:author})
+                //onClicked: pageStack.push(Qt.resolvedUrl("SpecifiedAuthorAppPage.qml"),{title:author})
             }
             MyListHeading{
                 id: relatedAppsTitle;
@@ -280,23 +289,16 @@ MyPage{
                     smooth: true;
                     source: "../pic/General/icon-m-toolbar-next.png";
                 }
-                onClicked: pageStack.push(Qt.resolvedUrl("RelatedAppsPage.qml"),{appid:appid,category:category,title:title})
+                onClicked: pageStack.push(Qt.resolvedUrl("RelatedAppsPage.qml"),{category:category,title:title,relatedlistmodel:relatedlistmodel})
             }
         }
     }
     DownloadButton{
         id:downloadbutton2;
-        visible: flick.contentY>145;
+        visible: flick.contentY > 145;
     }
     Connections{
         target: signalCenter;
-        onDlInfoSetted:{
-            type=Script.type;
-            category=Script.category;
-            summary=Script.summary;
-            size=Script.size;
-            Script.getrelatedlist("belle","1","3",appid,category);
-        }
         onCommentSendSuccessful:{
             signalCenter.showMessage(qsTr("Send successfully"))
         }
@@ -305,7 +307,8 @@ MyPage{
         }
     }
     Component.onCompleted:{
-        Script.screenshotmodel=screenshotmodel;
-        Script.relatedlistmodel=relatedlistmodel;
+        //Script.screenshotmodel=screenshotmodel;
+        //Script.relatedlistmodel=relatedlistmodel;
+        Script.infoPage = infopage
     }
 }

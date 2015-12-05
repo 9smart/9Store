@@ -6,6 +6,8 @@ import "../JavaScript/main.js" as Script
 MyPage{
     id:mainpage;
     property string currentContent:"Home";
+    property alias listmodel: listmodel;
+    property alias categorymodel: categorymodel;
     title: qsTr("Home");
     Head{
         id:head;
@@ -95,9 +97,17 @@ MyPage{
     ListModel{
         id:listmodel;
     }
+    ListModel{
+        id:categorymodel;
+    }
+    ListModel{
+        id: gamemodel;
+    }
+    ListModel{
+        id: applicationmodel;
+    }
+
     Component.onCompleted: {
-        Script.covermodel=covermodel;
-        Script.featuredmodel=featuredmodel;
-        Script.listmodel=listmodel;
+        Script.mainPage = mainpage;
     }
 }

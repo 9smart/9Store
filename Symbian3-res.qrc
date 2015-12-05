@@ -80,5 +80,6 @@
         <file>qml/pic/Toolbar-Search_inverse.svg</file>
         <file>qml/pic/ToolbarShadow.png</file>
         <file>qml/pic/Toolbar-TopCharts_inverse.svg</file>
+        <file>qml/JavaScript/api.js</file>
     </qresource>
 </RCC>

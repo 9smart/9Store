@@ -4,18 +4,23 @@ import "../../JavaScript/main.js" as Script
 import "../BaseComponent"
 import "../Delegate"
 ListView{
-    property int page:1;
     width: screen.width;
     height: 455;
-    contentHeight: listmodel.count*80;
+    contentHeight: listmodel.count * 80;
     model: listmodel;
     clip: true;
     delegate: ListComponent{}
     footer: ListFooter{
         onClicked: {
-            page++;
-            Script.getlist("belle",page.toString(),"15",root.category,"","","",searchfiled.text,"appname,author,appid,icon,summary,version,scores,ratingnum");
+            page = Script.page;
+            if(page !== "NULL"){
+                Script.getlist("Symbian%5e3", root.category, "", page,"12","");
+            }
+            else{
+                signalCenter.showMessage(qsTr("No next page aviliable..."))
+            }
         }
+
     }
     NumberAnimation on x{
         from: 360;

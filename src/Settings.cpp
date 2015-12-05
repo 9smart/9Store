@@ -54,7 +54,7 @@ void Settings::setDownloadPath(const QString newDownloadPath)
         emit downloadPathChanged();
     }
 }
-#ifdef Q_OS_SYMBIAN
+#if defined (Q_OS_SYMBIAN) | defined (Q_WS_SIMULATOR)
 QString Settings::getInstallDriver()
 {
     return m_installDriver;

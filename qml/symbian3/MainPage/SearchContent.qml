@@ -5,6 +5,7 @@ Item{
     id:root;
     property string currentContent:"LibraryContent.qml";
     property string category;
+    property string page: "";
     width: screen.width;
     SearchFiled{
         id:searchfiled;
@@ -12,14 +13,16 @@ Item{
             if(text==="")
                 signalCenter.showMessage(qsTr("Please input the key word"));
             else if(currentContent==="LibraryContent.qml"){
-                Script.getapplication("belle",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
-                Script.getgame("belle",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
+                //Script.getapplication("belle",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
+                //Script.getgame("belle",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
             }
             else if(currentContent==="CategoryContent.qml"){
-                Script.getlist("belle","1","15","","","","",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
+                Script.getlist("Symbian%5e3", "", "", page,"12","");
                 root.currentContent="ListContent.qml";
             }
-            else Script.getlist("belle","1","15","","","","",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
+            else {
+                Script.getlist("Symbian%5e3", root.category, "", page,"12","");
+            }
         }
     }
     Loader{
@@ -30,23 +33,7 @@ Item{
             right: parent.right;
         }
         source: currentContent;
-    }
-    ListModel{
-        id:categorymodel;
     }    
-    ListModel{
-        id:applicationmodel;
-        //onCountChanged: console.log("modelcount:"+count);
-    }
-    ListModel{
-        id:gamemodel;
-    }
-    Component.onCompleted: {
-        Script.categorymodel=categorymodel;
-        Script.applicationmodel=applicationmodel;
-        Script.gamemodel=gamemodel;
-        //Script.listmodel=listmodel;
-    }
     NumberAnimation on opacity {
         from: 0;
         to:1;

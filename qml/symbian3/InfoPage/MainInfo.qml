@@ -22,12 +22,12 @@ Rectangle{
         Image{
             anchors.fill: parent;
             source: "../../pic/General/App_icon_Loading.svg";
-            visible: parent.status==Image.Loading;
+            visible: parent.status == Image.Loading;
         }
         Image{
             anchors.fill: parent;
             source: "../../pic/General/App_icon_Error.svg";
-            visible: parent.status==Image.Error;
+            visible: parent.status == Image.Error;
         }
     }
     Column{
@@ -37,21 +37,21 @@ Rectangle{
             leftMargin: 15;
         }
         RankStars{
-            ranknum: ratingnum==="0"?0:(scores/ratingnum);
+            ranknum: score_num === "0"? 0 : (scores / score_num);
             size: 21;
         }
         Text{
-            text: qsTr("By:")+author;
+            text: qsTr("By:") + developer;
             font.pixelSize: 15;
             color: "gray";
         }
         Text{
-            text: type+" > "+category;
+            text: type+" > " + category;
             font.pixelSize: 15;
             color: "gray"
         }
         Text{
-            text: "v"+version+" - "+size;
+            text: "v" + version + " - " + size;
             font.pixelSize: 15;
             color: "gray"
         }
@@ -63,7 +63,8 @@ Rectangle{
         anchors.rightMargin: 15;
         text: qsTr("download");
         platformInverted: true;
-        checkable:dlnum===-1?true:false;
+        //checkable:dlnum===-1?true:false;
+        enabled: userstate;
         onClicked:{
             if(dlnum===-1) {
                 if(fileoperate.dirExist(downloadpath)){
