@@ -19,6 +19,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
    {
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 
+    //app->setApplicationName("9Store");
+    //app->setOrganizationName("QShen");
+    //app->setApplicationVersion(VER);
     //splash
     #ifdef Q_OS_S60V5 //Symbian^1
     QSplashScreen *splash = new QSplashScreen(QPixmap("qml/symbian1/Resource/splash.png"));

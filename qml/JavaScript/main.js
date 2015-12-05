@@ -69,6 +69,38 @@ function sendWebRequest(url, callback, method, postdata) {
     }
 }
 
+var app;
+function logIn(userName, passWord){
+    var url = login();
+    var postData = loginData(userName, passWord);
+    sendWebRequest(url, loadLogInResult, "POST", postData);
+}
+function loadLogInResult(oritxt){
+    var obj = JSON.parse(oritxt);
+    if(obj.err === 0){
+        app.user._id = obj._id;
+        app.user.auth = obj.auth;
+        var url = user(obj._id, obj.auth);
+        sendWebRequest(url, loadUserInfo, "GET", "")
+    }
+    else{
+        signalcenter.showMessage(obj.err);
+    }
+}
+function loadUserInfo(oritxt){
+    var obj = JSON.parse(oritxt);
+    //console.log(oritxt);
+    if(obj._id !== ""){
+        app.user.nickName = obj.nickname;
+        app.user.avatar = obj.avatar;
+        app.user.avatar_hd = obj.avatar_hd;
+        app.user.noticeNumber = obj.notice_num;
+        app.savaUserData();
+        app.user.userState = true;
+
+    }
+}
+
 var mainPage;
 var page;
 function getfeatured(os){
@@ -159,14 +191,12 @@ function loadgame(oritxt){
 
 var infoPage;
 function getinfo(id){
-    //var url ="http://api.9smart.cn/app/"+id;
     var url = app(id);
     sendWebRequest(url,loadinfo,"GET","");
 }
 function loadinfo(oritxt){
     var obj=JSON.parse(oritxt);
     if(obj.err === 0){
-        //console.log(oritxt);
         //type=obj.type;
         infoPage.category = obj.app.category;
         infoPage.version = obj.app.version;
@@ -207,6 +237,31 @@ function loadrelatedlist(oritxt){
         }
     }
 }
+
+function getSpecifiedAuthorList(system, developer, page, pageSize){
+    var url = apps(system, "", developer, page, pageSize);
+    sendWebRequest(url, loadSpecifiedAuthorList, "GET", "");
+}
+function loadSpecifiedAuthorList(oritxt){
+    var obj = JSON.parse(oritxt);
+    if(obj.err === 0){
+        if(obj.pager.page === 1){
+            infoPage.specifiedAuthorModel.clear();
+        }
+        for(var i in obj.apps){
+            infoPage.specifiedAuthorModel.append(obj.apps[i]);
+        }
+        if(obj.pager.next_page !== 0){
+            page = obj.pager.next_url;
+        }
+        else{
+            page = "NULL";
+        }
+    }
+    else signalcenter.showMessage(obj.err);
+}
+
+
 
 var commentmodel;
 function getComment(appid,page){

@@ -4,7 +4,7 @@
 #include <QTextStream>
 void UserData::setUserData(const QString &key, const QString &data)
     {
-     QString path = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QDir::separator() + ".userdata";
+    QString path = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QDir::separator() + ".userdata" + QDir::separator() + "9Store";
      QDir dir(path);
      if (!dir.exists()) dir.mkpath(path);
 
@@ -20,7 +20,7 @@ void UserData::setUserData(const QString &key, const QString &data)
 
 QString UserData::getUserData(const QString &key)
        {
-        QString path = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QDir::separator() + ".userdata";
+        QString path = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QDir::separator() + ".userdata" + QDir::separator() + "9Store";
         QString filename = path + QDir::separator() + key + ".dat";
         QString res;
         QFile file(filename);
@@ -35,7 +35,7 @@ QString UserData::getUserData(const QString &key)
 
 bool UserData::clearUserData(const QString &key)
     {
-     QString path = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QDir::separator() + ".userdata";
+     QString path = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QDir::separator() + ".userdata" + QDir::separator() + "9Store";
      QString filename = path + QDir::separator() + key + ".dat";
      QFile file(filename);
      return file.remove();

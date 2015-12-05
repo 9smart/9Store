@@ -8,9 +8,13 @@ MyPage{
     id:relatedappspage;
     property int page:1;
     property bool firstStart: true;
+
+    property ListModel specifiedAuthorModel;
     onVisibleChanged: if (visible && firstStart) {
                           firstStart = false
-                          Script.getlist("belle",page.toString(),"15","","",title,"","","appname,author,appid,icon,summary,version,scores,ratingnum");
+                          //Script.getlist("belle",page.toString(),"15","","",title,"","","appname,author,appid,icon,summary,version,scores,ratingnum");
+                          Script.page = "";
+                          Script.getSpecifiedAuthorList("Symbian%5e3", title, Script.page, "12");
                       }
     title: qsTr("Related apps");
     ToolBar{
@@ -34,11 +38,18 @@ MyPage{
         anchors.topMargin: head.height;
         anchors.bottomMargin: toolbar.height;
         clip:true;
-        model: ListModel{ id:listmodel; }
+        model: specifiedAuthorModel;
         delegate:ListComponent{ id:listdelegate; }
-        footer: ListFooter{ id: listfooter}
-    }
-    Component.onCompleted:{
-        Script.listmodel=listmodel;
+        footer: ListFooter{
+            id: listfooter
+            onClicked: {
+                if(Script.page !== "NULL"){
+                    Script.getSpecifiedAuthorList("Symbian%5e3", title, Script.page, "12");
+                }
+                else{
+                    signalCenter.showMessage(qsTr("No next page aviliable..."))
+                }
+            }
+        }
     }
 }

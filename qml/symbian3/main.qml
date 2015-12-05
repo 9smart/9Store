@@ -5,7 +5,7 @@ import com.nokia.extras 1.1
 import "../JavaScript/main.js" as Script
 import "BaseComponent"
 PageStackWindow{
-    id:app;
+    id: app;
     property string version:"0.5.1";
     property bool loading;
 
@@ -13,11 +13,12 @@ PageStackWindow{
     property string installdriver: settings.getInstallDriver();
     property bool autoInstall:settings.autoInstall;
 
-    property bool userstate: false;
-    property string userId;
-    property string auth;
-    property string userName;
+    property alias user: user;
+
     platformInverted: true;
+    User{
+        id:user;
+    }
     Corners{
         id:corners;
     }   
@@ -63,7 +64,8 @@ PageStackWindow{
 
     Component.onCompleted:{
         Script.setsignalcenter(signalCenter);
-        loadLoginData(userdata.getUserData("LoginData"));
+        Script.app = app;
+        loadUserData(userdata.getUserData("UserData"));
         loadDownloadData(userdata.getUserData("DownloadData"));        
         pageStack.push(Qt.resolvedUrl("MainPage.qml"));
     }
@@ -85,14 +87,24 @@ PageStackWindow{
             downloadmodel.append(obj.statuses[i]);
         }
     }
-    function loadLoginData(oritxt) {
+    function savaUserData(){
+        console.log(here);
+        var obj = {"_id": user._id, "auth": user.auth, "nickname": user.nickName, "avatar": user.avatar, "avatar_hd": user.avatar_hd};
+        userdata.setUserData("UserData", JSON.stringify(obj));
+        console.log("here" + JSON.stringify(obj))
+    }
+
+    function loadUserData(oritxt) {
         if(!oritxt) {
             return;
         }
+        console.log(oritxt);
         var obj=JSON.parse(oritxt);
-        userId = obj.userId;
-        auth = obj.auth;
-        userName = obj.userName;
-        userstate = true;
+        user._id = obj._id;
+        user.auth = obj.auth;
+        user.nickName = obj.nickname;
+        user.avatar = obj.avatar;
+        user.avatar_hd = obj.avatar_hd;
+        user.userState = true;
     }
 }

@@ -32,7 +32,7 @@ Flickable{
             width: 80;
             height: 80;
             smooth: true;
-            source: app.avatar;
+            source: app.user.avatar;
             maskSource: "../../pic/Personal/HeadPortrait_Mask_x2.bmp";
         }
         Column{
@@ -44,7 +44,7 @@ Flickable{
             }
             Text{
                 font.pixelSize: 30;
-                text: app.nickname;
+                text: app.user.nickName;
             }
         }
 

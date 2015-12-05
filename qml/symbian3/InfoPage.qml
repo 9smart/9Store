@@ -26,6 +26,7 @@ MyPage{
 
     property alias screenShotsModel: screenshotmodel;
     property alias relatedAppsModel: relatedlistmodel;
+    property alias specifiedAuthorModel: specifiedauthormodel;
     onVisibleChanged: if (visible && firstStart) {
                           firstStart = false
                           Script.getinfo(_id);
@@ -52,6 +53,9 @@ MyPage{
     ListModel{
         id:relatedlistmodel;
     }
+    ListModel{
+        id: specifiedauthormodel;
+    }
     SendCommentDialog{
         id:sendcommentdialog;
     }
@@ -74,7 +78,6 @@ MyPage{
             }
             MyListItem{
                 id:screenshot;
-                //height: 120;
                 enabled: false;
                 visible: screenshotmodel.count != 0;
                 state: "close";
@@ -118,7 +121,6 @@ MyPage{
                         bottomMargin: 15;
                     }
                     source: "../pic/General/icon-m-toolbar-next.png";
-                    //rotation: 90;
                     height: 20;
                     width: 20;
                     MouseArea{
@@ -258,7 +260,7 @@ MyPage{
                     smooth: true;
                     source: "../pic/General/icon-m-toolbar-next.png";
                 }
-                //onClicked: pageStack.push(Qt.resolvedUrl("SpecifiedAuthorAppPage.qml"),{title:author})
+                onClicked: pageStack.push(Qt.resolvedUrl("SpecifiedAuthorAppPage.qml"),{title:developer, specifiedAuthorModel:specifiedAuthorModel})
             }
             MyListHeading{
                 id: relatedAppsTitle;
@@ -307,8 +309,6 @@ MyPage{
         }
     }
     Component.onCompleted:{
-        //Script.screenshotmodel=screenshotmodel;
-        //Script.relatedlistmodel=relatedlistmodel;
         Script.infoPage = infopage
     }
 }

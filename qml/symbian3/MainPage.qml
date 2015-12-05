@@ -8,6 +8,7 @@ MyPage{
     property string currentContent:"Home";
     property alias listmodel: listmodel;
     property alias categorymodel: categorymodel;
+    property alias toolBar: toolbar;
     title: qsTr("Home");
     Head{
         id:head;
@@ -64,16 +65,15 @@ MyPage{
             currentContent="Search";
         }
         onPersonalButtonClicked: {
-            if(userstate!==0){
+            if(user.userState !== false){
                 content.z=0;
                 content.source="MainPage/PersonalContent.qml";
                 title=qsTr("My Stuff");
                 currentContent="Personal";
             }
-            else pageStack.push(Qt.resolvedUrl("LoginPage.qml"))
+            else pageStack.push(Qt.resolvedUrl("LoginPage.qml"),{mainPage: mainpage})
         }
-        Timer
-        {
+        Timer{
             id: quitTimer;
             interval: 3000;
             running: false;
