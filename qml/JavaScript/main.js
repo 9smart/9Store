@@ -3,9 +3,12 @@ Qt.include("des.js");
 Qt.include("base64.js")
 Qt.include("api.js")
 var signalcenter;
-var system = "belle";
-function setsignalcenter(mycenter){
-    signalcenter=mycenter;
+var utility;
+var userData
+function initialize(sc, ut, ud){
+    signalcenter = sc;
+    utility = ut;
+    userData = ud;
 }
 function substr(string,length){
     string.toString();
@@ -88,17 +91,25 @@ function loadLogInResult(oritxt){
     }
 }
 function loadUserInfo(oritxt){
+    if(!oritxt) {
+        return;
+    }
+    console.log(oritxt);
     var obj = JSON.parse(oritxt);
-    //console.log(oritxt);
     if(obj._id !== ""){
         app.user.nickName = obj.nickname;
         app.user.avatar = obj.avatar;
         app.user.avatar_hd = obj.avatar_hd;
         app.user.noticeNumber = obj.notice_num;
-        app.savaUserData();
         app.user.userState = true;
+        savaUserData();
 
     }
+}
+function savaUserData(){
+    var obj = {"_id": app.user._id, "auth": app.user.auth, "nickname": app.user.nickName, "avatar": app.user.avatar, "avatar_hd": app.user.avatar_hd, "notice_num": app.user.noticeNumber};
+    userData.setUserData("UserData", JSON.stringify(obj));
+    console.log("here" + JSON.stringify(obj))
 }
 
 var mainPage;

@@ -63,9 +63,9 @@ PageStackWindow{
     }
 
     Component.onCompleted:{
-        Script.setsignalcenter(signalCenter);
+        Script.initialize(signalCenter, utility, userdata);
         Script.app = app;
-        loadUserData(userdata.getUserData("UserData"));
+        Script.loadUserInfo(userdata.getUserData("UserData"));
         loadDownloadData(userdata.getUserData("DownloadData"));        
         pageStack.push(Qt.resolvedUrl("MainPage.qml"));
     }
@@ -87,24 +87,7 @@ PageStackWindow{
             downloadmodel.append(obj.statuses[i]);
         }
     }
-    function savaUserData(){
-        console.log(here);
-        var obj = {"_id": user._id, "auth": user.auth, "nickname": user.nickName, "avatar": user.avatar, "avatar_hd": user.avatar_hd};
-        userdata.setUserData("UserData", JSON.stringify(obj));
-        console.log("here" + JSON.stringify(obj))
-    }
 
-    function loadUserData(oritxt) {
-        if(!oritxt) {
-            return;
-        }
-        console.log(oritxt);
-        var obj=JSON.parse(oritxt);
-        user._id = obj._id;
-        user.auth = obj.auth;
-        user.nickName = obj.nickname;
-        user.avatar = obj.avatar;
-        user.avatar_hd = obj.avatar_hd;
-        user.userState = true;
-    }
+
+
 }
