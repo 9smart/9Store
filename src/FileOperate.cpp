@@ -43,26 +43,31 @@ bool FileOperate::checkFileSize(QString filename){
 #ifdef Q_OS_HARMATTAN
 void FileOperate::openFile(int key, QString filename){
     switch(key){
-    case 1://Installation package
+    case 1://Silent Install package
         if(pkgmgr==NULL)
             pkgmgr = new QProcess();
         pkgmgr->start("pkgmgr",QStringList()<<"install-file"<<"-f"<<filename);
         break;
+    case 2://Install package;
+        QDesktopServices::openUrl(QUrl("file:///"+filename));
     }
 }
 #elif defined(Q_WS_SIMULATOR)
 void FileOperate::openFile(int key, QString filename){
     switch(key){
-    case 1://Installation package
+    case 1://Silent Install package
+        qDebug()<<"Silent install "<<filename;
+        break;
+    case 2:
         qDebug()<<"install "<<filename;
         break;
     }
 }
 #else
-void FileOperate::openFile(int key,QString filename){
+void FileOperate::openFile(int key, QString filename){
     //QDesktopServices::openUrl(QUrl("file:///"+filename));
     switch(key){
-    case 1://Installation package
+    case 1:{//Silent Install package
 
         _LIT( KTempPath , "C:\\211.sis" );
 
@@ -96,6 +101,11 @@ void FileOperate::openFile(int key,QString filename){
         iLauncher.Close();
         qDebug()<<"install finish";
         qDebug()<<a;
+        break;
+    }
+    case 2://Install package
+        qDebug()<<"install package "<<filename;
+        QDesktopServices::openUrl(QUrl("file:///"+filename));
         break;
     }
 }

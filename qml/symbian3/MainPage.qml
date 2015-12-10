@@ -6,8 +6,12 @@ import "../JavaScript/main.js" as Script
 MyPage{
     id:mainpage;
     property string currentContent:"Home";
+    property alias coverModel: covermodel;
+    property alias featuredModel: featuredmodel;
     property alias listmodel: listmodel;
     property alias categorymodel: categorymodel;
+    property alias applicationModel: applicationmodel;
+    property alias gameModel: gamemodel;
     property alias toolBar: toolbar;
     title: qsTr("Home");
     Head{

@@ -19,18 +19,66 @@ MyPage{
         onBackButtonClicked: pageStack.pop();
     }
     Column{
-        anchors.centerIn: parent;
-        spacing: 20;
+        anchors{
+            top: parent.top;
+            topMargin: 20;
+            horizontalCenter: parent.horizontalCenter;
+        }
+        width: parent.width - 30;
+        Row{
+            spacing: 15;
+            Image{
+                height: 50;
+                width: 50;
+                source: "../pic/9-Symbian.svg";
+                smooth: true;
+            }
+            Text{
+                anchors.verticalCenter: parent.verticalCenter;
+                text: qsTr("Account");
+            }
+        }
+        Item{
+            height: 20;
+        }
+        Text{
+            font.pixelSize: 30;
+            text: qsTr("Login to your account");
+        }
+        Item{
+            height: 15;
+        }
+        Text{
+            text: qsTr("9Smart ID");
+            font.pixelSize: 18;
+        }
         TextField{
             id:username;
             width: 300;
         }
+        Item{
+            height: 10;
+        }
+        Text{
+            text: qsTr("Password");
+            font.pixelSize: 18;
+        }
         TextField{
             id:password;
             width: 300;
-            echoMode: TextInput.Password;
+        }
+        Item{
+            height: 10;
+        }
+        Text{
+            font.pixelSize: 20;
+            text: qsTr("Forgot your password?")
+        }
+        Item{
+            height: 30;
         }
         Button{
+            anchors.horizontalCenter: parent.horizontalCenter;
             platformInverted: true;
             text: qsTr("Log in");
             onClicked: {

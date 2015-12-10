@@ -21,7 +21,7 @@ MyPage{
     property string comment_num
 
     property int dlnum:-1;
-    //property string dlUrl:"http://api.9smart.cn/app/download/"+_id+"?auth";
+    property string downloadUrl;
     property bool firstStart: true;
 
     property alias screenShotsModel: screenshotmodel;

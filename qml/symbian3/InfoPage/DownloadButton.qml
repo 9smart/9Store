@@ -1,6 +1,7 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.symbian 1.1
+import "../../JavaScript/main.js" as Script
 Rectangle {
     width: screen.width;
     height: 70;
@@ -23,8 +24,15 @@ Rectangle {
             right: parent.right;
             rightMargin: 5;
         }
-        //checked: true;
         text: qsTr("Download");
+        onClicked: {
+            if(user.userState){
+                Script.getDownloadUrl(_id, user.auth, title, icon);
+            }
+            else{
+                signalCenter.showMessage(qsTr("Please login"));
+            }
+        }
     }
     Image{
         anchors.top: parent.bottom;

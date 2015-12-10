@@ -14,6 +14,7 @@ PageStackWindow{
     property bool autoInstall:settings.autoInstall;
 
     property alias user: user;
+    property alias downloadModel: downloadmodel;
 
     platformInverted: true;
     User{
@@ -63,8 +64,8 @@ PageStackWindow{
     }
 
     Component.onCompleted:{
-        Script.initialize(signalCenter, utility, userdata);
-        Script.app = app;
+        Script.initialize(signalCenter, utility, userdata, settings/*, qcurl*/);
+        Script.application = app;
         Script.loadUserInfo(userdata.getUserData("UserData"));
         loadDownloadData(userdata.getUserData("DownloadData"));        
         pageStack.push(Qt.resolvedUrl("MainPage.qml"));

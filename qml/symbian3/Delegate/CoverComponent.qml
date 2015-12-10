@@ -5,7 +5,7 @@ Image {
     id: root;
     height: 170;
     width: parent.width;
-    source: model.thumb;
+    source: "http://apps-images.9smart.cn/" + model.uploader.uid + "/p/" + model._id;
     Rectangle{
         anchors.fill: parent;
         color: "lightgray";

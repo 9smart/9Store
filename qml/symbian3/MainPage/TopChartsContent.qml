@@ -36,6 +36,7 @@ Item{
         clip: true;
         delegate: ListComponent{}
         footer: ListFooter{
+            visible: listmodel.count > 0;
             onClicked: {
                 page = Script.page;
                 if(page !== "NULL"){

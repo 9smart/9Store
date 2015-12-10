@@ -30,6 +30,7 @@ public:
 
     Q_INVOKABLE bool isCurrentUrl(QString url);
     Q_INVOKABLE bool isFileExist(QString file);
+    Q_INVOKABLE bool isTaskExist(QString url);
 
     static size_t file_callback(void *ptr, size_t size, size_t nmemb, void *userp);
     static int progress_callback(void *clientp, double dltotal, double dlnow,double ultotal, double ulnow);

@@ -75,9 +75,9 @@ Flickable{
     }
     Component.onCompleted: {
         if(covermodel.count===0)
-            Script.getcover();
+            Script.getcover("Symbian%5e3");
         if(featuredmodel.count===0)
-            Script.getfeatured("belle");
+            Script.getfeatured("Symbian%5e3");
     }
     NumberAnimation on opacity {
         from: 0;

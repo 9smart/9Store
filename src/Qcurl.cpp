@@ -9,6 +9,9 @@
 QCurl::QCurl(QObject *parent):QObject(parent)
 {
     last=head=current=(struct QCurldl *)malloc(sizeof(struct QCurldl));
+    current->url = NULL;
+    current->fp = NULL;
+    current->next = NULL;
     curl_global_init(CURL_GLOBAL_ALL );
     setState(0);
 }
@@ -39,6 +42,8 @@ double QCurl::progress() const
 
 void QCurl::appenddl(QString url,  QString file)
 {
+    qDebug()<<"curl append: "<<url;
+    qDebug()<<file;
     QByteArray ba = url.toLatin1();
     char *urlc=ba.data();
     ba = file.toUtf8();
@@ -88,6 +93,18 @@ bool QCurl::isFileExist(QString file)
     }
     fclose(fp);
     return true;
+}
+
+bool QCurl::isTaskExist(QString url)
+{
+    QCurldl *temp = head;
+    while(temp != NULL){
+        if(QString(temp->url) == url){
+            return true;
+        }
+        temp = temp->next;
+    }
+    return false;
 }
 
 size_t QCurl::file_callback(void *ptr, size_t size, size_t nmemb, void *userp)
@@ -174,10 +191,16 @@ QCurlPerformer::~QCurlPerformer(){
 
 void QCurlPerformer::start(CURL *curl){
     qDebug("start");
-    res=curl_easy_perform(curl);
-    if(res==CURLE_OK){
+    res = curl_easy_perform(curl);
+    if(res == CURLE_OK){
         curl_easy_cleanup(curl);
         qDebug("finished");
+        emit stateChanged(3);
+        emit finished();
+    }
+    else{
+        qDebug("Failed");
+        curl_easy_cleanup(curl);
         emit stateChanged(3);
         emit finished();
     }

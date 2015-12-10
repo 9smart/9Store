@@ -77,6 +77,9 @@ Flickable{
                 width: 25;
                 source: "../../pic/General/icon-m-toolbar-next.png";
             }
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("../DownloadPage.qml"));
+            }
         }
         MyListHeading{
             text: qsTr("Settings");
@@ -102,7 +105,7 @@ Flickable{
                 width: 25;
                 source: "../../pic/General/icon-m-toolbar-next.png";
             }
-            onClicked: pageStack.push(Qt.resolvedUrl("../InstallSettingPage.qml"))
+            onClicked: pageStack.push(Qt.resolvedUrl("../InstallSettingPage.qml"));
         }
         MyListItem{
             Text{

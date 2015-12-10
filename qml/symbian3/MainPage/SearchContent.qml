@@ -13,15 +13,15 @@ Item{
             if(text==="")
                 signalCenter.showMessage(qsTr("Please input the key word"));
             else if(currentContent==="LibraryContent.qml"){
-                //Script.getapplication("belle",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
-                //Script.getgame("belle",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
+                Script.getapplication("Symbian%5e3", text);
+                Script.getgame("Symbian%5e3", text);
             }
             else if(currentContent==="CategoryContent.qml"){
-                Script.getlist("Symbian%5e3", "", "", page,"12","");
+                Script.getSearch("Symbian%5e3", text, "", page);
                 root.currentContent="ListContent.qml";
             }
             else {
-                Script.getlist("Symbian%5e3", root.category, "", page,"12","");
+                Script.getlist("Symbian%5e3", text, root.category, page);
             }
         }
     }

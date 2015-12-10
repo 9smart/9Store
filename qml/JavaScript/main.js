@@ -4,11 +4,15 @@ Qt.include("base64.js")
 Qt.include("api.js")
 var signalcenter;
 var utility;
-var userData
-function initialize(sc, ut, ud){
+var userData;
+var settings;
+var qCurl;
+function initialize(sc, ut, ud, st, qc){
     signalcenter = sc;
     utility = ut;
     userData = ud;
+    qCurl = qc?qc:"";
+    settings = st;
 }
 function substr(string,length){
     string.toString();
@@ -72,7 +76,7 @@ function sendWebRequest(url, callback, method, postdata) {
     }
 }
 
-var app;
+var application;
 function logIn(userName, passWord){
     var url = login();
     var postData = loginData(userName, passWord);
@@ -80,62 +84,69 @@ function logIn(userName, passWord){
 }
 function loadLogInResult(oritxt){
     var obj = JSON.parse(oritxt);
-    if(obj.err === 0){
-        app.user._id = obj._id;
-        app.user.auth = obj.auth;
+    if(obj.error === 0){
+        application.user._id = obj._id;
+        application.user.auth = obj.auth;
         var url = user(obj._id, obj.auth);
         sendWebRequest(url, loadUserInfo, "GET", "")
     }
     else{
-        signalcenter.showMessage(obj.err);
+        signalcenter.showMessage(obj.error);
     }
 }
 function loadUserInfo(oritxt){
     if(!oritxt) {
         return;
     }
-    console.log(oritxt);
     var obj = JSON.parse(oritxt);
-    if(obj._id !== ""){
-        app.user.nickName = obj.nickname;
-        app.user.avatar = obj.avatar;
-        app.user.avatar_hd = obj.avatar_hd;
-        app.user.noticeNumber = obj.notice_num;
-        app.user.userState = true;
+
+    if(obj.error === 0){
+        application.user.nickName = obj.user.nickname;
+        application.user.avatar = obj.user.avatar;
+        application.user.avatar_hd = obj.user.avatar_hd;
+        application.user.noticeNumber = obj.user.notice_num;
+        application.user.userState = true;
+        if(obj.user.auth)
+            application.user.auth = obj.user.auth;
         savaUserData();
 
     }
 }
 function savaUserData(){
-    var obj = {"_id": app.user._id, "auth": app.user.auth, "nickname": app.user.nickName, "avatar": app.user.avatar, "avatar_hd": app.user.avatar_hd, "notice_num": app.user.noticeNumber};
+    var obj = {"error":0, "user":{"_id": application.user._id, "auth": application.user.auth, "nickname": application.user.nickName, "avatar": application.user.avatar, "avatar_hd": application.user.avatar_hd, "notice_num": application.user.noticeNumber}};
     userData.setUserData("UserData", JSON.stringify(obj));
-    console.log("here" + JSON.stringify(obj))
 }
 
 var mainPage;
 var page;
-function getfeatured(os){
-    var url="http://api.9smart.cn/apps?system="+os+"&recommended=1";
+function getfeatured(system){
+    var url = getRecommendation(system);
     sendWebRequest(url,loadfeatured,"GET","");
 }
 function loadfeatured(oritxt){
-    var obj=JSON.parse(oritxt);
-    featuredmodel.clear();
-    for(var i in obj.apps){
-        featuredmodel.append(obj.apps[i]);
+    var obj = JSON.parse(oritxt);
+    if(obj.error === 0){
+        mainPage.featuredModel.clear();
+        for(var i in obj.apps){
+            mainPage.featuredModel.append(obj.apps[i]);
+        }
     }
+    else signalcenter.showMessage(obj.error);
 }
 
-function getcover(){
-    var url="http://api.9smart.cn/covers?type=app";
+function getcover(system){
+    var url = getPoster(system);
     sendWebRequest(url,loadcover,"GET","");
 }
 function loadcover(oritxt){
-    var obj=JSON.parse(oritxt);
-    covermodel.clear();
-    for(var i in obj.covers){
-        covermodel.append(obj.covers[i]);
+    var obj = JSON.parse(oritxt);
+    if(obj.error === 0){
+        mainPage.coverModel.clear();
+        for(var i in obj.apps){
+            mainPage.coverModel.append(obj.apps[i]);
+        }
     }
+    else signalcenter.showMessage(obj.error);
 }
 
 function getcategory(type){
@@ -144,13 +155,13 @@ function getcategory(type){
 }
 function loadcategory(oritxt){
     var obj=JSON.parse(oritxt);
-    if(obj.err === 0){
+    if(obj.error === 0){
         mainPage.categorymodel.clear();
         for(var i in obj.categorys){
             mainPage.categorymodel.append({"category":obj.categorys[i]});
         }
     }
-    else signalcenter.showMessage(obj.err);
+    else signalcenter.showMessage(obj.error);
 }
 
 function getlist(system, category, developer, page, pagesize, sort){
@@ -159,7 +170,7 @@ function getlist(system, category, developer, page, pagesize, sort){
 }
 function loadlist(oritxt){
     var obj=JSON.parse(oritxt);
-    if(obj.err === 0){
+    if(obj.error === 0){
         if(obj.pager.page === 1){
             mainPage.listmodel.clear();
         }
@@ -173,31 +184,40 @@ function loadlist(oritxt){
             page = "NULL";
         }
     }
-    else signalcenter.showMessage(obj.err);
+    else signalcenter.showMessage(obj.error);
 }
 
-function getapplication(os,appname,fields){
-    //var url="http://api.9smart.cn/apps?type=app&system="+os+"&appname="+appname+"&fields="+fields;
+function getapplication(system, keyWord){
+    var url= search(system, keyWord, "", "", "app");
     sendWebRequest(url,loadapplication,"GET","");
 }
 function loadapplication(oritxt){
     var obj=JSON.parse(oritxt);
-    applicationmodel.clear();
-    for(var i in obj.apps){
-        applicationmodel.append(obj.apps[i]);
+    if(obj.error === 0){
+        mainPage.applicationModel.clear();
+        for(var i in obj.apps){
+            mainPage.applicationModel.append(obj.apps[i]);
+        }
     }
 }
 
-function getgame(os,appname,fields){
-    var url="http://api.9smart.cn/apps?type=game&system="+os+"&appname="+appname+"&fields="+fields;
+function getgame(system, keyWord){
+    var url= search(system, keyWord, "", "", "game");
     sendWebRequest(url,loadgame,"GET","");
 }
 function loadgame(oritxt){
     var obj=JSON.parse(oritxt);
-    gamemodel.clear();
-    for(var i in obj.apps){
-        gamemodel.append(obj.apps[i]);
+    if(obj.error === 0){
+        mainPage.gameModel.clear();
+        for(var i in obj.apps){
+            mainPage.gameModel.append(obj.apps[i]);
+        }
     }
+}
+
+function getSearch(system, keyWord, category, page){
+    var url = search(system, keyWord, "", page, "", category);
+    sendWebRequest(url, loadlist, "GET", "");
 }
 
 var infoPage;
@@ -207,8 +227,8 @@ function getinfo(id){
 }
 function loadinfo(oritxt){
     var obj=JSON.parse(oritxt);
-    if(obj.err === 0){
-        //type=obj.type;
+    if(obj.error === 0){
+        infoPage.type=obj.app.type;
         infoPage.category = obj.app.category;
         infoPage.version = obj.app.version;
         infoPage.size = obj.app.size;
@@ -224,7 +244,28 @@ function loadinfo(oritxt){
                                                  ,"url":"http://apps-images.9smart.cn/" + obj.app.uploader.uid + "/" + obj.app._id + "/s/" + i.toString()})
         }
     }
-    else signalcenter.showMessage(obj.err);
+    else signalcenter.showMessage(obj.error);
+}
+
+var downloadName;
+var downloadIcon;
+function getDownloadUrl(id, auth, name, icon){
+    var url = download(id, auth, "");
+    downloadName = name;
+    downloadIcon = icon;
+    sendWebRequest(url, loadDownloadUrl, "GET", "");
+}
+function loadDownloadUrl(oritxt){
+    var obj = JSON.parse(oritxt);
+    if(obj.error === 0){
+        application.downloadModel.append({"name": downloadName, "url": obj.down_url,
+                                          "filename": settings.downloadPath + "/" +downloadName + ".sis", "icon": downloadIcon});
+        console.log(downloadName);
+        console.log(settings.downloadPath)
+        qCurl.appenddl(obj.down_url, settings.downloadPath + "/" + downloadName + ".sis");
+        signalCenter.showMessage(qsTr("Task added!"));
+    }
+    else signalcenter.showMessage(obj.error);
 }
 
 function getrelatedlist(system, category, page, pagesize){
@@ -233,7 +274,7 @@ function getrelatedlist(system, category, page, pagesize){
 }
 function loadrelatedlist(oritxt){
     var obj=JSON.parse(oritxt);
-    if(obj.err === 0){
+    if(obj.error === 0){
         if(obj.pager.page=== 1){
             infoPage.relatedAppsModel.clear();
         }
@@ -255,7 +296,7 @@ function getSpecifiedAuthorList(system, developer, page, pageSize){
 }
 function loadSpecifiedAuthorList(oritxt){
     var obj = JSON.parse(oritxt);
-    if(obj.err === 0){
+    if(obj.error === 0){
         if(obj.pager.page === 1){
             infoPage.specifiedAuthorModel.clear();
         }
@@ -269,7 +310,7 @@ function loadSpecifiedAuthorList(oritxt){
             page = "NULL";
         }
     }
-    else signalcenter.showMessage(obj.err);
+    else signalcenter.showMessage(obj.error);
 }
 
 
