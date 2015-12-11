@@ -1,12 +1,11 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.symbian 1.1
-import "../JavaScript/main.js" as Script
 import "BaseComponent"
+
 MyPage{
-    id:loginpage;
-    title:qsTr("log in");
-    property MyPage mainPage;
+    id:registerpage;
+    title: qsTr("Register");
     ToolBar{
         id:toolbar;
         z:1;
@@ -44,7 +43,7 @@ MyPage{
         }
         Text{
             font.pixelSize: 24;
-            text: qsTr("Login to your account");
+            text: qsTr("Creat a new account");
             color: "#3c3c3c";
         }
         Item{
@@ -58,7 +57,20 @@ MyPage{
         }
         TextField{
             id:username;
-            width: 300;
+            width: 330;
+        }
+        Item{
+            height: 10;
+            width: parent.width;
+        }
+        Text{
+            text: qsTr("User name");
+            font.pixelSize: 14;
+            color: "#777777";
+        }
+        TextField{
+            id:nickname;
+            width: 330;
         }
         Item{
             height: 10;
@@ -69,9 +81,18 @@ MyPage{
             font.pixelSize: 14;
             color: "#777777";
         }
-        TextField{
-            id:password;
-            width: 300;
+        Row{
+            spacing: 12;
+            TextField{
+                id:password;
+                width: 280;
+                echoMode: showpassword.checked? TextInput.Normal:TextInput.Password;
+            }
+            CheckBox{
+                id: showpassword;
+                platformInverted: true;
+                Component.onCompleted: console.log(width);
+            }
         }
         Item{
             height: 10;
@@ -79,9 +100,9 @@ MyPage{
         }
         Text{
             font.pixelSize: 14;
-            color: "#1080dd";
-            font.underline: true;
-            text: qsTr("Forgot your password?");
+            color: "#777777";
+            anchors.right: parent.right;
+            text: qsTr("Show password");
         }
         Item{
             height: 30;
@@ -90,7 +111,7 @@ MyPage{
         Button{
             anchors.horizontalCenter: parent.horizontalCenter;
             platformInverted: true;
-            text: qsTr("Log in");
+            text: qsTr("Continue");
             width: 265;
             onClicked: {
                 Script.logIn(username.text, password.text);
@@ -104,27 +125,14 @@ MyPage{
             anchors.horizontalCenter: parent.horizontalCenter;
             font.pixelSize: 14;
             color: "#777777";
-            text: qsTr("Don't have an account yet?");
+            text: qsTr("Have an account?");
         }
         Text{
             anchors.horizontalCenter: parent.horizontalCenter;
             font.pixelSize: 14;
             color: "#1080dd";
             font.underline: true;
-            text: qsTr("Get one here");
-            MouseArea{
-                anchors.fill: parent;
-                onClicked: pageStack.push(Qt.resolvedUrl("registerPage.qml"));
-            }
-        }
-    }
-    Connections{
-        target: app.user;
-        onUserStateChanged:{
-            if(app.user.userState === true){
-                mainPage.toolBar.personalButtonClicked();
-                pageStack.pop();
-            }
+            text: qsTr("Click to login");
         }
     }
 }
