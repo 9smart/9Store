@@ -30,27 +30,32 @@ MyPage{
             Image{
                 height: 50;
                 width: 50;
-                source: "../pic/9-Symbian.svg";
+                source: "../pic/9-Symbian2.svg";
                 smooth: true;
             }
             Text{
                 anchors.verticalCenter: parent.verticalCenter;
                 text: qsTr("Account");
+                font.pixelSize: 30;
             }
         }
         Item{
             height: 20;
+            width: parent.width;
         }
         Text{
-            font.pixelSize: 30;
+            font.pixelSize: 24;
             text: qsTr("Login to your account");
+            color: "#3c3c3c";
         }
         Item{
             height: 15;
+            width: parent.width;
         }
         Text{
             text: qsTr("9Smart ID");
-            font.pixelSize: 18;
+            font.pixelSize: 14;
+            color: "#777777";
         }
         TextField{
             id:username;
@@ -58,10 +63,12 @@ MyPage{
         }
         Item{
             height: 10;
+            width: parent.width;
         }
         Text{
             text: qsTr("Password");
-            font.pixelSize: 18;
+            font.pixelSize: 14;
+            color: "#777777";
         }
         TextField{
             id:password;
@@ -69,21 +76,43 @@ MyPage{
         }
         Item{
             height: 10;
+            width: parent.width;
         }
         Text{
-            font.pixelSize: 20;
-            text: qsTr("Forgot your password?")
+            font.pixelSize: 14;
+            color: "#1080dd";
+            font.underline: true;
+            text: qsTr("Forgot your password?");
         }
         Item{
             height: 30;
+            width: parent.width;
         }
         Button{
             anchors.horizontalCenter: parent.horizontalCenter;
             platformInverted: true;
             text: qsTr("Log in");
+            width: 265;
             onClicked: {
                 Script.logIn(username.text, password.text);
             }
+        }
+        Item{
+            height: 35;
+            width: parent.width;
+        }
+        Text{
+            anchors.horizontalCenter: parent.horizontalCenter;
+            font.pixelSize: 14;
+            color: "#777777";
+            text: qsTr("Don't have an account yet?");
+        }
+        Text{
+            anchors.horizontalCenter: parent.horizontalCenter;
+            font.pixelSize: 14;
+            color: "#1080dd";
+            font.underline: true;
+            text: qsTr("Get one here");
         }
     }
     Connections{
