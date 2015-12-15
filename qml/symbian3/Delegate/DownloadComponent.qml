@@ -57,8 +57,17 @@ MyListItem{
         width: sourceSize.width;
     }
     onClicked:{
-        if(state === "Downloaded")
-            fileoperate.openFile(2, model.filename);
+        if(state === "Erro"){
+            //redownloaddia.open();
+        }
+        else if(state === "Downloaded"){
+            if(settings.autoInstall){
+                fileoperate.openFile(1, model.filename)
+            }
+            else{
+                fileoperate.openFile(2, model.filename);
+            }
+        }
     }
 
     states: [

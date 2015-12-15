@@ -7,19 +7,20 @@ import "Delegate"
 import "../JavaScript/main.js" as Script
 MyPage{
     id:commentpage;
-    property string appid;
+    property string _id;
     property bool firstStart: true;
     property string size;
-    property string author;
+    property string developer;
     property string type;
     property string category;
     property string icon;
     property string scores;
-    property int ratingnum;
-    property int page: 1;
+    property int score_num;
+    property alias commentModel: commentmodel;
     onVisibleChanged: if (visible && firstStart) {
-                          firstStart = false
-                          Script.getComment(appid,page.toString());
+                          firstStart = false;
+                          Script.page = "";
+                          Script.getComment(_id, Script.page);
                       }
     ToolBar{
         id:toolbar;
@@ -31,7 +32,7 @@ MyPage{
         personalSource: "../pic/Details/edit.svg";
         highlightItem: 0;
         onBackButtonClicked: pageStack.pop();
-        onPersonalButtonClicked: sendcommentdialog.open();
+        //onPersonalButtonClicked: sendcommentdialog.open();
     }
     ListModel{
         id:commentmodel;
@@ -74,6 +75,6 @@ MyPage{
         }
     }
     Component.onCompleted:{
-        Script.commentmodel=commentmodel;
+        Script.commentPage = commentpage;
     }
 }

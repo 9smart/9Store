@@ -20,7 +20,7 @@ MyPage{
     property string summary;
     property string comment_num
 
-    property int dlnum:-1;
+    //property int dlnum:-1;
     property string downloadUrl;
     property bool firstStart: true;
 
@@ -237,7 +237,7 @@ MyPage{
                     smooth: true;
                     source: "../pic/General/icon-m-toolbar-next.png";
                 }
-                //onClicked: pageStack.push(Qt.resolvedUrl("CommentPage.qml"),{appid:appid,ratingnum:ratingnum,size:size,author:author,type:type,category:category,icon:icon,scores:scores,title:title})
+                onClicked: pageStack.push(Qt.resolvedUrl("CommentPage.qml"),{_id:_id, score_num:score_num, size:size, developer:developer, type:type, category:category, icon:icon, scores:scores, title:title})
             }
             MyListItem{
                 Text{

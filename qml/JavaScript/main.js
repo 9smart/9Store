@@ -98,13 +98,14 @@ function loadUserInfo(oritxt){
     if(!oritxt) {
         return;
     }
+    //console.log(oritxt);
     var obj = JSON.parse(oritxt);
 
     if(obj.error === 0){
         application.user.nickName = obj.user.nickname;
         application.user.avatar = obj.user.avatar;
         application.user.avatar_hd = obj.user.avatar_hd;
-        application.user.noticeNumber = obj.user.notice_num;
+        //application.user.noticeNumber = obj.user.notice_num;
         application.user.userState = true;
         if(obj.user.auth)
             application.user.auth = obj.user.auth;
@@ -113,8 +114,28 @@ function loadUserInfo(oritxt){
     }
 }
 function savaUserData(){
-    var obj = {"error":0, "user":{"_id": application.user._id, "auth": application.user.auth, "nickname": application.user.nickName, "avatar": application.user.avatar, "avatar_hd": application.user.avatar_hd, "notice_num": application.user.noticeNumber}};
+    var obj = {"error":0, "user":{"_id": application.user._id, "auth": application.user.auth, "nickname": application.user.nickName, "avatar": application.user.avatar, "avatar_hd": application.user.avatar_hd}};
     userData.setUserData("UserData", JSON.stringify(obj));
+    //console.log("here");
+}
+
+function sendRegister(userName, nickname, password){
+    var url = register();
+    var postData = registerData(userName, nickname, password, password, "From Symbian client");
+    sendWebRequest(url, loadRegisterResult, "POST", postData);
+}
+function loadRegisterResult(oritxt){
+    console.log(oritxt);
+    var obj = JSON.parse(oritxt);
+    if(obj.error === 0){
+        application.user._id = obj._id;
+        application.user.auth = obj.auth;
+        var url = user(obj._id, obj.auth);
+        sendWebRequest(url, loadUserInfo, "GET", "");
+    }
+    else{
+        signalcenter.showMessage(obj.error);
+    }
 }
 
 var mainPage;
@@ -259,7 +280,7 @@ function loadDownloadUrl(oritxt){
     var obj = JSON.parse(oritxt);
     if(obj.error === 0){
         application.downloadModel.append({"name": downloadName, "url": obj.down_url,
-                                          "filename": settings.downloadPath + "/" +downloadName + ".sis", "icon": downloadIcon});
+                                             "filename": settings.downloadPath + "/" +downloadName + ".sis", "icon": downloadIcon});
         console.log(downloadName);
         console.log(settings.downloadPath)
         qCurl.appenddl(obj.down_url, settings.downloadPath + "/" + downloadName + ".sis");
@@ -315,18 +336,23 @@ function loadSpecifiedAuthorList(oritxt){
 
 
 
-var commentmodel;
-function getComment(appid,page){
-    var url="http://api.9smart.cn/comments/"+appid+"?page="+page;
+var commentPage;
+function getComment(appid, page){
+    var url = comments(appid, page);
+    console.log(url);
     sendWebRequest(url,loadComment,"GET","");
 }
 function loadComment(oritxt){
+    console.log(oritxt);
     var obj=JSON.parse(oritxt);
-    if(obj.pager.page==="1"){
-        commentmodel.clear();
-    }
-    for(var i in obj.comments){
-        commentmodel.append(obj.comments[i]);
+
+    if(obj.error === 0){
+        if(obj.pager.page === 1){
+            commentPage.commentModel.clear();
+        }
+        for(var i in obj.comments){
+            commentPage.commentModel.append(obj.comments[i]);
+        }
     }
 }
 function sendComment(appid,auth,message,score) {

@@ -10,7 +10,7 @@ void UserData::setUserData(const QString &key, const QString &data)
     if (!dir.exists()) dir.mkpath(path);
 
     QString filename = path + QDir::separator() + key + ".dat";
-    qDebug()<<filename;
+    //qDebug()<<filename;
     QFile file(filename);
     if(file.open(QIODevice::WriteOnly))
     {

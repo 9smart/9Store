@@ -64,7 +64,7 @@ PageStackWindow{
     }
 
     Component.onCompleted:{
-        Script.initialize(signalCenter, utility, userdata, settings/*, qcurl*/);
+        Script.initialize(signalCenter, utility, userdata, settings, qcurl);
         Script.application = app;
         Script.loadUserInfo(userdata.getUserData("UserData"));
         loadDownloadData(userdata.getUserData("DownloadData"));        

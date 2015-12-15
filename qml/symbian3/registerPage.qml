@@ -1,6 +1,7 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.symbian 1.1
+import "../JavaScript/main.js" as Script
 import "BaseComponent"
 
 MyPage{
@@ -91,7 +92,7 @@ MyPage{
             CheckBox{
                 id: showpassword;
                 platformInverted: true;
-                Component.onCompleted: console.log(width);
+                //Component.onCompleted: console.log(width);
             }
         }
         Item{
@@ -114,7 +115,7 @@ MyPage{
             text: qsTr("Continue");
             width: 265;
             onClicked: {
-                Script.logIn(username.text, password.text);
+                Script.sendRegister(username.text, nickname.text, password.text);
             }
         }
         Item{
@@ -133,6 +134,19 @@ MyPage{
             color: "#1080dd";
             font.underline: true;
             text: qsTr("Click to login");
+            MouseArea{
+                anchors.fill: parent;
+                onClicked: pageStack.pop();
+            }
+        }
+    }
+    Connections{
+        target: app.user;
+        onUserStateChanged:{
+            if(app.user.userState === true){
+                //mainPage.toolBar.personalButtonClicked();
+                pageStack.pop();
+            }
         }
     }
 }

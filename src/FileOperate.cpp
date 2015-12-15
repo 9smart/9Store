@@ -65,12 +65,18 @@ void FileOperate::openFile(int key, QString filename){
 }
 #else
 void FileOperate::openFile(int key, QString filename){
-    //QDesktopServices::openUrl(QUrl("file:///"+filename));
     switch(key){
     case 1:{//Silent Install package
 
-        _LIT( KTempPath , "C:\\211.sis" );
+        qDebug()<<"install "<<filename;
 
+        //_LIT( KTempPath , "E:\\downloadVine.sis" );
+        QByteArray ba = filename.toLatin1();
+        //char *file = ba.data();
+        char *file = "E:\\downloadVine.sis";
+        //_LIT( KTempPath , file );
+
+        //const static TLitC<sizeof(file)> KTempPath = {sizeof(file)-1, file};
         //CAOSync* waiter = CAOSync::NewL();
         //CleanupStack::PushL( waiter );
 
@@ -81,7 +87,7 @@ void FileOperate::openFile(int key, QString filename){
         //iOptions.iUpgrade = SwiUI::EPolicyNotAllowed;
         iOptions.iOCSP = SwiUI::EPolicyAllowed;
         //iOptions.iUntrusted = SwiUI::EPolicyNotAllowed;
-        iOptions.iDrive = 'C'; //同样可以使用67 69表示C E
+        iOptions.iDrive = 'E'; //同样可以使用67 69表示C E
 
         iOptionsPckg = iOptions;
 
@@ -89,14 +95,16 @@ void FileOperate::openFile(int key, QString filename){
         qDebug()<<"connect ok";
         qDebug()<<a;
 
-        TBufC<50> FName(KTempPath);
-
+        //TBufC<50> FName(KTempPath);
+        const TText *text = (TText*)file;
+        TBufC<50> FName(text);
+        qDebug()<<"install start";
         a=iLauncher.SilentInstall(FName,iOptionsPckg);
 
         //waiter->Execute();
 
         //CleanupStack::PopAndDestroy( waiter );
-        qDebug()<<"install start";
+
 
         iLauncher.Close();
         qDebug()<<"install finish";
