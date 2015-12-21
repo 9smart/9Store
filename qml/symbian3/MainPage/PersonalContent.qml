@@ -2,6 +2,7 @@
 import QtQuick 1.1
 import com.stars.widgets 1.0
 import "../BaseComponent"
+import "../Dialog"
 Flickable{
     width: screen.width;
     Image{
@@ -19,7 +20,7 @@ Flickable{
         }
         Image{
             source: "../../pic/Personal/DEV.svg";
-            visible: false;
+            visible: app.user.group === "开发者";
         }
         MyImage{
             id:avatar;
@@ -34,6 +35,19 @@ Flickable{
             smooth: true;
             source: app.user.avatar;
             maskSource: "../../pic/Personal/HeadPortrait_Mask_x2.bmp";
+            MyImage{
+                anchors.fill: parent;
+                source: "../../pic/Details/App_Datail_Loading.svg";
+                maskSource: "../../pic/Personal/HeadPortrait_Mask_x2.bmp";
+                visible: parent.status == Image.Loading;
+            }
+            MyImage{
+                anchors.fill: parent;
+                source: "../../pic/Personal/defalt.png";
+                maskSource: "../../pic/Personal/HeadPortrait_Mask_x2.bmp";
+                smooth: true;
+                visible: parent.status == Image.Error;
+            }
         }
         Column{
             anchors{
@@ -42,9 +56,20 @@ Flickable{
                 bottom: parent.bottom;
                 bottomMargin: 10;
             }
-            Text{
-                font.pixelSize: 30;
-                text: app.user.nickName;
+            Row{
+                spacing: 5;
+                Text{
+                    font.pixelSize: 30;
+                    text: app.user.nickName;
+                    color: "#3c3c3c";
+                }
+                Text{
+                    font.pixelSize: 15;
+                    anchors.bottom: parent.bottom;
+                    anchors.bottomMargin: 5;
+                    color: "#787878";
+                    text: app.user.group;
+                }
             }
         }
 
@@ -130,7 +155,29 @@ Flickable{
             }
             onClicked: pageStack.push(Qt.resolvedUrl("../AboutPage.qml"))
         }
+        MyListItem{
+            Text{
+                anchors{
+                    verticalCenter: parent.verticalCenter;
+                    left: parent.left;
+                    leftMargin: 15;
+                }
+                text: qsTr("Log out");
+                color: "#3c3c3c";
+                font.pixelSize: 24;
+            }
+            onClicked: {
+                logoutconfirmdialog.open();
+            }
+        }
     }
+    LogOutConfirmDialog{
+        id: logoutconfirmdialog;
+        onAccepted: {
+            mainpage.toolBar.homeButtonClicked()
+        }
+    }
+
     NumberAnimation on opacity {
         from: 0;
         to:1;

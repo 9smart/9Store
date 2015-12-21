@@ -43,13 +43,13 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<MyImage>("com.stars.widgets",1,0,"MyImage");
 
     QmlApplicationViewer viewer;
-    FileOperate fileoperate;
     Settings settings;
+    FileOperate fileoperate(&settings, &viewer);
     UserData userdata;
     Utility utility;
 
 #ifndef Q_WS_SIMULATOR
-    QCurl qcurl;
+    QCurl qcurl(&viewer);
     viewer.rootContext()->setContextProperty("qcurl",&qcurl);
 #endif
     NetworkAccessManagerFactory factory;

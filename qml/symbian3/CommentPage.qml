@@ -19,8 +19,8 @@ MyPage{
     property alias commentModel: commentmodel;
     onVisibleChanged: if (visible && firstStart) {
                           firstStart = false;
-                          Script.page = "";
-                          Script.getComment(_id, Script.page);
+                          Script.commentListPage = "";
+                          Script.getComment(_id, Script.commentListPage);
                       }
     ToolBar{
         id:toolbar;
@@ -32,7 +32,14 @@ MyPage{
         personalSource: "../pic/Details/edit.svg";
         highlightItem: 0;
         onBackButtonClicked: pageStack.pop();
-        //onPersonalButtonClicked: sendcommentdialog.open();
+        onPersonalButtonClicked: {
+            if(user.userState){
+                sendcommentdialog.open();
+            }
+            else{
+                signalCenter.showMessage(qsTr("Please login"));
+            }
+        }
     }
     ListModel{
         id:commentmodel;
@@ -71,6 +78,17 @@ MyPage{
             Repeater{
                 model: commentmodel;
                 delegate: CommentComponent{}
+            }
+            ListFooter{
+                visible: commentmodel.count > 0;
+                onClicked: {
+                    if(Script.commentListPage !== "NULL"){
+                        Script.getComment(_id, Script.commentListPage);
+                    }
+                    else{
+                        signalCenter.showMessage(qsTr("No next page aviliable..."))
+                    }
+                }
             }
         }
     }

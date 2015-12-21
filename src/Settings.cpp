@@ -16,11 +16,12 @@ void Settings::loadSettings()
     if (settings){
 #ifdef Q_OS_HARMATTAN
         m_downloadPath = settings->value("downloadPath", "/home/user/MyDocs/").toString();
-#else
+#elif defined(Q_OS_SYMBIAN) | defined(Q_WS_SIMULATOR)
         m_downloadPath = settings->value("downloadPath", "E:/").toString();
         m_installDriver = settings->value("installDriver", "E:/").toString();
 #endif
-        m_autoInstall = settings->value("autoInstall",false).toBool();
+        m_autoInstall = settings->value("autoInstall", false).toBool();
+        m_silenceInstall = settings->value("silenceInstall", true).toBool();
     }
     else qDebug() << "settings load failed...";
 }
@@ -29,10 +30,11 @@ void Settings::saveSettings()
     qDebug() << "Saving settins...";
     if (settings){
         settings->setValue("downloadPath", m_downloadPath);
-        #ifdef Q_OS_SYMBIAN
+#if defined(Q_OS_SYMBIAN) | defined(Q_WS_SIMULATOR)
         settings->setValue("installDriver",m_installDriver);
-        #endif
+#endif
         settings->setValue("autoInstall",m_autoInstall);
+        settings->setValue("silenceInstall", m_silenceInstall);
     }
     else qDebug() << "settings save failed...";
 }
@@ -76,5 +78,17 @@ void Settings::setAutoInstall(bool newAutoInstall)
     if (m_autoInstall != newAutoInstall){
         m_autoInstall = newAutoInstall;
         emit autoInstallChanged();
+    }
+}
+
+bool Settings::silenceInstall()
+{
+    return m_silenceInstall;
+}
+void Settings::setSilenceInstall(bool newSilenceInstall)
+{
+    if(m_silenceInstall != newSilenceInstall){
+        m_silenceInstall = newSilenceInstall;
+        emit silenceInstallChanged();
     }
 }

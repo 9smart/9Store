@@ -31,8 +31,6 @@ CommonDialog{
         }
     }
     onButtonClicked: {
-        if(index===0) {
-            Script.sendComment(appid,utility.base64(Des.des(app.uid+","+app.accesstoken+","+app.logintype)),comments.text,rankstars.ranknum)
-        }
+        Script.sendComment(user.auth, _id, "app", comments.text, rankstars.ranknum, app.deviceModel);
     }
 }

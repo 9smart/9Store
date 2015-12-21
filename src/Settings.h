@@ -15,6 +15,7 @@ class Settings : public QObject
     Q_PROPERTY(QString installDriver READ getInstallDriver WRITE setInstallDriver NOTIFY installDriverChanged)
 #endif
     Q_PROPERTY(bool autoInstall READ autoInstall WRITE setAutoInstall NOTIFY autoInstallChanged)
+    Q_PROPERTY(bool silenceInstall READ silenceInstall WRITE setSilenceInstall NOTIFY silenceInstallChanged)
 
 public:
     explicit Settings(QObject *parent = 0);
@@ -29,12 +30,16 @@ public:
     Q_INVOKABLE bool autoInstall();
     Q_INVOKABLE void setAutoInstall(bool newAutoInstall);
 
+    Q_INVOKABLE bool silenceInstall();
+    Q_INVOKABLE void setSilenceInstall(bool newSilenceInstall);
+
 signals:
     void downloadPathChanged();
 #if defined(Q_OS_SYMBIAN) | defined(Q_WS_SIMULATOR)
     void installDriverChanged();
 #endif
     void autoInstallChanged();
+    void silenceInstallChanged();
 
 public slots:
     void loadSettings();
@@ -48,5 +53,6 @@ private:
     QString m_installDriver;
 #endif
     bool m_autoInstall;
+    bool m_silenceInstall;
 };
 #endif // SETTINGS_H

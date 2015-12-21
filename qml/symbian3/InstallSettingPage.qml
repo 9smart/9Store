@@ -38,17 +38,31 @@ MyPage{
             platformInverted: true;
             checked: autoInstall;
             onClicked: {
-                if(autoInstall){
-                    autoInstall = false;
+                if(settings.autoInstall){
+                    settings.autoInstall = false;
                 }
-                else autoInstall = true;
-                settings.setAutoInstall(autoInstall);
+                else settings.autoInstall = true;
             }
         }
+        CheckBox{
+            id: silenceInstall;
+            anchors.left: parent.left;
+            anchors.leftMargin: 10;
+            text: qsTr("Install background");
+            platformInverted: true;
+            checked: settings.silenceInstall;
+            onClicked: {
+                if(settings.silenceInstall){
+                    settings.silenceInstall = false;
+                }
+                else settings.silenceInstall = true;
+            }
+        }
+
         SelectionListItem{
             platformInverted: true;
             title: qsTr("Download save path");
-            subTitle: downloadpath;
+            subTitle: settings.downloadPath;
             onClicked:{
                 fileDialog.inverseTheme = true//设置主题模式
                 fileDialog.chooseMode = FilesDialog.IndividualChoice
@@ -56,14 +70,13 @@ MyPage{
                 fileDialog.exec(downloadpath,FilesDialog.Dirs|FilesDialog.Drives)
                 var file = fileDialog.firstSelection()
                 if(file.filePath)
-                    downloadpath =file.filePath;
-                settings.setDownloadPath(downloadpath);
+                    settings.downloadPath =file.filePath;
             }
         }
         SelectionListItem{
             platformInverted: true;
             title: qsTr("Installation driver");
-            subTitle: installdriver;
+            subTitle: settings.installDriver;
             onClicked:{
                 fileDialog.inverseTheme = true//设置主题模式
                 fileDialog.chooseMode = FilesDialog.IndividualChoice
@@ -72,25 +85,23 @@ MyPage{
                 fileDialog.exec(installdriver,FilesDialog.Drives)
                 var file = fileDialog.firstSelection()
                 if(file.filePath)
-                    installdriver =file.filePath;
-                settings.setInstallDriver(installdriver);
+                    settings.installDriver =file.filePath;
             }
         }
         Item{
             height: 20;
             width: 1;
         }
-        Button{
+        /*Button{
             //anchors.topMargin: 20;
             platformInverted: true;
             width: 300;
             anchors.horizontalCenter: parent.horizontalCenter;
             text: qsTr("Clear login data");
             onClicked: {
-                userstate=0;
                 if(userdata.clearUserData("LoginData"))
                     signalCenter.showMessage(qsTr("Clear successfully"));
             }
-        }
+        }*/
     }
 }

@@ -16,5 +16,12 @@ Component{
             source: "../../pic/Details/App_Datail_Error.svg";
             visible: parent.status==Image.Error;
         }
+        MouseArea{
+            anchors.fill: parent;
+            onClicked: {
+                screenshotgallary.state = "open";
+                console.log("here");
+            }
+        }
     }
 }

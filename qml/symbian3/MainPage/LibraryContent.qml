@@ -22,6 +22,7 @@ Flickable{
             font.pixelSize: 24;
         }
         Image{
+            id: application;
             anchors{
                 verticalCenter: parent.verticalCenter;
                 right: parent.right;
@@ -30,13 +31,43 @@ Flickable{
             height: 25;
             width: 25;
             source: "../../pic/General/icon-m-toolbar-next.png";
+            state: "Normal";
+            MouseArea{
+                anchors.fill: parent;
+                onClicked: application.state=="Normal"?application.state="Hide":application.state="Normal";
+            }
+            states: [
+                State{
+                    name: "Normal";
+                    PropertyChanges{
+                        target: application;
+                        rotation: 90;
+                    }
+                    PropertyChanges{
+                        target: applicationlist;
+                        visible: true;
+                        height: applicationrepeater.count*80;
+                    }
+                },
+                State{
+                    name: "Hide";
+                    PropertyChanges{
+                        target: application;
+                        rotation: 0;
+                    }
+                    PropertyChanges{
+                        target: applicationlist;
+                        visible: false;
+                        height: 0;
+                    }
+                }
+            ]
         }
         onClicked: {
             categorymodel.clear();
             Script.getcategory("app");
             root.currentContent="CategoryContent.qml";
         }
-        //Component.onCompleted: console.log("b:"+bottom)
     }
     Column{
         id:applicationlist;
@@ -64,6 +95,7 @@ Flickable{
             font.pixelSize: 24;
         }
         Image{
+            id: game;
             anchors{
                 verticalCenter: parent.verticalCenter;
                 right: parent.right;
@@ -72,6 +104,37 @@ Flickable{
             height: 25;
             width: 25;
             source: "../../pic/General/icon-m-toolbar-next.png";
+            state: "Normal";
+            MouseArea{
+                anchors.fill: parent;
+                onClicked: game.state=="Normal"?game.state="Hide":game.state="Normal";
+            }
+            states: [
+                State{
+                    name: "Normal";
+                    PropertyChanges{
+                        target: game;
+                        rotation: 90;
+                    }
+                    PropertyChanges{
+                        target: gamelist;
+                        visible: true;
+                        height: gamerepeater.count*80;
+                    }
+                },
+                State{
+                    name: "Hide";
+                    PropertyChanges{
+                        target: game;
+                        rotation: 0;
+                    }
+                    PropertyChanges{
+                        target: gamelist;
+                        visible: false;
+                        height: 0;
+                    }
+                }
+            ]
         }
         onClicked: {
             categorymodel.clear();

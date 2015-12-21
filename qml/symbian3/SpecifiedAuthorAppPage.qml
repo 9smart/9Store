@@ -11,10 +11,9 @@ MyPage{
 
     property ListModel specifiedAuthorModel;
     onVisibleChanged: if (visible && firstStart) {
-                          firstStart = false
-                          //Script.getlist("belle",page.toString(),"15","","",title,"","","appname,author,appid,icon,summary,version,scores,ratingnum");
-                          Script.page = "";
-                          Script.getSpecifiedAuthorList("Symbian%5e3", title, Script.page, "12");
+                          firstStart = false                         
+                          Script.infoListPage = "";
+                          Script.getSpecifiedAuthorList("Symbian%5e3", title, Script.infoListPage, "12");
                       }
     title: qsTr("Related apps");
     ToolBar{
@@ -43,8 +42,8 @@ MyPage{
         footer: ListFooter{
             id: listfooter
             onClicked: {
-                if(Script.page !== "NULL"){
-                    Script.getSpecifiedAuthorList("Symbian%5e3", title, Script.page, "12");
+                if(Script.infoListPage !== "NULL"){
+                    Script.getSpecifiedAuthorList("Symbian%5e3", title, Script.infoListPage, "12");
                 }
                 else{
                     signalCenter.showMessage(qsTr("No next page aviliable..."))

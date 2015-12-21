@@ -11,8 +11,8 @@ MyPage{
     property ListModel relatedlistmodel;
     onVisibleChanged: if (visible && firstStart) {
                           firstStart = false;
-                          Script.page = "";
-                          Script.getrelatedlist("Symbian%5e3", category, Script.page, "12");
+                          Script.infoListPage = "";
+                          Script.getrelatedlist("Symbian%5e3", category, Script.infoListPage, "12");
                       }
     title: qsTr("Related apps");
     ToolBar{
@@ -41,8 +41,8 @@ MyPage{
         footer: ListFooter{
             id: listfooter;
             onClicked: {
-                if(Script.page !== "NULL"){
-                    Script.getrelatedlist("Symbian%5e3", category, Script.page, "12");
+                if(Script.infoListPage !== "NULL"){
+                    Script.getrelatedlist("Symbian%5e3", category, Script.infoListPage, "12");
                 }
                 else{
                     signalCenter.showMessage(qsTr("No next page aviliable..."))

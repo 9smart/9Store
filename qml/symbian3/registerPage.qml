@@ -58,6 +58,7 @@ MyPage{
         }
         TextField{
             id:username;
+            placeholderText: qsTr("e-mail address");
             width: 330;
         }
         Item{
@@ -115,7 +116,12 @@ MyPage{
             text: qsTr("Continue");
             width: 265;
             onClicked: {
-                Script.sendRegister(username.text, nickname.text, password.text);
+                if(Script.isEmail(username.text)){
+                    Script.sendRegister(username.text, nickname.text, password.text);
+                }
+                else{
+                    signalCenter.showMessage(qsTr("Please input the correct e-mail address"));
+                }
             }
         }
         Item{

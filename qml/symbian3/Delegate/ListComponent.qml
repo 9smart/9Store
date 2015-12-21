@@ -46,12 +46,14 @@ MyListItem{
             color: "#787878";
         }
         RankStars{
-            ranknum: model.score_num==="0"?0:(model.scores/model.score_num);
+            ranknum: model.score_num===0?0:(model.scores/model.score_num);
             size: 15;
         }
+
     }
     onClicked:{
         pageStack.push(Qt.resolvedUrl("../InfoPage.qml"),
-                       {_id:model._id, title:model.appname, icon:icon.source, score_num:model.score_num, scores:model.scores, developer:model.developer});
+                       {_id:model._id, title:model.appname, icon:icon.source, score_num:((model.score_num)?model.score_num:0), scores:((model.scores)?model.scores:0), developer:model.developer});
     }
+    //Component.onCompleted: console.log(model.score_num===0?0:(model.scores));
 }

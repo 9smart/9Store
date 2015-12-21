@@ -61,8 +61,10 @@ MyListItem{
             //redownloaddia.open();
         }
         else if(state === "Downloaded"){
-            if(settings.autoInstall){
-                fileoperate.openFile(1, model.filename)
+            if(settings.silenceInstall){
+                signalCenter.showMessage(model.name + " start installing!");
+                fileoperate.openFile(1, model.filename);
+
             }
             else{
                 fileoperate.openFile(2, model.filename);
@@ -105,10 +107,19 @@ MyListItem{
                 target: downloadstate;
                 source: "../../pic/TopCharts/Downloaded.svg";
             }
-            when: qcurl.isFileExist(model.filename) && !qcurl.isCurrentUrl(model.url);
+            when: qcurl.isFileExist(model.filename) && !qcurl.isCurrentUrl(model.url) && fileoperate.currentInstallFile !== model.filename;
         },
         State{
             name:"Installing";
+            PropertyChanges{
+                target: progress;
+                value: 1;
+            }
+            PropertyChanges{
+                target: downloadstate;
+                source: "../../pic/TopCharts/Installing.svg";
+            }
+            when: fileoperate.currentInstallFile === model.filename
         },
         State{
             name:"Installed";
@@ -127,9 +138,10 @@ MyListItem{
         }
 
     ]
+
     Connections{
         target: qcurl;
-        onStateChanged:{
+        onCurrentUrlChanged:{
             if(qcurl.isCurrentUrl(model.url)){
                 state = "Downloading";
             }
@@ -141,6 +153,15 @@ MyListItem{
             }
             else{
                 state = "Erro";
+            }
+        }
+    }
+
+    Connections{
+        target: fileoperate;
+        onCurrentInstallFileChanged:{
+            if(fileoperate.currentInstallFile === model.filename){
+                state = "Installing";
             }
         }
     }

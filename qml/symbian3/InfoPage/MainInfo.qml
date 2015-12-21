@@ -37,7 +37,7 @@ Rectangle{
             leftMargin: 15;
         }
         RankStars{
-            ranknum: score_num === "0"? 0 : (scores / score_num);
+            ranknum: score_num === 0? 0 : (scores / score_num);
             size: 21;
         }
         Text{
@@ -55,26 +55,5 @@ Rectangle{
             font.pixelSize: 15;
             color: "gray"
         }
-    }
-    /*ToolButton{
-        id:dlbutton;
-        anchors.top: bigicon.bottom;
-        anchors.right: parent.right;
-        anchors.rightMargin: 15;
-        text: qsTr("download");
-        platformInverted: true;
-        //checkable:dlnum===-1?true:false;
-        enabled: userstate;
-        onClicked:{
-            if(dlnum===-1) {
-                if(fileoperate.dirExist(downloadpath)){
-                    var file=downloadpath+"["+appid+"]"+title+".sis";
-                    downloadmodel.append({"icon":icon,"name":title,"url":dlurl,"file":file});
-                    qcurl.appenddl(dlurl,file);
-                    signalCenter.showMessage(qsTr("Download appended!"));
-                }
-                else signalCenter.showMessage(qsTr("Please select an existent path for the download"));
-            }
-        }
-    }*/
+    }    
 }

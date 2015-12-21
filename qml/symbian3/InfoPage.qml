@@ -10,8 +10,8 @@ MyPage{
     id:infopage;
     property string _id;
     property string icon;
-    property string score_num;
-    property string scores;
+    property int score_num;
+    property int scores;
     property string developer;
     property string type;
     property string category;
@@ -45,7 +45,14 @@ MyPage{
         personalSource: "../pic/Details/edit.svg";
         highlightItem: 0;
         onBackButtonClicked: pageStack.pop();
-        onPersonalButtonClicked: sendcommentdialog.open();
+        onPersonalButtonClicked: {
+            if(user.userState){
+                sendcommentdialog.open();
+            }
+            else{
+                signalCenter.showMessage(qsTr("Please login"));
+            }
+        }
     }
     ListModel{
         id:screenshotmodel;
@@ -103,8 +110,8 @@ MyPage{
                 Image{
                     id: screenshotmask
                     anchors.bottom: parent.bottom;
-                    source: "../pic/Details/Details_Mask.png";                  
-                }      
+                    source: "../pic/Details/Details_Mask.png";
+                }
                 Image{
                     anchors.top: parent.top;
                     source: "../pic/Home/Poster_Shadow_01.png";
@@ -178,7 +185,7 @@ MyPage{
                             target: screenshot;
                             property: "height";
                             duration: 250;
-                        }               
+                        }
                         PropertyAnimation{
                             target: screenshotview;
                             property: "anchors.topMargin";
@@ -299,6 +306,66 @@ MyPage{
         id:downloadbutton2;
         visible: flick.contentY > 145;
     }
+    PathView{
+        id: screenshotgallary;
+        width: screen.width;
+        height: screen.height;
+        y: -26;
+        z: 2;
+        model: screenshotmodel;
+        clip: true;
+        preferredHighlightBegin: 0.5;
+        preferredHighlightEnd: 0.5;
+        state: "close";
+        delegate: ScreenShotsGalleryComponent{}
+        path: Path{
+            startX: -screenshotgallary.width*screenshotgallary.count/2+screenshotgallary.width/2;
+            startY: screenshotgallary.height/2;
+            PathLine{
+                x:screenshotgallary.width*screenshotgallary.count/2+screenshotgallary.width/2;
+                y:screenshotgallary.height/2;
+            }
+        }
+        states: [
+            State{
+                name: "close";
+                PropertyChanges{
+                    target: screenshotgallary;
+                    visible: false;
+                    scale: 0.5;
+                    opacity: 0;
+                }
+            },
+            State{
+                name: "open";
+                PropertyChanges{
+                    target: screenshotgallary;
+                    visible: true;
+                    scale: 1;
+                    opacity: 1;
+                }
+            }
+        ]
+        transitions: [
+            Transition {
+                from: "close"
+                to: "open"
+                reversible: true;
+                PropertyAnimation{
+                    target: screenshotgallary;
+                    properties: "scale";
+                    duration: 200;
+                }
+                PropertyAnimation{
+                    target: screenshotgallary;
+                    properties: "opacity";
+                    duration: 200;
+                }
+            }
+        ]
+        //onStateChanged: console.log("change")
+    }
+
     Connections{
         target: signalCenter;
         onCommentSendSuccessful:{

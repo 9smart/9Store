@@ -2,28 +2,32 @@
 #define QCURL_H
 #include <QObject>
 #include <QPointer>
+#include <QQueue>
 #include <curl/curl.h>
 class QCurlPerformer;
+class QDeclarativeView;
+class Settings;
+class FileOperate;
 
-struct QCurldl{
+struct QCurlTask{
     char* url;
     FILE *fp;
-    struct QCurldl *next;
 };
 class QCurl : public QObject{
 
     Q_OBJECT
 
-    Q_PROPERTY(int state READ state NOTIFY stateChanged)
     Q_PROPERTY(QString currentUrl READ currentUrl NOTIFY currentUrlChanged)
+    Q_PROPERTY(QString currentFile READ currentFile NOTIFY currentFileChanged)
     Q_PROPERTY(double progress READ progress NOTIFY progressChanged)
 
 public:
     explicit QCurl(QObject *parent = 0);
+    explicit QCurl(QDeclarativeView *viewer, Settings *settings, FileOperate *fileoperate);
     ~QCurl();
 
-    int state() const;
     QString currentUrl() const;
+    QString currentFile() const;
     double progress() const;
 
     Q_INVOKABLE void appenddl(QString url, QString file);
@@ -39,36 +43,37 @@ public:
     void setProgress(double progress);
 
 public slots:
-    void setState(int state);
     void setCurrentUrl(QString url);
+    void setCurrentFile(QString file);
+    void downloadFinished(int result);
 
 signals:
-    void stateChanged();
     void currentUrlChanged();
+    void currentFileChanged();
     void progressChanged();
 
-    void dlSetted();
-    void startDl(CURL *curl);
-
-private slots:
-    void startNextDl();
+    void startDownload(CURL *curl);
 
 private:
-    struct QCurldl *head;
-    struct QCurldl *current;
-    struct QCurldl *last;
     CURL *curl;
 
-    QPointer<QThread> thread;
-    QPointer<QCurlPerformer> dl;
+    QQueue<QCurlTask> downloadQueue;
 
-private:
+    QPointer<QThread> thread;
+    QPointer<QCurlPerformer> performer;
+
     int m_state;
     double m_progress;
     QString m_currentUrl;
+    QString m_currentFile;
+
+    QDeclarativeView *m_viewer;
+    Settings *m_settings;
+    FileOperate *m_fileOperate;
 };
 
-class QCurlPerformer : public QObject{
+class QCurlPerformer : public QObject
+{
 
     Q_OBJECT
 
@@ -76,13 +81,10 @@ public:
     QCurlPerformer(QObject *parent = 0);
     ~QCurlPerformer();
 signals:
-    void stateChanged(int state);
-    void finished();
+    void finished(int result);
 
 public slots:
     void start(CURL *curl);
 
-private:
-    CURLcode res;
 };
 #endif // QCURL_H

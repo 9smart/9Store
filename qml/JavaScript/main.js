@@ -14,14 +14,16 @@ function initialize(sc, ut, ud, st, qc){
     qCurl = qc?qc:"";
     settings = st;
 }
+
 function substr(string,length){
     string.toString();
     string.substr(0,length);
     return string;
 }
-function cutfile(file){
-    file=file.toString();
-    return file.substr(7);
+
+function isEmail(string){
+    var re = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+    return re.test(string);
 }
 
 function humanedate(_dateline){
@@ -44,13 +46,12 @@ function humanedate(_dateline){
         return thatday.getFullYear()+'-'+(thatday.getMonth()+1)+'-'+thatday.getDate();
     }
 }
-
 function sendWebRequest(url, callback, method, postdata) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
                 switch(xmlhttp.readyState) {
                 case xmlhttp.OPENED:signalcenter.loadStarted();break;
-                case xmlhttp.HEADERS_RECEIVED:if (xmlhttp.status != 200)signalcenter.loadFailed(qsTr("连接错误,代码:")+xmlhttp.status+"  "+xmlhttp.statusText);break;
+                case xmlhttp.HEADERS_RECEIVED:if (xmlhttp.status != 200)signalcenter.loadFailed(qsTr("erro,code:")+xmlhttp.status+"  "+xmlhttp.statusText);break;
                 case xmlhttp.DONE:if (xmlhttp.status == 200) {
                         try {
                             callback(xmlhttp.responseText);
@@ -100,12 +101,11 @@ function loadUserInfo(oritxt){
     }
     //console.log(oritxt);
     var obj = JSON.parse(oritxt);
-
-    if(obj.error === 0){
+    if(obj.error===0){
         application.user.nickName = obj.user.nickname;
         application.user.avatar = obj.user.avatar;
         application.user.avatar_hd = obj.user.avatar_hd;
-        //application.user.noticeNumber = obj.user.notice_num;
+        application.user.group = obj.user.group;
         application.user.userState = true;
         if(obj.user.auth)
             application.user.auth = obj.user.auth;
@@ -114,9 +114,13 @@ function loadUserInfo(oritxt){
     }
 }
 function savaUserData(){
-    var obj = {"error":0, "user":{"_id": application.user._id, "auth": application.user.auth, "nickname": application.user.nickName, "avatar": application.user.avatar, "avatar_hd": application.user.avatar_hd}};
-    userData.setUserData("UserData", JSON.stringify(obj));
-    //console.log("here");
+    if(application.user.userState){
+        var obj = {"error":0, "user":{"_id": application.user._id, "auth": application.user.auth, "nickname": application.user.nickName, "avatar": application.user.avatar, "avatar_hd": application.user.avatar_hd, "group": application.user.group}};
+        userData.setUserData("UserData", JSON.stringify(obj));
+    }
+    else{
+        userData.clearUserData("UserData")
+    }
 }
 
 function sendRegister(userName, nickname, password){
@@ -125,7 +129,6 @@ function sendRegister(userName, nickname, password){
     sendWebRequest(url, loadRegisterResult, "POST", postData);
 }
 function loadRegisterResult(oritxt){
-    console.log(oritxt);
     var obj = JSON.parse(oritxt);
     if(obj.error === 0){
         application.user._id = obj._id;
@@ -138,8 +141,22 @@ function loadRegisterResult(oritxt){
     }
 }
 
+var noticeListPage;
+function getNotices(auth, page, pageSize){
+    var url = notices(auth, page, pageSize);
+    //console.log(url);
+    sendWebRequest(url, loadNoticed, "GET", "");
+}
+function loadNoticed(oritxt){
+    var obj = JSON.parse(oritxt);
+    //console.log(oritxt);
+    if(obj.error === 0){
+
+    }
+}
+
 var mainPage;
-var page;
+var listPage;
 function getfeatured(system){
     var url = getRecommendation(system);
     sendWebRequest(url,loadfeatured,"GET","");
@@ -187,29 +204,34 @@ function loadcategory(oritxt){
 
 function getlist(system, category, developer, page, pagesize, sort){
     var url = apps(system, category, developer, page, pagesize, sort);
+    //console.log(url)
     sendWebRequest(url,loadlist,"GET","");
 }
 function loadlist(oritxt){
-    var obj=JSON.parse(oritxt);
+    var obj = JSON.parse(oritxt);
     if(obj.error === 0){
         if(obj.pager.page === 1){
             mainPage.listmodel.clear();
         }
         for(var i in obj.apps){
+            if(!obj.apps[i].score_num){
+                obj.apps[i].score_num = 0;
+                obj.apps[i].scores = 0;
+            }
             mainPage.listmodel.append(obj.apps[i]);
         }
         if(obj.pager.next_page !== 0){
-            page = obj.pager.next_url;
+            listPage = obj.pager.next_url;
         }
         else{
-            page = "NULL";
+            listPage = "NULL";
         }
     }
     else signalcenter.showMessage(obj.error);
 }
 
 function getapplication(system, keyWord){
-    var url= search(system, keyWord, "", "", "app");
+    var url = search(system, keyWord, "", "", "app");
     sendWebRequest(url,loadapplication,"GET","");
 }
 function loadapplication(oritxt){
@@ -242,6 +264,7 @@ function getSearch(system, keyWord, category, page){
 }
 
 var infoPage;
+var infoListPage;
 function getinfo(id){
     var url = app(id);
     sendWebRequest(url,loadinfo,"GET","");
@@ -249,23 +272,27 @@ function getinfo(id){
 function loadinfo(oritxt){
     var obj=JSON.parse(oritxt);
     if(obj.error === 0){
+        //console.log(oritxt);
         infoPage.type=obj.app.type;
         infoPage.category = obj.app.category;
         infoPage.version = obj.app.version;
-        infoPage.size = obj.app.size;
         infoPage.summary = obj.app.summary;
         infoPage.comment_num = obj.app.comment_num;
-        var size = parseInt(obj.app.size);
-        if(size < 1048576)
-            size=((size/1024).toFixed(2)).toString()+"KB";
-        else size=((size/1048576).toFixed(2)).toString()+"MB";
-        infoPage.size = size;
+        if(obj.app.size){
+            var size = parseInt(obj.app.size);
+            if(size < 1048576)
+                size=((size/1024).toFixed(2)).toString()+"KB";
+            else size=((size/1048576).toFixed(2)).toString()+"MB";
+            infoPage.size = size;
+        }
+        else infoPage.size = qsTr("Unknown");
         for(var i=1;i<=5;i++){
             infoPage.screenShotsModel.append({"thumburl":"http://apps-images.9smart.cn/" + obj.app.uploader.uid + "/" + obj.app._id + "/s/" + i.toString() + "_thumb"
                                                  ,"url":"http://apps-images.9smart.cn/" + obj.app.uploader.uid + "/" + obj.app._id + "/s/" + i.toString()})
         }
     }
     else signalcenter.showMessage(obj.error);
+
 }
 
 var downloadName;
@@ -281,8 +308,6 @@ function loadDownloadUrl(oritxt){
     if(obj.error === 0){
         application.downloadModel.append({"name": downloadName, "url": obj.down_url,
                                              "filename": settings.downloadPath + "/" +downloadName + ".sis", "icon": downloadIcon});
-        console.log(downloadName);
-        console.log(settings.downloadPath)
         qCurl.appenddl(obj.down_url, settings.downloadPath + "/" + downloadName + ".sis");
         signalCenter.showMessage(qsTr("Task added!"));
     }
@@ -303,10 +328,10 @@ function loadrelatedlist(oritxt){
             infoPage.relatedAppsModel.append(obj.apps[i]);
         }
         if(obj.pager.next_page !== 0){
-            page = obj.pager.next_url;
+            infoListPage = obj.pager.next_url;
         }
         else{
-            page = "NULL";
+            infoListPage = "NULL";
         }
     }
 }
@@ -325,10 +350,10 @@ function loadSpecifiedAuthorList(oritxt){
             infoPage.specifiedAuthorModel.append(obj.apps[i]);
         }
         if(obj.pager.next_page !== 0){
-            page = obj.pager.next_url;
+            infoListPage = obj.pager.next_url;
         }
         else{
-            page = "NULL";
+            infoListPage = "NULL";
         }
     }
     else signalcenter.showMessage(obj.error);
@@ -337,37 +362,45 @@ function loadSpecifiedAuthorList(oritxt){
 
 
 var commentPage;
+var commentListPage;
 function getComment(appid, page){
     var url = comments(appid, page);
-    console.log(url);
     sendWebRequest(url,loadComment,"GET","");
 }
 function loadComment(oritxt){
-    console.log(oritxt);
     var obj=JSON.parse(oritxt);
 
-    if(obj.error === 0){
+    if(obj.comments){
         if(obj.pager.page === 1){
             commentPage.commentModel.clear();
         }
         for(var i in obj.comments){
             commentPage.commentModel.append(obj.comments[i]);
         }
+        if(obj.pager.next_page !== 0){
+            commentListPage = obj.pager.next_url;
+        }
+        else{
+            commentListPage = "NULL";
+        }
     }
+    else signalcenter.showMessage(obj.error);
 }
-function sendComment(appid,auth,message,score) {
-    var url="http://api.9smart.cn/comments/"+appid;
-    console.log(auth);
-    console.log(encodeURIComponent(auth));
-    sendWebRequest(url,sendCommentState,"POST","auth="+encodeURIComponent(auth)+"&message="+message+"&score="+score+"&clientid=1");
+function sendComment(auth, id, type, content, score, model) {
+    var url = sendcomments(auth, id, type);
+    var postData = commentsData(content, score, model);
+    sendWebRequest(url, sendCommentResult, "POST", postData);
 }
-function sendCommentState(oritxt){
+
+function sendCommentResult(oritxt){
     var obj=JSON.parse(oritxt);
-    if(obj.success) {
-        signalcenter.commentSendSuccessful();
+    if(obj.error === 0){
+        signalcenter.showMessage(qsTr("send successful!"));
     }
-    else signalcenter.commentSendFailed(obj.error);
+    else signalcenter.showMessage(obj.error);
 }
+
+
 var version;
 function getversion() {
     var url = "http://api.9smart.cn/app/";

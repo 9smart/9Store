@@ -2,27 +2,32 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
 import com.nokia.extras 1.1
+import QtMobility.systeminfo 1.1
 import "../JavaScript/main.js" as Script
+import "../JavaScript/deviceModel.js" as Device
 import "BaseComponent"
 PageStackWindow{
     id: app;
     property string version:"0.5.1";
     property bool loading;
 
-    property string downloadpath: settings.getDownloadPath();
-    property string installdriver: settings.getInstallDriver();
-    property bool autoInstall:settings.autoInstall;
+    property string deviceModel: Device.deviceModel(deviceinfo.productName);
 
     property alias user: user;
     property alias downloadModel: downloadmodel;
 
     platformInverted: true;
+    DeviceInfo{
+        id: deviceinfo;
+        Component.onCompleted: console.log(productName)
+    }
+
     User{
         id:user;
     }
     Corners{
         id:corners;
-    }   
+    }
     InfoBanner{
         id: infoBanner;
     }
@@ -34,12 +39,27 @@ PageStackWindow{
     }
     SignalCenter{
         id: signalCenter;
+        objectName: "signalCenter";
     }
     Timer{
         id:processingtimer;
         interval: 60000;
         onTriggered: signalCenter.loadFailed("erro");
     }
+    Timer{
+        id: noticetimer;
+        interval: 300000;
+        triggeredOnStart: true;
+        repeat: true;
+        running: true;
+        onTriggered: {
+            if(user.userState){
+                Script.noticeListPage = "";
+                Script.getNotices(user.auth, Script.noticeListPage, "12");
+            }
+        }
+    }
+
     ListModel{
         id:downloadmodel;
     }
@@ -62,12 +82,18 @@ PageStackWindow{
             signalCenter.showMessage(errorstring);
         }
     }
+    StatusBar{
+        id:statusbar
+    }
 
     Component.onCompleted:{
-        Script.initialize(signalCenter, utility, userdata, settings, qcurl);
+        Script.initialize(signalCenter, utility, userdata, settings/*, qcurl*/);
         Script.application = app;
         Script.loadUserInfo(userdata.getUserData("UserData"));
-        loadDownloadData(userdata.getUserData("DownloadData"));        
+
+        //console.log(statusbar.height + " " + statusbar.z);
+
+        loadDownloadData(userdata.getUserData("DownloadData"));
         pageStack.push(Qt.resolvedUrl("MainPage.qml"));
     }
 

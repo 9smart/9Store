@@ -33,8 +33,8 @@ ListView{
         onClicked: {
             root.category=model.category;
             listmodel.clear();
-            page = "";
-            Script.getlist("Symbian%5e3", root.category, "", page,"12","");
+            Script.listPage = "";
+            Script.getlist("Symbian%5e3", root.category, "", Script.listPage,"12","");
             root.currentContent="ListContent.qml";
         }       
     }

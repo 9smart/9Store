@@ -5,7 +5,7 @@ Item{
     id:root;
     property string currentContent:"LibraryContent.qml";
     property string category;
-    property string page: "";
+    //property string page: "";
     width: screen.width;
     SearchFiled{
         id:searchfiled;
@@ -17,11 +17,13 @@ Item{
                 Script.getgame("Symbian%5e3", text);
             }
             else if(currentContent==="CategoryContent.qml"){
-                Script.getSearch("Symbian%5e3", text, "", page);
+                Script.listPage = "";
+                Script.getSearch("Symbian%5e3", text, "", Script.listPage);
                 root.currentContent="ListContent.qml";
             }
             else {
-                Script.getlist("Symbian%5e3", text, root.category, page);
+                Script.listPage = ""
+                Script.getlist("Symbian%5e3", text, root.category, Script.listPage);
             }
         }
     }

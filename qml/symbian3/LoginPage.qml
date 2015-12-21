@@ -72,6 +72,7 @@ MyPage{
         TextField{
             id:password;
             width: 300;
+            echoMode: TextInput.Password;
         }
         Item{
             height: 10;

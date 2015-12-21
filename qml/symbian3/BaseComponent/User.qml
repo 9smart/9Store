@@ -1,7 +1,7 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 
-QtObject{
+Item{
     property bool userState: false;
     property string _id;
     property string auth;
@@ -10,5 +10,22 @@ QtObject{
     property string avatar;
     property string avatar_hd;
 
-    property int noticeNumber;
+    property string group;
+
+    property alias noticeModel: noticemodel;
+
+    ListModel{
+        id: noticemodel;
+    }
+
+    function clear(){
+        userState = false;
+        _id = "";
+        auth = "";
+        nickName = "";
+        avatar = "";
+        avatar_hd = "";
+
+        noticemodel.clear();
+    }
 }

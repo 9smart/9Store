@@ -59,6 +59,8 @@ folder_JS.source = qml/JavaScript
 folder_JS.target = qml
 
 simulator{
+    CONFIG += mobility
+
           DEPLOYMENTFOLDERS +=  folder_Symbian folder_pic folder_JS
 }
 
@@ -86,6 +88,8 @@ symbian{
         DEPLOYMENTFOLDERS += folder_Symbian folder_pic folder_JS
         #RESOURCES += Symbian3-res.qrc
     }
+    CONFIG += mobility
+
     INCLUDEPATH += $$[QT_INSTALL_PREFIX]/epoc32/include/platform/mw
     SOURCES += src/AOSync.cpp
 

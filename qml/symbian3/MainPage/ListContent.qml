@@ -13,9 +13,8 @@ ListView{
     footer: ListFooter{
         visible: listmodel.count > 0;
         onClicked: {
-            page = Script.page;
             if(page !== "NULL"){
-                Script.getlist("Symbian%5e3", root.category, "", page,"12","");
+                Script.getlist("Symbian%5e3", root.category, "", Script.listPage,"12","");
             }
             else{
                 signalCenter.showMessage(qsTr("No next page aviliable..."))

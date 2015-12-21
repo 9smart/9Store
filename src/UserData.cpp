@@ -25,6 +25,7 @@ QString UserData::getUserData(const QString &key)
 {
     QString path = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QDir::separator() + ".userdata" + QDir::separator() + "9Store";
     QString filename = path + QDir::separator() + key + ".dat";
+    //qDebug()<<filename;
     QString res;
     QFile file(filename);
     if (file.exists() && file.open(QIODevice::ReadOnly))

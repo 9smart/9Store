@@ -31,6 +31,7 @@ MyPage{
                     content.item.currentContent="CategoryContent.qml";
                 }
                 else if(quitTimer.running){
+                    settings.saveSettings();
                     saveDownloadData();
                     Qt.quit();
                 }
@@ -41,6 +42,7 @@ MyPage{
                 }
             }
             else if(quitTimer.running){
+                settings.saveSettings();
                 saveDownloadData();
                 Qt.quit();
             }
