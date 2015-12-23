@@ -6,19 +6,44 @@ Rectangle{
     height: screen.height;
     width: screen.width;
     color: "#000000";
-    Text{
-
+    Column{
+        anchors{
+            left: parent.left;
+            leftMargin: 20;
+            bottom: parent.bottom;
+            bottomMargin: 100;
+        }
+        Text {
+            text: "Welcome to";
+            color: "#FFFFFF";
+            font.pixelSize: 27;
+        }
+        Text{
+            text: "9Store";
+            color: "#1994FF";
+            font.pixelSize: 27;
+        }
     }
 
+    Text{
+        anchors.bottom: parent.bottom;
+        anchors.left: parent.left;
+        anchors.margins: 20;
+        text: "9Smart";
+        color: "#B4B4B4";
+    }
     BusyIndicator{
         anchors.bottom: parent.bottom;
         anchors.right: parent.right;
-        anchors.margins: 15;
+        anchors.margins: 12;
     }
     Timer{
-        interval: 3000;
+        interval: 2700;
         running: true;
         repeat: false;
-        onTriggered: root.visible=false;
+        onTriggered: {
+            root.visible = false;
+            statusbar.visible = true;
+        }
     }
 }

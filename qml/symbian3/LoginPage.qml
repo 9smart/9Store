@@ -82,7 +82,7 @@ MyPage{
             font.pixelSize: 14;
             color: "#1080dd";
             font.underline: true;
-            text: qsTr("Forgot your password?");
+            //text: qsTr("Forgot your password?");
         }
         Item{
             height: 30;

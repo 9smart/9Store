@@ -46,6 +46,7 @@ function humanedate(_dateline){
         return thatday.getFullYear()+'-'+(thatday.getMonth()+1)+'-'+thatday.getDate();
     }
 }
+
 function sendWebRequest(url, callback, method, postdata) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -144,7 +145,6 @@ function loadRegisterResult(oritxt){
 var noticeListPage;
 function getNotices(auth, page, pageSize){
     var url = notices(auth, page, pageSize);
-    //console.log(url);
     sendWebRequest(url, loadNoticed, "GET", "");
 }
 function loadNoticed(oritxt){
@@ -204,7 +204,6 @@ function loadcategory(oritxt){
 
 function getlist(system, category, developer, page, pagesize, sort){
     var url = apps(system, category, developer, page, pagesize, sort);
-    //console.log(url)
     sendWebRequest(url,loadlist,"GET","");
 }
 function loadlist(oritxt){
@@ -370,7 +369,7 @@ function getComment(appid, page){
 function loadComment(oritxt){
     var obj=JSON.parse(oritxt);
 
-    if(obj.comments){
+    if(obj.error === 0){
         if(obj.pager.page === 1){
             commentPage.commentModel.clear();
         }
@@ -400,6 +399,23 @@ function sendCommentResult(oritxt){
     else signalcenter.showMessage(obj.error);
 }
 
+function sendReply(auth, cid, content, model){
+    var url = reply(auth, cid);
+    console.log(url);
+    var postData = encodeURIComponent(replyData(content, model));
+    console.log(postData);
+    sendWebRequest(url, sendReplyResult, "POST", postData);
+}
+
+function sendReplyResult(oritxt){
+    console.log(oritxt);
+    var obj = JSON.parse(oritxt);
+
+    if(obj.error === 0){
+        signalcenter.showMessage(qsTr("send successful!"));
+    }
+    else signalcenter.showMessage(obj.error);
+}
 
 var version;
 function getversion() {

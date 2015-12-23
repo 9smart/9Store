@@ -72,6 +72,19 @@ Item{
                 z:1;
                 visible: replyscolumn.height!==0
             }
+        }       
+    }
+    MouseArea{
+        anchors.fill: column;
+        onClicked: {
+            /*if(user.userState){
+                //console.log(model.id)
+                sendreplydialog.openDialog(model.id, model.author.nickname);
+
+            }
+            else{
+                signalCenter.showMessage(qsTr("Please login"));
+            }*/
         }
     }
     Column{

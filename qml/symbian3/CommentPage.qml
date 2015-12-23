@@ -4,6 +4,7 @@ import com.nokia.symbian 1.1
 import "BaseComponent"
 import "InfoPage"
 import "Delegate"
+import "Dialog"
 import "../JavaScript/main.js" as Script
 MyPage{
     id:commentpage;
@@ -92,6 +93,13 @@ MyPage{
             }
         }
     }
+    SendCommentDialog{
+        id: sendcommentdialog;
+    }
+    SendReplyDialog{
+        id: sendreplydialog;
+    }
+
     Component.onCompleted:{
         Script.commentPage = commentpage;
     }

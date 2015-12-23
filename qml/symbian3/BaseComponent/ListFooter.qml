@@ -2,7 +2,7 @@
 import QtQuick 1.1
 
 Item{
-    property string text: "Next page";
+    property string text: qsTr("Next page");
     signal clicked;
     width: screen.width;
     height: 45;

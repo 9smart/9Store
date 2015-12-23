@@ -55,6 +55,41 @@ Email：contact@9smart.cn
     </message>
 </context>
 <context>
+    <name>AboutPage</name>
+    <message>
+        <source>About</source>
+        <translation>关于</translation>
+    </message>
+    <message>
+        <source>Check for new version</source>
+        <translation>检查新版本</translation>
+    </message>
+    <message>
+        <source>New version has been found</source>
+        <translation>发现新版本</translation>
+    </message>
+    <message>
+        <source>Whether to download the new version?</source>
+        <translation>是否下载新版本安装包？</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>是</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>否</translation>
+    </message>
+    <message>
+        <source>Download appended!</source>
+        <translation>已添加入下载列表！</translation>
+    </message>
+    <message>
+        <source>This version is the new newest version</source>
+        <translation>已经是最新版本</translation>
+    </message>
+</context>
+<context>
     <name>Aboutdia</name>
     <message>
         <source>About</source>
@@ -73,6 +108,13 @@ Email：contact@9smart.cn
     </message>
 </context>
 <context>
+    <name>CommentComponent</name>
+    <message>
+        <source>More</source>
+        <translation>更多</translation>
+    </message>
+</context>
+<context>
     <name>CommentDelegate</name>
     <message>
         <source>by </source>
@@ -80,10 +122,36 @@ Email：contact@9smart.cn
     </message>
 </context>
 <context>
+    <name>CommentPage</name>
+    <message>
+        <source>Please login</source>
+        <translation>请先登录</translation>
+    </message>
+    <message>
+        <source>No next page aviliable...</source>
+        <translation>没有下一页……</translation>
+    </message>
+</context>
+<context>
     <name>Dllistdele</name>
     <message>
         <source>This pakage will be installed at background</source>
         <translation type="obsolete">软件会在后台进行安装</translation>
+    </message>
+</context>
+<context>
+    <name>DownloadButton</name>
+    <message>
+        <source>FREE</source>
+        <translation>FREE</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation>下载</translation>
+    </message>
+    <message>
+        <source>Please login</source>
+        <translation>请先登录</translation>
     </message>
 </context>
 <context>
@@ -103,6 +171,10 @@ Email：contact@9smart.cn
         <source>The download list is empty</source>
         <translation>下载列表为空</translation>
     </message>
+    <message>
+        <source>Download</source>
+        <translation>下载</translation>
+    </message>
 </context>
 <context>
     <name>Downloadpage</name>
@@ -113,6 +185,21 @@ Email：contact@9smart.cn
     <message>
         <source>The download list is empty</source>
         <translation type="obsolete">下载列表为空</translation>
+    </message>
+</context>
+<context>
+    <name>FileOperate</name>
+    <message>
+        <source> was installed successfully</source>
+        <translation>安装成功</translation>
+    </message>
+    <message>
+        <source> installation was failed</source>
+        <translation>安装失败</translation>
+    </message>
+    <message>
+        <source>Select a directory</source>
+        <translation>选择一个目录</translation>
     </message>
 </context>
 <context>
@@ -165,6 +252,13 @@ Email：contact@9smart.cn
     </message>
 </context>
 <context>
+    <name>HomeContent</name>
+    <message>
+        <source>Featured</source>
+        <translation>精选</translation>
+    </message>
+</context>
+<context>
     <name>InfoPage</name>
     <message>
         <source>  Reviews</source>
@@ -181,6 +275,18 @@ Email：contact@9smart.cn
     <message>
         <source>Send successfully</source>
         <translation>评论成功</translation>
+    </message>
+    <message>
+        <source>Reviews</source>
+        <translation>评论</translation>
+    </message>
+    <message>
+        <source>All related apps</source>
+        <translation>所有相关应用</translation>
+    </message>
+    <message>
+        <source>Please login</source>
+        <translation>请先登录</translation>
     </message>
 </context>
 <context>
@@ -231,6 +337,55 @@ Email：contact@9smart.cn
     </message>
 </context>
 <context>
+    <name>InstallSettingPage</name>
+    <message>
+        <source>Installation preferences</source>
+        <translation>安装选项</translation>
+    </message>
+    <message>
+        <source>Install autoly when download finish</source>
+        <translation>下载结束后自动启动安装</translation>
+    </message>
+    <message>
+        <source>Download save path</source>
+        <translation>下载路径</translation>
+    </message>
+    <message>
+        <source>Installation driver</source>
+        <translation>安装盘（不支持系统盘）</translation>
+    </message>
+    <message>
+        <source>Clear login data</source>
+        <translation>清除登录信息</translation>
+    </message>
+    <message>
+        <source>Clear successfully</source>
+        <translation>清除成功</translation>
+    </message>
+    <message>
+        <source>Install background</source>
+        <translation>静默安装</translation>
+    </message>
+</context>
+<context>
+    <name>LibraryContent</name>
+    <message>
+        <source>Applications</source>
+        <translation>应用</translation>
+    </message>
+    <message>
+        <source>Games</source>
+        <translation>游戏</translation>
+    </message>
+</context>
+<context>
+    <name>ListContent</name>
+    <message>
+        <source>No next page aviliable...</source>
+        <translation>没有下一页……</translation>
+    </message>
+</context>
+<context>
     <name>ListDelegate</name>
     <message>
         <source>Download appended!</source>
@@ -246,6 +401,10 @@ Email：contact@9smart.cn
     <message>
         <source>More</source>
         <translation>更多</translation>
+    </message>
+    <message>
+        <source>Next page</source>
+        <translation>下一页</translation>
     </message>
 </context>
 <context>
@@ -428,6 +587,21 @@ Email：contact@9smart.cn
     </message>
 </context>
 <context>
+    <name>LogOutConfirmDialog</name>
+    <message>
+        <source>Yes</source>
+        <translation>是</translation>
+    </message>
+    <message>
+        <source>Cancle</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to log out?</source>
+        <translation>确定要注销吗？</translation>
+    </message>
+</context>
+<context>
     <name>LoginPage</name>
     <message>
         <source>log in</source>
@@ -436,6 +610,34 @@ Email：contact@9smart.cn
     <message>
         <source>Login success!</source>
         <translation>登录成功！</translation>
+    </message>
+    <message>
+        <source>Account</source>
+        <translation>账户</translation>
+    </message>
+    <message>
+        <source>Login to your account</source>
+        <translation>登录你的账号</translation>
+    </message>
+    <message>
+        <source>9Smart ID</source>
+        <translation>9Smart 账号</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>密码</translation>
+    </message>
+    <message>
+        <source>Log in</source>
+        <translation>登录</translation>
+    </message>
+    <message>
+        <source>Don&apos;t have an account yet?</source>
+        <translation>需要一个账户？</translation>
+    </message>
+    <message>
+        <source>Get one here</source>
+        <translation>点击这里注册</translation>
     </message>
 </context>
 <context>
@@ -475,6 +677,33 @@ Email：contact@9smart.cn
         <source>Please select an existent path for the download</source>
         <translation>请在设置中选择一个存在的下载路径</translation>
     </message>
+    <message>
+        <source>By:</source>
+        <translation>评论者： </translation>
+    </message>
+</context>
+<context>
+    <name>MainPage</name>
+    <message>
+        <source>Home</source>
+        <translation>Home</translation>
+    </message>
+    <message>
+        <source>Please click again to quit</source>
+        <translation>再点一次退出</translation>
+    </message>
+    <message>
+        <source>Top</source>
+        <translation>排行</translation>
+    </message>
+    <message>
+        <source>Library</source>
+        <translation>库</translation>
+    </message>
+    <message>
+        <source>My Stuff</source>
+        <translation>个人信息</translation>
+    </message>
 </context>
 <context>
     <name>OrderButtons</name>
@@ -489,6 +718,95 @@ Email：contact@9smart.cn
     <message>
         <source>most dl</source>
         <translation>下载最多</translation>
+    </message>
+</context>
+<context>
+    <name>PersonalContent</name>
+    <message>
+        <source>More</source>
+        <translation>更多</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation>下载</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>设置</translation>
+    </message>
+    <message>
+        <source>Installation preferences</source>
+        <translation>安装选项</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>关于</translation>
+    </message>
+    <message>
+        <source>Log out</source>
+        <translation>注销</translation>
+    </message>
+</context>
+<context>
+    <name>QCurl</name>
+    <message>
+        <source> download successfully</source>
+        <translation>下载成功</translation>
+    </message>
+    <message>
+        <source> dowanload failed</source>
+        <translation>下载失败</translation>
+    </message>
+</context>
+<context>
+    <name>RegisterPage</name>
+    <message>
+        <source>Register</source>
+        <translation>注册</translation>
+    </message>
+    <message>
+        <source>Account</source>
+        <translation>账户</translation>
+    </message>
+    <message>
+        <source>Creat a new account</source>
+        <translation>新建账户</translation>
+    </message>
+    <message>
+        <source>9Smart ID</source>
+        <translation>9Smart 账号</translation>
+    </message>
+    <message>
+        <source>e-mail address</source>
+        <translation>邮箱</translation>
+    </message>
+    <message>
+        <source>User name</source>
+        <translation>用户昵称</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>密码</translation>
+    </message>
+    <message>
+        <source>Show password</source>
+        <translation>显示密码</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation>继续</translation>
+    </message>
+    <message>
+        <source>Please input the correct e-mail address</source>
+        <translation>请输入正群的邮箱地址</translation>
+    </message>
+    <message>
+        <source>Have an account?</source>
+        <translation>已经有一个账户？</translation>
+    </message>
+    <message>
+        <source>Click to login</source>
+        <translation>点击登陆</translation>
     </message>
 </context>
 <context>
@@ -512,6 +830,10 @@ Email：contact@9smart.cn
         <source>  Related apps</source>
         <translation>  相关应用</translation>
     </message>
+    <message>
+        <source>No next page aviliable...</source>
+        <translation>没有下一页……</translation>
+    </message>
 </context>
 <context>
     <name>SearchByAuthorDialog</name>
@@ -530,6 +852,20 @@ Email：contact@9smart.cn
     <message>
         <source>pleas input the author name</source>
         <translation type="obsolete">请输入作者名称</translation>
+    </message>
+</context>
+<context>
+    <name>SearchContent</name>
+    <message>
+        <source>Please input the key word</source>
+        <translation>请输入关键字</translation>
+    </message>
+</context>
+<context>
+    <name>SearchFiled</name>
+    <message>
+        <source>Search for files...</source>
+        <translation>搜索文件……</translation>
     </message>
 </context>
 <context>
@@ -586,6 +922,21 @@ Email：contact@9smart.cn
     </message>
 </context>
 <context>
+    <name>SendReplyDialog</name>
+    <message>
+        <source>Reply to </source>
+        <translation>回复 </translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>发送</translation>
+    </message>
+    <message>
+        <source>Cancle</source>
+        <translation>取消</translation>
+    </message>
+</context>
+<context>
     <name>SettingPage</name>
     <message>
         <source>Settings</source>
@@ -625,15 +976,15 @@ Email：contact@9smart.cn
     </message>
     <message>
         <source>This version is the new newest version</source>
-        <translation>已经是最新版本</translation>
+        <translation type="obsolete">已经是最新版本</translation>
     </message>
     <message>
         <source>Clear login data</source>
-        <translation>清除登录信息</translation>
+        <translation type="obsolete">清除登录信息</translation>
     </message>
     <message>
         <source>Clear successfully</source>
-        <translation>清除成功</translation>
+        <translation type="obsolete">清除成功</translation>
     </message>
     <message>
         <source>9Stroe</source>
@@ -711,6 +1062,32 @@ Email：contact@9smart.cn
     <message>
         <source>Related apps</source>
         <translation>相关应用</translation>
+    </message>
+    <message>
+        <source>No next page aviliable...</source>
+        <translation>没有下一页……</translation>
+    </message>
+</context>
+<context>
+    <name>TopChartsButtons</name>
+    <message>
+        <source>Newest</source>
+        <translation>最新发布</translation>
+    </message>
+    <message>
+        <source>Most pop</source>
+        <translation>最受欢迎</translation>
+    </message>
+    <message>
+        <source>Most dl</source>
+        <translation>下载最多</translation>
+    </message>
+</context>
+<context>
+    <name>TopChartsContent</name>
+    <message>
+        <source>No next page aviliable...</source>
+        <translation>没有下一页……</translation>
     </message>
 </context>
 <context>
@@ -904,11 +1281,11 @@ Email：contact@9smart.cn
     <name>main</name>
     <message>
         <source>è¿æ¥éè¯¯,ä»£ç :</source>
-        <translation>Unrecognizable words</translation>
+        <translation type="obsolete">Unrecognizable words</translation>
     </message>
     <message>
         <source>loading erro...</source>
-        <translation>加载中……</translation>
+        <translation type="obsolete">加载错误……</translation>
     </message>
 </context>
 </TS>

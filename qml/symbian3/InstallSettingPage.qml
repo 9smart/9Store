@@ -36,7 +36,7 @@ MyPage{
             anchors.leftMargin: 10;
             text: qsTr("Install autoly when download finish");
             platformInverted: true;
-            checked: autoInstall;
+            checked: settings.autoInstall;
             onClicked: {
                 if(settings.autoInstall){
                     settings.autoInstall = false;
@@ -67,7 +67,7 @@ MyPage{
                 fileDialog.inverseTheme = true//设置主题模式
                 fileDialog.chooseMode = FilesDialog.IndividualChoice
                 fileDialog.chooseType = FilesDialog.FolderType
-                fileDialog.exec(downloadpath,FilesDialog.Dirs|FilesDialog.Drives)
+                fileDialog.exec(settings.downloadPath, FilesDialog.Dirs|FilesDialog.Drives)
                 var file = fileDialog.firstSelection()
                 if(file.filePath)
                     settings.downloadPath =file.filePath;
@@ -82,7 +82,7 @@ MyPage{
                 fileDialog.chooseMode = FilesDialog.IndividualChoice
                 fileDialog.chooseType = FilesDialog.DriveType
                 fileDialog.canOpenSystemDrive = false;
-                fileDialog.exec(installdriver,FilesDialog.Drives)
+                fileDialog.exec(settings.installDriver, FilesDialog.Drives)
                 var file = fileDialog.firstSelection()
                 if(file.filePath)
                     settings.installDriver =file.filePath;

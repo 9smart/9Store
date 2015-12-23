@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = 9Store
-VERSION = 0.5.1
+VERSION = 1.0.0
 DEFINES += VER=\\\"$$VERSION\\\"
 
 TRANSLATIONS = 9store_zh_CN.ts
@@ -61,7 +61,9 @@ folder_JS.target = qml
 simulator{
     CONFIG += mobility
 
-          DEPLOYMENTFOLDERS +=  folder_Symbian folder_pic folder_JS
+    DEPLOYMENTFOLDERS +=  folder_Symbian folder_pic folder_JS
+
+    RESOURCES += Symbian3-res.qrc
 }
 
 contains(MEEGO_EDITION,harmattan){
@@ -85,8 +87,8 @@ symbian{
         #DEPLOYMENTFOLDERS -= folder_pic
         RESOURCES += Symbian1-res.qrc
     } else {
-        DEPLOYMENTFOLDERS += folder_Symbian folder_pic folder_JS
-        #RESOURCES += Symbian3-res.qrc
+        #DEPLOYMENTFOLDERS += folder_Symbian folder_pic folder_JS
+        RESOURCES += Symbian3-res.qrc
     }
     CONFIG += mobility
 

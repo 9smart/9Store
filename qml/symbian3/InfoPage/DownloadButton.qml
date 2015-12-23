@@ -24,6 +24,9 @@ Rectangle {
             right: parent.right;
             rightMargin: 5;
         }
+        //checked: true;
+        //checkable: true;
+
         text: qsTr("Download");
         onClicked: {
             if(user.userState){

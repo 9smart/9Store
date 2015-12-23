@@ -51,7 +51,8 @@ PageStackWindow{
         interval: 300000;
         triggeredOnStart: true;
         repeat: true;
-        running: true;
+        //running: true;
+        running: false;
         onTriggered: {
             if(user.userState){
                 Script.noticeListPage = "";
@@ -83,15 +84,22 @@ PageStackWindow{
         }
     }
     StatusBar{
-        id:statusbar
+        id:statusbar;
+        visible: false;
     }
 
     Component.onCompleted:{
         Script.initialize(signalCenter, utility, userdata, settings/*, qcurl*/);
         Script.application = app;
+        if(settings.versionCode < 1){
+            splash.visible = false;
+            userdata.clearUserData("UserData");         //1.0.0
+            settings.versionCode = 1;
+            settings.saveSettings();
+        }
         Script.loadUserInfo(userdata.getUserData("UserData"));
 
-        //console.log(statusbar.height + " " + statusbar.z);
+        //console.log(statusbar.height + " " + statusbar.z);       
 
         loadDownloadData(userdata.getUserData("DownloadData"));
         pageStack.push(Qt.resolvedUrl("MainPage.qml"));

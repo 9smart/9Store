@@ -20,7 +20,7 @@ CommonDialog{
             size: 33;
             optional: true;
         }
-        TextField{
+        TextArea{
             id:comments
             platformInverted: true;
             anchors{
@@ -31,6 +31,7 @@ CommonDialog{
         }
     }
     onButtonClicked: {
-        Script.sendComment(user.auth, _id, "app", comments.text, rankstars.ranknum, app.deviceModel);
+        if(index === 0)
+            Script.sendComment(user.auth, _id, "app", comments.text, rankstars.ranknum, app.deviceModel);
     }
 }

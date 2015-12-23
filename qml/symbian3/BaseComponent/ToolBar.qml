@@ -52,7 +52,7 @@ Image {
     }
     ToolButton{
         id:back;
-        iconSource:  "../../pic/General/Toolbar_icon_back.svg";
+        iconSource:  "../../pic/General/Toolbar_icon_Back.svg";
         anchors.verticalCenter: parent.verticalCenter;
         x:8;
         onClicked: {
@@ -76,7 +76,7 @@ Image {
     }
     Image{
         id:topcharts;
-        source: "../../pic/General/Toolbar_icon_Topcharts.svg";
+        source: "../../pic/General/Toolbar_icon_TopCharts.svg";
         anchors.verticalCenter: parent.verticalCenter;
         x:165;
         MouseArea{

@@ -1,14 +1,14 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
-Rectangle{
+Item{
     id:loadingind;
     state: "close";
     width: 160;
     height:90;
     anchors.centerIn: parent;
-    color: "gray";
+    //color: "gray";
     opacity: 0.6;
-    radius:8;
+    //radius:8;
     BusyIndicator{
         id:indicator
         anchors{

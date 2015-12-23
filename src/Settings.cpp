@@ -22,6 +22,7 @@ void Settings::loadSettings()
 #endif
         m_autoInstall = settings->value("autoInstall", false).toBool();
         m_silenceInstall = settings->value("silenceInstall", true).toBool();
+        m_versionCode = settings->value("versionCode", 0).toInt();
     }
     else qDebug() << "settings load failed...";
 }
@@ -35,6 +36,7 @@ void Settings::saveSettings()
 #endif
         settings->setValue("autoInstall",m_autoInstall);
         settings->setValue("silenceInstall", m_silenceInstall);
+        settings->setValue("versionCode", m_versionCode);
     }
     else qDebug() << "settings save failed...";
 }
@@ -90,5 +92,17 @@ void Settings::setSilenceInstall(bool newSilenceInstall)
     if(m_silenceInstall != newSilenceInstall){
         m_silenceInstall = newSilenceInstall;
         emit silenceInstallChanged();
+    }
+}
+
+int Settings::versionCode()
+{
+    return m_versionCode;
+}
+void Settings::setVersionCode(int newVersionCode)
+{
+    if(m_versionCode != newVersionCode){
+        m_versionCode = newVersionCode;
+        emit versionCodeChanged();
     }
 }
