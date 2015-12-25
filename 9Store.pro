@@ -18,7 +18,8 @@ SOURCES += main.cpp \
     src/UserData.cpp \
     src/Utility.cpp \
     src/NetworkAccessManagerFactory.cpp \
-    src/MyImage.cpp
+    src/MyImage.cpp \
+    src/Downloader.cpp
 
 HEADERS += \
     src/Settings.h \
@@ -26,7 +27,8 @@ HEADERS += \
     src/UserData.h \
     src/Utility.h \
     src/NetworkAccessManagerFactory.h \
-    src/MyImage.h
+    src/MyImage.h \
+    src/Downloader.h
 
 !simulator{
     include(curl-7.37.0/lib/curl.pri)

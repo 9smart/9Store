@@ -24,13 +24,14 @@ Rectangle {
             right: parent.right;
             rightMargin: 5;
         }
+        width: 150;
         //checked: true;
         //checkable: true;
 
         text: qsTr("Download");
         onClicked: {
             if(user.userState){
-                Script.getDownloadUrl(_id, user.auth, title, icon);
+                Script.getDownloadUrl(_id, user.auth, title, icon, "symbian");
             }
             else{
                 signalCenter.showMessage(qsTr("Please login"));

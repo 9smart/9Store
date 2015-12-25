@@ -5,7 +5,8 @@ import "../JavaScript/main.js" as Script
 import "BaseComponent"
 import "Dialog"
 MyPage{
-    id:downloadpage;
+    id: installsettingpage;
+    property alias newVersionDialog: newversiondialog;
     title: qsTr("Installation preferences");
     ToolBar{
         id:toolbar;
@@ -103,5 +104,22 @@ MyPage{
                     signalCenter.showMessage(qsTr("Clear successfully"));
             }
         }*/
+        Button{
+            //anchors.topMargin: 20;
+            platformInverted: true;
+            width: 300;
+            anchors.horizontalCenter: parent.horizontalCenter;
+            text: qsTr("Check new version");
+            onClicked: {
+                Script.getversion();
+            }
+        }
+    }
+    NewVersionDialog{
+        id: newversiondialog;
+    }
+
+    Component.onCompleted: {
+        Script.installSettingPage = installsettingpage;
     }
 }

@@ -115,7 +115,8 @@ MyPage{
             text: qsTr("Get one here");
             MouseArea{
                 anchors.fill: parent;
-                onClicked: pageStack.push(Qt.resolvedUrl("registerPage.qml"));
+                anchors.margins: -10;
+                onClicked: pageStack.push(Qt.resolvedUrl("RegisterPage.qml"));
             }
         }
     }

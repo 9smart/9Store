@@ -91,8 +91,11 @@ void QCurl::appenddl(QString url,  QString file)
 void QCurl::downloadFinished(int result)
 {
     qDebug() << "curl finished" << result;
+    qDebug() << "here1";
     QDeclarativeItem *rootItem = qobject_cast<QDeclarativeItem*>(m_viewer->rootObject());
-    QObject *signalCenter = rootItem->findChild<QObject*>("signalCenter");
+    qDebug() << "here2";
+    QObject *signalCenter = rootItem->findChild<QDeclarativeItem*>("signalCenter");
+
     if(result == CURLE_OK){
         QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr(" download successfully"))));
         if(m_settings->autoInstall()){
@@ -103,10 +106,13 @@ void QCurl::downloadFinished(int result)
                 m_fileOperate->openFile(2, currentFile());
             }
         }
+        qDebug()<< "curl ok";
     }
     else{
         QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr(" dowanload failed"))));
+        qDebug()<< "curl failed";
     }
+
     curl_easy_cleanup(curl);
     setCurrentUrl("");
     setCurrentFile("");
@@ -124,6 +130,8 @@ void QCurl::downloadFinished(int result)
         curl_easy_setopt(curl, CURLOPT_PROGRESSDATA, this);
 
         setCurrentUrl(QString(task.url));
+        qDebug() << "here3";
+        qDebug() << (char *)task.fp->_ub._base;
         setCurrentFile(QString((char *)task.fp->_ub._base));
         qDebug() << QString((char *)task.fp->_ub._base);
         emit startDownload(curl);

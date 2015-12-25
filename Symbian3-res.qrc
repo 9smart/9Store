@@ -103,5 +103,18 @@
         <file>qml/pic/TopCharts/Launch.svg</file>
         <file>qml/pic/9-Symbian.svg</file>
         <file>qml/pic/9-Symbian2.svg</file>
+        <file>qml/symbian3/Dialog/NewVersionDialog.qml</file>
+        <file>qml/pic/FirstOpen/011.jpg</file>
+        <file>qml/pic/FirstOpen/012.png</file>
+        <file>qml/pic/FirstOpen/021.jpg</file>
+        <file>qml/pic/FirstOpen/022.png</file>
+        <file>qml/pic/FirstOpen/031.jpg</file>
+        <file>qml/pic/FirstOpen/032.jpg</file>
+        <file>qml/pic/FirstOpen/033.png</file>
+        <file>qml/pic/FirstOpen/034.png</file>
+        <file>qml/symbian3/BaseComponent/FirstOpenSplash.qml</file>
+        <file>qml/symbian3/Dialog/ReDownloadDialog.qml</file>
+        <file>qml/pic/Personal/icon-m-toolbar-delete.png</file>
+        <file>qml/symbian3/Dialog/ClearDownloadDialog.qml</file>
     </qresource>
 </RCC>

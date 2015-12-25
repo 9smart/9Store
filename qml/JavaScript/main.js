@@ -6,11 +6,13 @@ var signalcenter;
 var utility;
 var userData;
 var settings;
+var downloader;
 var qCurl;
-function initialize(sc, ut, ud, st, qc){
+function initialize(sc, ut, ud, st, dl, qc){
     signalcenter = sc;
     utility = ut;
     userData = ud;
+    downloader = dl;
     qCurl = qc?qc:"";
     settings = st;
 }
@@ -27,9 +29,9 @@ function isEmail(string){
 }
 
 function humanedate(_dateline){
-    var thatday=new Date(_dateline*1000);
-    var now=parseInt(new Date().valueOf()/1000);
-    var cha=now-_dateline;
+    var thatday=new Date(_dateline);
+    var now=new Date().getTime();
+    var cha=(now-_dateline)/1000;
     if(cha<180){
         return "刚刚";
     }else if(cha<3600){
@@ -46,6 +48,7 @@ function humanedate(_dateline){
         return thatday.getFullYear()+'-'+(thatday.getMonth()+1)+'-'+thatday.getDate();
     }
 }
+
 
 function sendWebRequest(url, callback, method, postdata) {
     var xmlhttp = new XMLHttpRequest();
@@ -296,19 +299,23 @@ function loadinfo(oritxt){
 
 var downloadName;
 var downloadIcon;
-function getDownloadUrl(id, auth, name, icon){
-    var url = download(id, auth, "");
+var downloadid;
+function getDownloadUrl(id, auth, name, icon, system){
+    var url = download(id, auth, "", system);
     downloadName = name;
     downloadIcon = icon;
+    downloadid = id;
     sendWebRequest(url, loadDownloadUrl, "GET", "");
 }
 function loadDownloadUrl(oritxt){
     var obj = JSON.parse(oritxt);
     if(obj.error === 0){
-        application.downloadModel.append({"name": downloadName, "url": obj.down_url,
+        //console.log(oritxt);
+        application.downloadModel.append({"id": downloadid, "name": downloadName, "url": obj.down_url,
                                              "filename": settings.downloadPath + "/" +downloadName + ".sis", "icon": downloadIcon});
-        qCurl.appenddl(obj.down_url, settings.downloadPath + "/" + downloadName + ".sis");
-        signalCenter.showMessage(qsTr("Task added!"));
+        //qCurl.appenddl(obj.down_url, downloadName + ".sis");
+        downloader.appendDl(obj.down_url, downloadName + ".sis");
+        signalcenter.showMessage(qsTr("Task added!"));
     }
     else signalcenter.showMessage(obj.error);
 }
@@ -395,6 +402,10 @@ function sendCommentResult(oritxt){
     var obj=JSON.parse(oritxt);
     if(obj.error === 0){
         signalcenter.showMessage(qsTr("send successful!"));
+        if(commentPage){
+            commentListPage = ""
+            getComment(commentPage._id, commentListPage);
+        }
     }
     else signalcenter.showMessage(obj.error);
 }
@@ -417,19 +428,31 @@ function sendReplyResult(oritxt){
     else signalcenter.showMessage(obj.error);
 }
 
-var version;
+var installSettingPage;
+
 function getversion() {
-    var url = "http://api.9smart.cn/app/";
+    /*var url = "http://api.9smart.cn/app/";
     if (system == "belle")
         url = url + "105";
     else if (system == "s60v5")
-        url = url + "119";
-    sendWebRequest(url,loadversion,"GET","");
+        url = url + "119";*/
+    var url = checkVersion("Symbian%5e3", "0xE5735851");
+    sendWebRequest(url, loadversion, "GET", "");
 }
 function loadversion(oritxt){
-    var obj=JSON.parse(oritxt);
-    version=obj.version;
-    signalcenter.versionGeted();
+    var obj = JSON.parse(oritxt);
+    //console.log(oritxt);
+    if(obj.error === 0){
+        //signalcenter.showMessage(qsTr("send successful!"));
+        var version = obj.apps[0].version;
+        if(isnew(version, "1.0.0")){
+            installSettingPage.newVersionDialog.open();
+        }
+        else{
+            signalcenter.showMessage(qsTr("Current version is the latest version"));
+        }
+    }
+    else signalcenter.showMessage(obj.error);
 }
 function isnew(currentver,lastver){
     var j = 0,s1,s2;
@@ -442,28 +465,28 @@ function isnew(currentver,lastver){
             j++;
         }
     }
-    var temp=lastver.substring(0,++num[0]);
-    s1=parseInt(temp)*100;
-    temp=lastver.substring(num[0],++num[1]);
-    s1=s1+parseInt(temp)*10;
-    temp=lastver.substring(num[1]);
-    s1=s1+parseInt(temp);
-    j=0;
-    i=0;
+    var temp = lastver.substring(0, ++num[0]);
+    s1 = parseInt(temp) * 100;
+    temp = lastver.substring(num[0], ++num[1]);
+    s1 = s1 + parseInt(temp)*10;
+    temp = lastver.substring(num[1]);
+    s1 = s1 + parseInt(temp);
+    j = 0;
+    i = 0;
     for(i in currentver)
     {
-        if(currentver[i]==='.')
+        if(currentver[i] === '.')
         {
-            num[j]=i;
+            num[j] = i;
             j++;
         }
     }
-    temp=currentver.substring(0,++num[0]);
-    s2=parseInt(temp)*100;
-    temp=currentver.substring(num[0],++num[1]);
-    s2=s2+parseInt(temp)*10;
-    temp=currentver.substring(num[1]);
-    s2=s2+parseInt(temp);
-    if(s2>=s1)return true;
+    temp = currentver.substring(0, ++num[0]);
+    s2 = parseInt(temp)*100;
+    temp = currentver.substring(num[0],++num[1]);
+    s2 = s2 + parseInt(temp)*10;
+    temp = currentver.substring(num[1]);
+    s2 = s2 + parseInt(temp);
+    if(s2 > s1)return true;
     else return false;
 }

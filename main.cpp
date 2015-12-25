@@ -9,6 +9,7 @@
 #include "src/Utility.h"
 #include "src/NetworkAccessManagerFactory.h"
 #include "src/MyImage.h"
+#include "src/Downloader.h"
 #include "selectfilesdialog.h"
 
 #ifndef Q_WS_SIMULATOR
@@ -47,10 +48,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     FileOperate fileoperate(&settings, &viewer);
     UserData userdata;
     Utility utility;
+    Downloader downloader(&viewer, &settings, &fileoperate);
+
 
 #ifndef Q_WS_SIMULATOR
-    QCurl qcurl(&viewer);
-    viewer.rootContext()->setContextProperty("qcurl",&qcurl);
+    //QCurl qcurl(&viewer, &settings, &fileoperate);
+    //viewer.rootContext()->setContextProperty("qcurl",&qcurl);
 #endif
     NetworkAccessManagerFactory factory;
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
@@ -60,6 +63,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     viewer.rootContext()->setContextProperty("userdata",&userdata);
     viewer.rootContext()->setContextProperty("utility",&utility);
+    viewer.rootContext()->setContextProperty("downloader", &downloader);
     viewer.engine()->rootContext()->setContextProperty("fileDialog",new SelectFilesDialog());
 
     #ifdef Q_OS_S60V5  //Symbian^1

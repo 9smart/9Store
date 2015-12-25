@@ -47,4 +47,11 @@ Image {
             reversible: true;
         }
     ]
+    MouseArea{
+        anchors.fill: parent;
+        onClicked: {
+            pageStack.push(Qt.resolvedUrl("../InfoPage.qml"),
+                           {_id:model._id, title:model.appname, icon:"http://apps-images.9smart.cn/" + model.uploader.uid + "/i/" + model._id, score_num:((model.score_num)?model.score_num:0), scores:((model.scores)?model.scores:0), developer:model.developer});
+        }
+    }
 }

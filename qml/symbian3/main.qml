@@ -6,6 +6,7 @@ import QtMobility.systeminfo 1.1
 import "../JavaScript/main.js" as Script
 import "../JavaScript/deviceModel.js" as Device
 import "BaseComponent"
+import "Delegate"
 PageStackWindow{
     id: app;
     property string version:"0.5.1";
@@ -64,6 +65,7 @@ PageStackWindow{
     ListModel{
         id:downloadmodel;
     }
+
     Connections{
         target: signalCenter;
         onLoadStarted:{
@@ -87,19 +89,23 @@ PageStackWindow{
         id:statusbar;
         visible: false;
     }
+    FirstOpenSplash{
+        id: firestopensplash;
+    }
 
     Component.onCompleted:{
-        Script.initialize(signalCenter, utility, userdata, settings/*, qcurl*/);
+        Script.initialize(signalCenter, utility, userdata, settings, downloader/*, qcurl*/);
         Script.application = app;
+        //console.log(settings.versionCode);
         if(settings.versionCode < 1){
             splash.visible = false;
+            firestopensplash.open();
             userdata.clearUserData("UserData");         //1.0.0
             settings.versionCode = 1;
             settings.saveSettings();
         }
         Script.loadUserInfo(userdata.getUserData("UserData"));
 
-        //console.log(statusbar.height + " " + statusbar.z);       
 
         loadDownloadData(userdata.getUserData("DownloadData"));
         pageStack.push(Qt.resolvedUrl("MainPage.qml"));

@@ -2,6 +2,7 @@ import QtQuick 1.1
 import com.nokia.symbian 1.1
 import "BaseComponent"
 import "Delegate"
+import "Dialog"
 import "../JavaScript/main.js" as Script
 
 MyPage{
@@ -13,9 +14,13 @@ MyPage{
         homeButtonVisible: false;
         topChartsButtonVisible: false;
         searchButtonVisible: false;
-        personalButtonVisible: false;
+        //personalButtonVisible: false;
+        personalSource: "../pic/Personal/icon-m-toolbar-delete.png";
         highlightItem: 0;
         onBackButtonClicked: pageStack.pop();
+        onPersonalButtonClicked: {
+            cleardownloaddialog.open();
+        }
     }
     Head{
         id: head;
@@ -40,5 +45,12 @@ MyPage{
         model: downloadmodel;
         delegate: DownloadComponent{}
     }
+    ReDownloadDialog{
+        id: redownloaddialog;
+    }
+    ClearDownloadDialog{
+        id: cleardownloaddialog;
+    }
+
     Component.onCompleted:downloadview.count===0?emptyLabel.visible=true:emptyLabel.visible=false;
 }

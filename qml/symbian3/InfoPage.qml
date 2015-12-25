@@ -132,6 +132,7 @@ MyPage{
                     width: 20;
                     MouseArea{
                         anchors.fill: parent;
+                        anchors.margins: -10;
                         onClicked: screenshot.state=="close"? screenshot.state="open" : screenshot.state="close";
                     }
                 }

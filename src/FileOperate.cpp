@@ -92,7 +92,7 @@ void FileOperate::openFile(int key, QString filename)
 #elif defined(Q_OS_SYMBIAN)
 void FileOperate::openFile(int key, QString filename)
 {
-    //setCurrentInstallFile(filename);
+    filename.replace("//", "/");
     switch(key){
     case 1:{//Silent Install package
         qDebug()<< "silence install package" << filename;
@@ -185,7 +185,8 @@ void SymbianInstaller::start(QString fileName, char drive)
     SwiUI::TInstallOptions iOptions;
     SwiUI::TInstallOptionsPckg iOptionsPckg;
 
-    iOptions.iOCSP = SwiUI::EPolicyAllowed;
+    iOptions.iOCSP = SwiUI::EPolicyNotAllowed;
+    //iOptions.iOverwrite = SwiUI::EPolicyAllowed;
     /*iOptions.iUpgrade = SwiUI::EPolicyAllowed;
     iOptions.iIgnoreOCSPWarnings = SwiUI::EPolicyAllowed;*/
     //iOptions.iUntrusted = SwiUI::EPolicyAllowed;

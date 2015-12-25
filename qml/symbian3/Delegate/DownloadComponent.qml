@@ -58,7 +58,7 @@ MyListItem{
     }
     onClicked:{
         if(state === "Erro"){
-            //redownloaddia.open();
+            redownloaddialog.openDia(model.id, model.name, model.icon, index);
         }
         else if(state === "Downloaded"){
             if(settings.silenceInstall){
@@ -83,19 +83,19 @@ MyListItem{
                 target: downloadstate;
                 source: "../../pic/TopCharts/Downloading.svg";
             }
-            when: qcurl.isTaskExist(model.url) && !qcurl.isFileExist(model.filename) && !qcurl.isCurrentUrl(model.url);
+            when: downloader.isTaskExist(model.url) && !downloader.isFileExist(model.filename) && !downloader.isCurrentUrl(model.url);
         },
         State{
             name:"Downloading";
             PropertyChanges{
                 target: progress;
-                value: qcurl.progress;
+                value: downloader.progress;
             }
             PropertyChanges{
                 target: downloadstate;
                 source: "../../pic/TopCharts/Downloading.svg";
             }
-            when: qcurl.isCurrentUrl(model.url);
+            when: downloader.isCurrentUrl(model.url);
         },
         State{
             name:"Downloaded";
@@ -107,7 +107,7 @@ MyListItem{
                 target: downloadstate;
                 source: "../../pic/TopCharts/Downloaded.svg";
             }
-            when: qcurl.isFileExist(model.filename) && !qcurl.isCurrentUrl(model.url) && fileoperate.currentInstallFile !== model.filename;
+            when: downloader.isFileExist(model.filename) && !downloader.isCurrentUrl(model.url) && fileoperate.currentInstallFile !== model.filename;
         },
         State{
             name:"Installing";
@@ -134,21 +134,21 @@ MyListItem{
                 target: downloadstate;
                 source: "../../pic/TopCharts/Downloaderr.svg";
             }
-            when: !qcurl.isFileExist(model.filename) && !qcurl.isCurrentUrl(model.url);
+            when: !downloader.isFileExist(model.filename) && !downloader.isCurrentUrl(model.url);
         }
 
     ]
 
     Connections{
-        target: qcurl;
+        target: downloader;
         onCurrentUrlChanged:{
-            if(qcurl.isCurrentUrl(model.url)){
+            if(downloader.isCurrentUrl(model.url)){
                 state = "Downloading";
             }
-            else if(qcurl.isFileExist(model.filename)){
+            else if(downloader.isFileExist(model.filename)){
                 state = "Downloaded";
             }
-            else if(qcurl.isTaskExist(model.url)){
+            else if(downloader.isTaskExist(model.url)){
                 state = "Waiting";
             }
             else{
