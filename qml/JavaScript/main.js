@@ -166,9 +166,14 @@ function getfeatured(system){
 }
 function loadfeatured(oritxt){
     var obj = JSON.parse(oritxt);
+    console.log(oritxt);
     if(obj.error === 0){
         mainPage.featuredModel.clear();
         for(var i in obj.apps){
+            if(!obj.apps[i].score_num){
+                obj.apps[i].score_num = 0;
+                obj.apps[i].scores = 0;
+            }
             mainPage.featuredModel.append(obj.apps[i]);
         }
     }
@@ -241,6 +246,10 @@ function loadapplication(oritxt){
     if(obj.error === 0){
         mainPage.applicationModel.clear();
         for(var i in obj.apps){
+            if(!obj.apps[i].score_num){
+                obj.apps[i].score_num = 0;
+                obj.apps[i].scores = 0;
+            }
             mainPage.applicationModel.append(obj.apps[i]);
         }
     }
@@ -255,6 +264,10 @@ function loadgame(oritxt){
     if(obj.error === 0){
         mainPage.gameModel.clear();
         for(var i in obj.apps){
+            if(!obj.apps[i].score_num){
+                obj.apps[i].score_num = 0;
+                obj.apps[i].scores = 0;
+            }
             mainPage.gameModel.append(obj.apps[i]);
         }
     }
@@ -412,9 +425,9 @@ function sendCommentResult(oritxt){
 
 function sendReply(auth, cid, content, model){
     var url = reply(auth, cid);
-    console.log(url);
+    //console.log(url);
     var postData = encodeURIComponent(replyData(content, model));
-    console.log(postData);
+    //console.log(postData);
     sendWebRequest(url, sendReplyResult, "POST", postData);
 }
 
@@ -431,11 +444,6 @@ function sendReplyResult(oritxt){
 var installSettingPage;
 
 function getversion() {
-    /*var url = "http://api.9smart.cn/app/";
-    if (system == "belle")
-        url = url + "105";
-    else if (system == "s60v5")
-        url = url + "119";*/
     var url = checkVersion("Symbian%5e3", "0xE5735851");
     sendWebRequest(url, loadversion, "GET", "");
 }
@@ -443,7 +451,6 @@ function loadversion(oritxt){
     var obj = JSON.parse(oritxt);
     //console.log(oritxt);
     if(obj.error === 0){
-        //signalcenter.showMessage(qsTr("send successful!"));
         var version = obj.apps[0].version;
         if(isnew(version, "1.0.0")){
             installSettingPage.newVersionDialog.open();
@@ -457,10 +464,8 @@ function loadversion(oritxt){
 function isnew(currentver,lastver){
     var j = 0,s1,s2;
     var num=new Array;
-    for(var i in lastver)
-    {
-        if(lastver[i]==='.')
-        {
+    for(var i in lastver){
+        if(lastver[i]==='.'){
             num[j]=i;
             j++;
         }
@@ -473,10 +478,8 @@ function isnew(currentver,lastver){
     s1 = s1 + parseInt(temp);
     j = 0;
     i = 0;
-    for(i in currentver)
-    {
-        if(currentver[i] === '.')
-        {
+    for(i in currentver){
+        if(currentver[i] === '.'){
             num[j] = i;
             j++;
         }
