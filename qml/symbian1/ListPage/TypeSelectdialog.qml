@@ -1,10 +1,10 @@
 import QtQuick 1.0
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 import "../../JavaScript/main.js" as Script
 
 SelectionDialog {
     id: typeSelect;
-    //platformInverted: true;
+    platformInverted: true;
     titleText: "选择分类"
     model: ListModel {
         ListElement { }
@@ -23,7 +23,7 @@ SelectionDialog {
     delegate: Component {
         MenuItem {
             text: typeSelect.model.listModel_itemName(index);
-            //platformInverted: true;
+            platformInverted: true;
             onClicked: {
                 selectedIndex = index;
                 accept();
@@ -31,27 +31,27 @@ SelectionDialog {
         }
     }
     onAccepted: {
-        switch (selectedIndex) {
+        switch(selectedIndex) {
         case 0: {
             listpage.type = "";
             page = 1;
-            Script.getlist("s60v5",page.toString(),"15",category,type,upload_name,order,searchname,"appname,author,appid,icon,summary,version,scores,ratingnum");
+            Script.getlist("s60v5",page.toString(),"15","",type,"",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
             //close();
             break;
         }
         case 1: {
-            listpage.type="app";
+            listpage.type = "app";
             Script.getcategory(type);
-            page=1;
-            Script.getlist("s60v5",page.toString(),"15",category,type,upload_name,order,searchname,"appname,author,appid,icon,summary,version,scores,ratingnum");
+            page = 1;
+            Script.getlist("s60v5", page.toString(), "15", "", type, "", order, "", "appname,author,appid,icon,summary,version,scores,ratingnum");
             //close();
             break;
         }
         case 2: {
             listpage.type = "game";
             Script.getcategory(type);
-            page=1;
-            Script.getlist("s60v5",page.toString(),"15",category,type,upload_name,order,searchname,"appname,author,appid,icon,summary,version,scores,ratingnum");
+            page = 1;
+            Script.getlist("s60v5", page.toString(), "15", "", type, "", order, "", "appname,author,appid,icon,summary,version,scores,ratingnum");
             //close();
             break;
         }

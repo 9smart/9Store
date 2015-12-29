@@ -1,59 +1,73 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.meego 1.1
-import "../Main"
-ListItem{
+import "../BaseComponent"
+Rectangle{
     id: maininfo;
-    enabled: false;
-    width: parent.parent.width;
-    height: bigicon.height + 32 + dlbutton.height;
+    width: screen.displayWidth;
+    height: 120;
+    color: "#f5f5f5";
     Image{
         id:bigicon;
-        anchors.left: parent.left;
-        anchors.top: parent.top;
-        anchors.margins: 12;
-        width: 100;
-        height: 100;
+        anchors{
+            left: parent.left;
+            top: parent.top;
+            leftMargin: 20;
+            topMargin: 13;
+        }
+        width: 107;
+        height: 107;
         source: icon;
         smooth: true;
+        Image{
+            anchors.fill: parent;
+            source: "../../pic/General/App_icon_Loading.svg";
+            visible: parent.status==Image.Loading;
+        }
+        Image{
+            anchors.fill: parent;
+            source: "../../pic/General/App_icon_Error.svg";
+            visible: parent.status==Image.Error;
+        }
     }
     Column{
-        anchors.verticalCenter: bigicon.verticalCenter;
-        anchors.left: bigicon.right;
-        anchors.leftMargin: 12;
-        //spacing: 2;
+        anchors{
+            bottom: parent.bottom;
+            left: bigicon.right;
+            leftMargin: 20;
+        }
         RankStars{
-            ranknum: ratingnum==="0"?0:(scores/ratingnum).toFixed();
-            size: 32;
+            ranknum: ratingnum==="0"?0:(scores/ratingnum);
+            size: 28;
         }
         Text{
-            text: qsTr("By ")+author;
-            font.pixelSize: 24;
+            text: qsTr("By:")+author;
+            font.pixelSize: 20;
             color: "gray";
         }
         Text{
-            text: qsTr("version:")+version;
-            font.pixelSize: 24;
+            text: type+" > "+category;
+            font.pixelSize: 20;
             color: "gray"
         }
         Text{
-            text: qsTr("size:")+ size;
-            font.pixelSize: 24;
+            text: "v"+version+" - "+size;
+            font.pixelSize: 20;
             color: "gray"
         }
     }
-    ToolButton{
+    /*ToolButton{
         id:dlbutton;
         anchors.top: bigicon.bottom;
-        anchors.topMargin: 12;
         anchors.right: parent.right;
-        anchors.rightMargin: 20;
+        anchors.rightMargin: 15;
         text: qsTr("download");
-        enabled: dlnum===-1?true:false;
+        platformInverted: true;
+        checkable:dlnum===-1?true:false;
         onClicked:{
             if(dlnum===-1) {
                 if(fileoperate.dirExist(downloadpath)){
-                    var file=downloadpath+"["+appid+"]"+title+".deb";
+                    var file=downloadpath+"["+appid+"]"+title+".sis";
                     downloadmodel.append({"icon":icon,"name":title,"url":dlurl,"file":file});
                     qcurl.appenddl(dlurl,file);
                     signalCenter.showMessage(qsTr("Download appended!"));
@@ -61,5 +75,5 @@ ListItem{
                 else signalCenter.showMessage(qsTr("Please select an existent path for the download"));
             }
         }
-    }
+    }*/
 }

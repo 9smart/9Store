@@ -1,157 +1,226 @@
-﻿#include"Qcurl.h"
-double Qcurl::progress;
-Qcurl::Qcurl(QObject *parent):QObject(parent)
-     {
-      last=head=current=(struct Qcurldl *)malloc(sizeof(struct Qcurldl));
-      curl_global_init(CURL_GLOBAL_ALL );
+﻿#include <QThread>
+#include <QDebug>
+#include <QDeclarativeItem>
+#include <QDeclarativeView>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-      state=0;
-     }
-Qcurl::~Qcurl()
-     {
-      if (!thread.isNull())
-        {
-         thread->terminate();
-         thread->wait();
-         dl->deleteLater();
-        }
-     }
-void Qcurl::appenddl(QString url,  QString file)
-    {
-     QByteArray ba = url.toLatin1();
-     char *urlc=ba.data();    
-     ba = file.toUtf8();
-     char *filename=ba.data();
-     if(state==0)
-       {       
-        current->url=new char[url.size()+1];
-        strcpy(current->url,urlc);
-        current->fp=fopen(filename,"w");
-        current->next=NULL;
-        connect(this,SIGNAL(dlsetted()),this,SLOT(startnextdl()));
-        emit dlsetted();
-        return;
-       }
-     if(state==1)
-       {
-        last->next=(struct Qcurldl*)malloc(sizeof(struct Qcurldl));
-        last=last->next;
-        last->next=NULL;
-        last->url=new char[url.size()+1];
-        strcpy(last->url,urlc);
-        last->fp=fopen(filename,"w");
-       }
+#include "Qcurl.h"
+#include "Settings.h"
+#include "FileOperate.h"
+//double QCurl::progress;
+
+QCurl::QCurl(QObject *parent):QObject(parent)
+{
+    curl_global_init(CURL_GLOBAL_ALL );
+}
+
+QCurl::QCurl(QDeclarativeView *viewer, Settings *settings, FileOperate *fileOperate)
+{
+    curl_global_init(CURL_GLOBAL_ALL );
+    m_viewer = viewer;
+    m_settings = settings;
+    m_fileOperate = fileOperate;
+}
+
+QCurl::~QCurl()
+{
+    if (!thread.isNull()){
+        thread->terminate();
+        thread->wait();
+        performer->deleteLater();
     }
-double Qcurl::getprogress()
-      {
-       return progress;
-      }
-void Qcurl::startnextdl()
-    {     
-     if(current==last&&state==3)
-       {
-        fclose(current->fp);
-        currenturl[0]='/0';        
-        state=0;
-        return;
-       }     
-     if(state==3)
-       {
-        fclose(current->fp);
-        current=current->next;
-       }
-     curl=curl_easy_init();
-     curl_easy_setopt(curl,CURLOPT_NOPROGRESS,0);
-     curl_easy_setopt(curl,CURLOPT_FOLLOWLOCATION,1);
-     curl_easy_setopt(curl,CURLOPT_VERBOSE,1);
-     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Qcurl::file_callback);
-     curl_easy_setopt(curl,CURLOPT_PROGRESSFUNCTION,Qcurl::progress_callback);
-     curl_easy_setopt(curl, CURLOPT_URL,current->url);
-     strcpy(currenturl,current->url);
-     curl_easy_setopt(curl, CURLOPT_WRITEDATA,current->fp);
-     if(thread.isNull())
-       {
+    curl_global_cleanup();
+}
+
+QString QCurl::currentUrl() const
+{
+    return m_currentUrl;
+}
+
+QString QCurl::currentFile() const
+{
+    return m_currentFile;
+}
+
+double QCurl::progress() const
+{
+    return m_progress;
+}
+
+void QCurl::appenddl(QString url,  QString file)
+{
+    qDebug()<<"curl append: "<< url << " " << file;
+    QByteArray ba = url.toLatin1();
+    char *urlc=ba.data();
+    ba = file.toUtf8();
+    char *filename=ba.data();
+    QCurlTask task;
+    task.url = new char[url.size()+1];
+    strcpy(task.url, urlc);
+    task.fp = fopen(filename, "w");
+    if(thread.isNull()){
         thread = new QThread(this);
-        dl = new Qcurlperformer;
-        dl->moveToThread(thread);
-        connect(this,SIGNAL(startdl(CURL*)),dl,SLOT(start(CURL*)));
-        connect(dl,SIGNAL(statechanged(int)),this,SLOT(changestate(int)));
-        connect(dl,SIGNAL(finished()),this,SLOT(startnextdl()));
-        thread->start();
-       }
-     state=1;
-     emit startdl(curl);
+        performer = new QCurlPerformer;
+        performer->moveToThread(thread);
+        connect(this, SIGNAL(startDownload(CURL*)), performer, SLOT(start(CURL *)));
+        connect(performer, SIGNAL(finished(int)), this, SLOT(downloadFinished(int)));
+        thread->start(QThread::IdlePriority);
     }
-void Qcurl::changestate(int dlstate)
-    {
-     state=dlstate;
+    downloadQueue.enqueue(task);
+    if(currentUrl() == ""){
+        task = downloadQueue.dequeue();
+        curl = curl_easy_init();
+        curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0);
+        curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, QCurl::file_callback);
+        curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, QCurl::progress_callback);
+        curl_easy_setopt(curl, CURLOPT_URL, task.url);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, task.fp);
+        curl_easy_setopt(curl, CURLOPT_PROGRESSDATA, this);
+
+        setCurrentUrl(QString(task.url));
+        setCurrentFile(file);
+
+        emit startDownload(curl);
     }
-bool Qcurl::iscurrenturl(QString url)
-    {
-     int n=url.size()+1;
-     char urlc[n];
-     int i;
-     for(i=0;i<n-1;i++)
-        {
-         urlc[i]=url.at(i).unicode();
+}
+
+void QCurl::downloadFinished(int result)
+{
+    qDebug() << "curl finished" << result;
+    qDebug() << "here1";
+    QDeclarativeItem *rootItem = qobject_cast<QDeclarativeItem*>(m_viewer->rootObject());
+    qDebug() << "here2";
+    QObject *signalCenter = rootItem->findChild<QDeclarativeItem*>("signalCenter");
+
+    if(result == CURLE_OK){
+        QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr(" download successfully"))));
+        if(m_settings->autoInstall()){
+            if(m_settings->silenceInstall()){
+                m_fileOperate->openFile(1, currentFile());
+            }
+            else {
+                m_fileOperate->openFile(2, currentFile());
+            }
         }
-     urlc[n-1]='\0';
-     if(strcmp(urlc,currenturl)==0)
-       {
+        qDebug()<< "curl ok";
+    }
+    else{
+        QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr(" dowanload failed"))));
+        qDebug()<< "curl failed";
+    }
+
+    curl_easy_cleanup(curl);
+    setCurrentUrl("");
+    setCurrentFile("");
+    if(!downloadQueue.isEmpty()){
+        QCurlTask task = downloadQueue.dequeue();
+
+        curl = curl_easy_init();
+        curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0);
+        curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, QCurl::file_callback);
+        curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, QCurl::progress_callback);
+        curl_easy_setopt(curl, CURLOPT_URL,task.url);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, task.fp);
+        curl_easy_setopt(curl, CURLOPT_PROGRESSDATA, this);
+
+        setCurrentUrl(QString(task.url));
+        qDebug() << "here3";
+        qDebug() << (char *)task.fp->_ub._base;
+        setCurrentFile(QString((char *)task.fp->_ub._base));
+        qDebug() << QString((char *)task.fp->_ub._base);
+        emit startDownload(curl);
+    }
+}
+
+bool QCurl::isCurrentUrl(QString url)
+{
+    if(url == m_currentUrl){
         return true;
-       }
-     return false;
     }
-bool Qcurl::isfileexist(QString file)
-    {
-     QByteArray ba = file.toUtf8();
-     char *filename=ba.data();
-     FILE *fp;
-     fp=fopen(filename,"r");
-     if(fp==NULL)
-       {
+    return false;
+}
+
+bool QCurl::isFileExist(QString file)
+{
+    QByteArray ba = file.toUtf8();
+    char *filename=ba.data();
+    FILE *fp;
+    fp=fopen(filename,"r");
+    if(fp==NULL){
         return false;
-       }
-     fseek(fp,0,SEEK_END);
-     if(ftell(fp)==0)
-       {
-        return false;
-       }
-     fclose(fp);
-     return true;
     }
-Qcurlperformer::Qcurlperformer(QObject *parent):QObject(parent)
-              {
-              }
-Qcurlperformer::~Qcurlperformer()
-              {
-              }
-size_t Qcurl::file_callback(void *ptr, size_t size, size_t nmemb, void *userp)
-      {
-       FILE *fp = (FILE *)userp;
-       ptr=(char *)ptr;
-       size_t return_size = fwrite(ptr, size, nmemb, fp);
-       return return_size;
-      }
-int Qcurl::progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow)
-   {
-    if(dltotal==0)
-      {
-       progress=0;
-       return 0;
-      }
-    progress=dlnow/dltotal;
+    fseek(fp,0,SEEK_END);
+    if(ftell(fp)==0){
+        return false;
+    }
+    fclose(fp);
+    return true;
+}
+
+bool QCurl::isTaskExist(QString url)
+{
+    for(int i=0;i<downloadQueue.length();i++){
+        if(QString(downloadQueue[i].url) == url){
+            return true;
+        }
+    }
+    return false;
+}
+
+size_t QCurl::file_callback(void *ptr, size_t size, size_t nmemb, void *userp)
+{
+    FILE *fp = (FILE *)userp;
+    ptr=(char *)ptr;
+    size_t return_size = fwrite(ptr, size, nmemb, fp);
+    return return_size;
+}
+
+int QCurl::progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow)
+{
+    if(dltotal==0){
+        ((QCurl *)clientp)->setProgress(0);
+        return 0;
+    }
+    ((QCurl *)clientp)->setProgress(dlnow/dltotal);
     return 0;
-   }
-void Qcurlperformer::start(CURL *curl)
-    {
-    qDebug("start");
-     res=curl_easy_perform(curl);
-     if(res==CURLE_OK)
-       {
-        curl_easy_cleanup(curl);
-         qDebug("finished");
-        emit statechanged(3);
-        emit finished();       
-       }
+}
+
+void QCurl::setCurrentUrl(QString url)
+{
+    if(url != m_currentUrl){
+        m_currentUrl = url;
+        emit currentUrlChanged();
     }
+}
+
+void QCurl::setCurrentFile(QString file)
+{
+    if(file != m_currentFile){
+        m_currentFile = file;
+        emit currentFileChanged();
+    }
+}
+
+void QCurl::setProgress(double progress){
+    if(m_progress!=progress){
+        m_progress=progress;
+        emit progressChanged();
+    }
+}
+
+QCurlPerformer::QCurlPerformer(QObject *parent):QObject(parent){
+}
+
+QCurlPerformer::~QCurlPerformer(){
+}
+
+void QCurlPerformer::start(CURL *curl){
+    qDebug("curl start");
+    emit finished(curl_easy_perform(curl));
+}

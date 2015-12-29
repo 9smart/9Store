@@ -1,7 +1,7 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.symbian 1.1
-import com.stars.widgets 1.0
+import com.star.utility 1.0
 
 PageStackWindow{
     id:main
@@ -253,6 +253,7 @@ PageStackWindow{
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
+                    console.log(fileInfo.name);
                     switch(fileDialog.chooseType){
                     case FilesDialog.FolderType:{
                         if(fileInfo.type == FilesDialog.FolderType||
@@ -278,8 +279,10 @@ PageStackWindow{
                         break;
                     }
                     case FilesDialog.DriveType:{
-                        if(fileInfo.type == FilesDialog.DriveType){
-                            editStatus()
+                        if(fileInfo.type === FilesDialog.DriveType){
+                            if(fileDialog.canOpenSystemDrive === true || fileInfo.name !== "C:/" ){
+                                editStatus();
+                            }
                         }else{
                             openFile()
                         }

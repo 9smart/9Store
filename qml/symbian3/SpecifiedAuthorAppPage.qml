@@ -2,55 +2,53 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
 import "../JavaScript/main.js" as Script
-import "Main"
-import "SpecifiedAuthorAppPage"
+import "BaseComponent"
+import "Delegate"
 MyPage{
     id:relatedappspage;
     property int page:1;
     property bool firstStart: true;
+
+    property ListModel specifiedAuthorModel;
     onVisibleChanged: if (visible && firstStart) {
-                          firstStart = false
-                          Script.getlist("belle",page.toString(),"15","","",title,"","","appname,author,appid,icon,summary,version,scores,ratingnum");
+                          firstStart = false                         
+                          Script.infoListPage = "";
+                          Script.getSpecifiedAuthorList("Symbian%5e3", title, Script.infoListPage, "12");
                       }
     title: qsTr("Related apps");
-    tools: ToolBarLayout{
-        ToolButton{
-            iconSource: "toolbar-back";
-            platformInverted: true;
-            onClicked: pageStack.pop();
-        }
+    ToolBar{
+        id:toolbar;
+        z:1;
+        homeButtonVisible: false;
+        topChartsButtonVisible: false;
+        searchButtonVisible: false;
+        personalButtonVisible: false;
+        highlightItem: 0;
+        onBackButtonClicked: pageStack.pop();
     }
     Head{
         id:head;
-        color: "DarkGrey";
+        titleText: title;
         z:1;
-        Image{
-            id:icon;
-            anchors.verticalCenter: parent.verticalCenter;
-            anchors.left: parent.left;
-            anchors.leftMargin: 12;
-            height: 42;
-            width: 42;
-            smooth: true;
-            source: "../pic/9-Symbian.svg";
-        }
-        Text{
-            text: title;
-            font.pixelSize: 24;
-            anchors.verticalCenter: parent.verticalCenter;
-            anchors.left: icon.right;
-            anchors.leftMargin: 9;
-        }
     }
     ListView{
         id:listview;
         anchors.fill:parent;
         anchors.topMargin: head.height;
-        model: ListModel{ id:listmodel; }
-        delegate:ListDelegate{ id:listdelegate; }
-        footer: ListFooter{}
-    }
-    Component.onCompleted:{
-        Script.listmodel=listmodel;
+        anchors.bottomMargin: toolbar.height;
+        clip:true;
+        model: specifiedAuthorModel;
+        delegate:ListComponent{ id:listdelegate; }
+        footer: ListFooter{
+            id: listfooter
+            onClicked: {
+                if(Script.infoListPage !== "NULL"){
+                    Script.getSpecifiedAuthorList("Symbian%5e3", title, Script.infoListPage, "12");
+                }
+                else{
+                    signalCenter.showMessage(qsTr("No next page aviliable..."))
+                }
+            }
+        }
     }
 }

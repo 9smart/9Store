@@ -1,11 +1,12 @@
 import QtQuick 1.0
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 import "../Main"
 import "../../JavaScript/main.js" as Script
 import "../../JavaScript/des.js" as Des
-CustomDialog {
+
+CommonDialog {
     id:root;
-    //platformInverted: true;
+    platformInverted: true;
     titleText: qsTr("Review");
     buttonTexts: [qsTr("Send"),qsTr("Cancle")];
     content: Column{
@@ -21,7 +22,7 @@ CustomDialog {
         }
         TextField{
             id:comments
-            //platformInverted: true;
+            platformInverted: true;
             anchors.left: parent.left;
             anchors.right: parent.right;
             anchors.margins: 18;

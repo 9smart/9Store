@@ -1,35 +1,48 @@
 TEMPLATE = app
 TARGET = 9Store
-VERSION = 0.5.1
+VERSION = 1.0.0
 DEFINES += VER=\\\"$$VERSION\\\"
 
 TRANSLATIONS = 9store_zh_CN.ts
 
 RESOURCES += \
     9Store.qrc
+
 QT += network webkit
 
 DEFINES += BUILDING_LIBCURL CURL_STATICLIB
+
 SOURCES += main.cpp \
-    src/Qcurl.cpp \
     src/Settings.cpp \
     src/FileOperate.cpp \
     src/UserData.cpp \
     src/Utility.cpp \
-    src/NetworkAccessManagerFactory.cpp
+    src/NetworkAccessManagerFactory.cpp \
+    src/MyImage.cpp \
+    src/Downloader.cpp
+
 HEADERS += \
-    src/Qcurl.h \
     src/Settings.h \
     src/FileOperate.h \
     src/UserData.h \
     src/Utility.h \
-    src/NetworkAccessManagerFactory.h
+    src/NetworkAccessManagerFactory.h \
+    src/MyImage.h \
+    src/Downloader.h
 
-include(curl-7.37.0/lib/curl.pri)
-include(curl-7.37.0/lib/vtls/vtls.pri)
+!simulator{
+    include(curl-7.37.0/lib/curl.pri)
+    include(curl-7.37.0/lib/vtls/vtls.pri)
+    SOURCES += \
+        src/QCurl.cpp
+
+    HEADERS += \
+        src/QCurl.h
+}
+
 include(selectfilesdialog/selectfilesdialog.pri)
 
-INCLUDEPATH += curl-7.37.0/include\
+INCLUDEPATH += curl-7.37.0/include \
                curl-7.37.0/lib
 
 folder_Meego.source = qml/meego
@@ -48,13 +61,17 @@ folder_JS.source = qml/JavaScript
 folder_JS.target = qml
 
 simulator{
-          DEPLOYMENTFOLDERS +=  folder_Symbian folder_pic folder_JS
+    CONFIG += mobility
+
+    DEPLOYMENTFOLDERS +=  folder_Symbian folder_pic folder_JS
+
+    RESOURCES += Symbian3-res.qrc
 }
 
 contains(MEEGO_EDITION,harmattan){
          DEFINES += Q_OS_HARMATTAN
          CONFIG += qdeclarative-boostable meegotouch
-         #DEPLOYMENTFOLDERS +=  folder_JS folder_Meego folder_pic
+         DEPLOYMENTFOLDERS +=  folder_JS folder_Meego folder_pic
          RESOURCES += Meego-res.qrc
          OTHER_FILES += \
                        qtc_packaging/debian_harmattan/rules \
@@ -65,17 +82,23 @@ contains(MEEGO_EDITION,harmattan){
                        qtc_packaging/debian_harmattan/compat \
                        qtc_packaging/debian_harmattan/changelog
 }
-
 symbian{   
     contains(QT_VERSION, 4.7.3){
         DEFINES += Q_OS_S60V5
-        DEPLOYMENTFOLDERS += folder_Symbian1 folder_JS
-        DEPLOYMENTFOLDERS -= folder_pic
+        #DEPLOYMENTFOLDERS += folder_Symbian1 folder_JS
+        #DEPLOYMENTFOLDERS -= folder_pic
         RESOURCES += Symbian1-res.qrc
     } else {
         #DEPLOYMENTFOLDERS += folder_Symbian folder_pic folder_JS
         RESOURCES += Symbian3-res.qrc
     }
+    CONFIG += mobility
+
+    INCLUDEPATH += $$[QT_INSTALL_PREFIX]/epoc32/include/platform/mw
+    SOURCES += src/AOSync.cpp
+
+    HEADERS += src/AOSync.h
+
     vendorinfo = "%{\"QShen\"}" ":\"QShen\""
     my_deployment.pkg_prerules += vendorinfo
     DEPLOYMENT.display_name = 久店
@@ -83,7 +106,12 @@ symbian{
 
     CONFIG += localize_deployment
     TARGET.UID3 = 0xE5735851
-    TARGET.CAPABILITY += NetworkServices
+    TARGET.CAPABILITY += NetworkServices \
+                         TrustedUI
+
+    LIBS *= \
+         -lswinstcli
+
 
     DEFINES -= VER=\\\"$$VERSION\\\"
     DEFINES += VER=\"$$VERSION\"

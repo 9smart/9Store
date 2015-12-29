@@ -1,5 +1,5 @@
 import QtQuick 1.0
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 import "../JavaScript/main.js" as Script
 import "Main"
 import "SearchPage"
@@ -16,7 +16,7 @@ MyPage{
     tools: ToolBarLayout{
         ToolButton{
             iconSource: privateStyle.toolBarIconPath("toolbar-back");
-            //platformInverted: true;
+            platformInverted: true;
             onClicked: pageStack.pop();
         }
     }
@@ -48,7 +48,7 @@ MyPage{
         anchors.right: parent.right;
         height: searchtext.height+12;
         anchors.top: head.bottom;
-        color: "Black";
+        color: "White";
         z:1;
         TextField{
             id:searchtext;

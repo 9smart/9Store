@@ -1,5 +1,5 @@
 import QtQuick 1.0
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 import "Main"
 import "CommentPage"
 import "../JavaScript/main.js" as Script
@@ -20,7 +20,7 @@ MyPage {
     }
     tools: ToolBarLayout{
         ToolButton{
-            //platformInverted: true;
+            platformInverted: true;
             iconSource: privateStyle.toolBarIconPath("toolbar-back");
             onClicked: pageStack.pop();
         }

@@ -12,7 +12,7 @@ symbian{
     #MOBILITY += systeminfo
 
     RESOURCES += \
-        $$PWD/symbian.qrc
+        $$PWD/sfd_symbian.qrc
     OTHER_FILES += \
         $$PWD/symbian.qml
 }
@@ -20,7 +20,7 @@ symbian{
 simulator{
     message(Simulator build)
     RESOURCES += \
-        $$PWD/symbian.qrc
+        $$PWD/sfd_symbian.qrc
 
     OTHER_FILES += \
         $$PWD/symbian.qml \
@@ -32,11 +32,11 @@ contains(MEEGO_EDITION, harmattan){
     DEFINES += HARMATTAN_BOOSTER
 
     RESOURCES += \
-        $$PWD/meego.qrc
+        $$PWD/sfd_meego.qrc
 
     OTHER_FILES += \
         $$PWD/meego.qml
 }
 
 RESOURCES += \
-    $$PWD/icons.qrc
+    $$PWD/sfd_icons.qrc
