@@ -50,5 +50,6 @@
         <file>qml/symbian1/Resource/selector.svg</file>
         <file>qml/symbian1/Resource/down_inverted.svg</file>
         <file>qml/symbian1/Resource/right_arrow_inverted.png</file>
+        <file>qml/symbian3/BaseComponent/User.qml</file>
     </qresource>
 </RCC>

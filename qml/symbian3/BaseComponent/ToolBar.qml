@@ -3,6 +3,12 @@ import QtQuick 1.1
 import com.nokia.symbian 1.1
 Image {
     id:root;
+    property alias backButtonVisible:back.visible;
+    property alias homeButtonVisible:home.visible;
+    property alias topChartsButtonVisible:topcharts.visible;
+    property alias searchButtonVisible:search.visible;
+    property alias personalButtonVisible:personal.visible;
+    property alias personalSource:personal.source;
     property int highlightItem:1;
     signal backButtonClicked;
     signal homeButtonClicked;
@@ -15,7 +21,7 @@ Image {
     Image{
         x:72;
         width: 72;
-        height: 58;
+        height: 60;
         anchors.bottom: parent.bottom
         source: "../../pic/General/Toolbar_Highlight.svg"
         opacity: highlightItem===1?1:0;
@@ -23,7 +29,7 @@ Image {
     Image{
         x:144;
         width: 72;
-        height: 58;
+        height: 60;
         anchors.bottom: parent.bottom
         source: "../../pic/General/Toolbar_Highlight.svg"
         opacity: highlightItem===2?1:0;
@@ -31,7 +37,7 @@ Image {
     Image{
         x:216;
         width: 72;
-        height: 58;
+        height: 60;
         anchors.bottom: parent.bottom
         source: "../../pic/General/Toolbar_Highlight.svg"
         opacity: highlightItem===3?1:0;
@@ -39,14 +45,14 @@ Image {
     Image{
         x:288;
         width: 72;
-        height: 58;
+        height: 60;
         anchors.bottom: parent.bottom
         source: "../../pic/General/Toolbar_Highlight.svg"
         opacity: highlightItem===4?1:0;
     }
     ToolButton{
         id:back;
-        iconSource:  "../../pic/General/Toolbar_icon_back.svg";
+        iconSource:  "../../pic/General/Toolbar_icon_Back.svg";
         anchors.verticalCenter: parent.verticalCenter;
         x:8;
         onClicked: {
@@ -70,7 +76,7 @@ Image {
     }
     Image{
         id:topcharts;
-        source: "../../pic/General/Toolbar_icon_Topcharts.svg";
+        source: "../../pic/General/Toolbar_icon_TopCharts.svg";
         anchors.verticalCenter: parent.verticalCenter;
         x:165;
         MouseArea{

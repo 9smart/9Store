@@ -3,24 +3,29 @@ import QtQuick 1.1
 import com.nokia.meego 1.1
 import QtWebKit 1.0
 import "../JavaScript/main.js" as Script
-import "Main"
+import "BaseComponent"
 MyPage{
     id:loginpage;
     title:qsTr("log in");
     property string weburl;
-    tools: ToolBarLayout{
-        ToolIcon{
-            platformIconId: "toolbar-back";
-            onClicked: pageStack.pop();
-        }
+    ToolBar{
+        id:toolbar;
+        z:1;
+        homeButtonVisible: false;
+        topChartsButtonVisible: false;
+        searchButtonVisible: false;
+        personalButtonVisible: false;
+        highlightItem: 0;
+        onBackButtonClicked: pageStack.pop();
     }
     WebView{
         Text{
-            height: 100;
-            width: 100;
+            height: 133;
+            width: 133;
             text: parent.progress;
             anchors.top: parent.top;
             anchors.bottom:parent.bottom;
+            opacity: 0.5;
         }
         anchors.fill: parent;
         preferredHeight: parent.height;
@@ -29,7 +34,8 @@ MyPage{
         smooth: true;
         onLoadFinished:{
             weburl=url;
-            if(weburl.length>33&&weburl.substring(0,33)==="http://www.9smart.cn/member/login"){
+            if(weburl.length>33&&weburl.substring(0,33)==="http://www.9smart.cn/member/login")
+            {
                 var obj=JSON.parse(title);
                 uid=obj.uid;
                 accesstoken=obj.accesstoken;

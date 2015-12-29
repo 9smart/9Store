@@ -1,20 +1,29 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
+import "../../JavaScript/main.js" as Script
 import "../BaseComponent"
 import "../Delegate"
 ListView{
-    id:mainview;
     width: screen.width;
-    anchors.top: topchartsbuttons.bottom;
-    anchors.bottom: parent.bottom;
+    height: 455;
+    contentHeight: listmodel.count * 80;
     model: listmodel;
     clip: true;
     delegate: ListComponent{}
     footer: ListFooter{
+        visible: listmodel.count > 0;
         onClicked: {
-            page++;
-            Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
+            if(page !== "NULL"){
+                Script.getlist("Symbian%5e3", root.category, "", Script.listPage,"12","");
+            }
+            else{
+                signalCenter.showMessage(qsTr("No next page aviliable..."))
+            }
         }
     }
-
+    NumberAnimation on x{
+        from: 360;
+        to:0;
+        duration: 200;
+    }
 }

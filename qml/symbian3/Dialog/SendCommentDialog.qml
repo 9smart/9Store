@@ -1,7 +1,7 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.symbian 1.1
-import "../Main"
+import "../BaseComponent"
 import "../../JavaScript/main.js" as Script
 import "../../JavaScript/des.js" as Des
 CommonDialog{
@@ -20,18 +20,18 @@ CommonDialog{
             size: 33;
             optional: true;
         }
-        TextField{
+        TextArea{
             id:comments
             platformInverted: true;
-            anchors.left: parent.left;
-            anchors.right: parent.right;
-            anchors.margins: 18;
-
+            anchors{
+                left: parent.left;
+                right: parent.right;
+                margins: 18;
+            }
         }
     }
     onButtonClicked: {
-        if(index===0) {
-            Script.sendComment(appid,utility.base64(Des.des(app.uid+","+app.accesstoken+","+app.logintype)),comments.text,rankstars.ranknum)
-        }
+        if(index === 0)
+            Script.sendComment(user.auth, _id, "app", comments.text, rankstars.ranknum, app.deviceModel);
     }
 }

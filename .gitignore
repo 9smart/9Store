@@ -92,3 +92,7 @@ ABLD.BAT
 ._*
 *.changes
 *.changes
+
+#Others
+
+api.js

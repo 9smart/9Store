@@ -62,7 +62,7 @@ Flickable{
         id:heading;
         width: parent.width;
         anchors.top: cover.bottom;
-        text: title;
+        text: qsTr("Featured");
     }
     Column{
         id:featuredapp;
@@ -75,8 +75,18 @@ Flickable{
     }
     Component.onCompleted: {
         if(covermodel.count===0)
-            Script.getcover();
+            Script.getcover("Symbian%5e3");
         if(featuredmodel.count===0)
-            Script.getfeatured("belle");
+            Script.getfeatured("Symbian%5e3");
     }
+    NumberAnimation on opacity {
+        from: 0;
+        to:1;
+        duration: 300;
+    }
+    /*NumberAnimation on x{
+        from: 360;
+        to:0;
+        duration: 300;
+    }*/
 }

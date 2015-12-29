@@ -6,36 +6,52 @@ import "Delegate"
 import "Dialog"
 import "InfoPage"
 import "../JavaScript/main.js" as Script
-
 MyPage{
     id:infopage;
-    property string appid;
+    property string _id;
     property string icon;
-    property string author;
-    property string summary;
-    property string version;
+    property int score_num;
+    property int scores;
+    property string developer;
+    property string type;
     property string category;
+    property string version;
     property string size;
-    property string ratingnum;
-    property string scores;
-    property int dlnum:-1;
-    property string dlurl:"http://api.9smart.cn/app/"+appid+"?download=download";
+    property string summary;
+    property string comment_num
+
+    //property int dlnum:-1;
+    property string downloadUrl;
     property bool firstStart: true;
+
+    property alias screenShotsModel: screenshotmodel;
+    property alias relatedAppsModel: relatedlistmodel;
+    property alias specifiedAuthorModel: specifiedauthormodel;
     onVisibleChanged: if (visible && firstStart) {
                           firstStart = false
-                          Script.getinfo(appid);
+                          Script.getinfo(_id);
                       }
-    tools: ToolBarLayout{
-        ToolButton{
-            platformInverted: true;
-            iconSource: "toolbar-back";
-            onClicked: pageStack.pop();
-        }
-        ToolButton{
-            platformInverted:true;
-            iconSource: "../pic/edit.svg";
-            onClicked: userstate===0?pageStack.push(Qt.resolvedUrl("LoginPage.qml")):sendcommentdialog.open();
+    onCategoryChanged: if (category != ""){
+                           Script.getrelatedlist("Symbian%5e3", category, "", "2");
+                       }
 
+    ToolBar{
+        id:toolbar;
+        z:1;
+        homeButtonVisible: false;
+        topChartsButtonVisible: false;
+        searchButtonVisible: false;
+        personalButtonVisible: true;
+        personalSource: "../pic/Details/edit.svg";
+        highlightItem: 0;
+        onBackButtonClicked: pageStack.pop();
+        onPersonalButtonClicked: {
+            if(user.userState){
+                sendcommentdialog.open();
+            }
+            else{
+                signalCenter.showMessage(qsTr("Please login"));
+            }
         }
     }
     ListModel{
@@ -44,144 +60,315 @@ MyPage{
     ListModel{
         id:relatedlistmodel;
     }
+    ListModel{
+        id: specifiedauthormodel;
+    }
     SendCommentDialog{
         id:sendcommentdialog;
-    }
-    InfoPageHead{
-        id:head;
     }
     Flickable{
         id:flick;
         flickableDirection: Flickable.VerticalFlick
         anchors.fill: parent;
-        anchors.topMargin: head.height;
+        anchors.bottomMargin: toolbar.height;
         contentHeight: infoColumn.height;
         Column{
             id:infoColumn;
+            InfoPageHead{
+                id:infopagehead;
+            }
             MainInfo{
                 id:maininfo;
             }
-            ListItem{
-                platformInverted: true;
-                enabled: false;
-                height: summ.height+18;
-                Text{
-                    id:summ;
-                    anchors.verticalCenter: parent.verticalCenter;
-                    anchors.left: parent.left;
-                    anchors.right: parent.right;
-                    anchors.leftMargin: 12;
-                    anchors.rightMargin: 12;
-                    font.pixelSize: 18;
-                    wrapMode: Text.WrapAnywhere;
-                    text: summary;
-                }
+            DownloadButton{
+                id:downloadbutton1;
             }
-            ListItem{
-                height: 360;
+            MyListItem{
+                id:screenshot;
                 enabled: false;
-                visible: screenshotmodel.count>0;
+                visible: screenshotmodel.count != 0;
+                state: "close";
                 Flickable{
-                    id:screenshots;
-                    anchors.left: parent.left;
-                    anchors.right: parent.right;
-                    height: parent.height;
+                    id:screenshotview;
+                    anchors{
+                        left: parent.left;
+                        top: parent.top;
+                        leftMargin: 15;
+                        right: parent.right;
+                    }
+                    height: 215;
+                    contentWidth: screenshotmodel.count * 130;
                     flickableDirection: Flickable.HorizontalFlick;
-                    contentWidth: 12+192*screenshotview.count;
                     Row{
-                        anchors.left: parent.left;
-                        anchors.top: parent.top;
-                        anchors.margins: 15;
-                        spacing: 12;
+                        spacing: 10;
                         Repeater{
-                            id:screenshotview;
                             model: screenshotmodel;
                             delegate: ScreenShotsComponent{}
                         }
                     }
                 }
-            }
-            ListItem{
-                platformInverted: true;
-                height: 60;
-                Row{
-                    anchors.verticalCenter: parent.verticalCenter;
-                    ListItemText{
-                        platformInverted: true;
-                        font.pixelSize: 24;
-                        text: qsTr("  Reviews")+" ("+ratingnum+") ";
+                Image{
+                    id: screenshotmask
+                    anchors.bottom: parent.bottom;
+                    source: "../pic/Details/Details_Mask.png";
+                }
+                Image{
+                    anchors.top: parent.top;
+                    source: "../pic/Home/Poster_Shadow_01.png";
+                }
+                Image{
+                    anchors.bottom: parent.bottom;
+                    source: "../pic/Home/Poster_Shadow_03.png";
+                }
+                Image{
+                    id: morebutton;
+                    anchors{
+                        horizontalCenter: parent.horizontalCenter;
+                        bottom: parent.bottom;
+                        bottomMargin: 15;
+                    }
+                    source: "../pic/General/icon-m-toolbar-next.png";
+                    height: 20;
+                    width: 20;
+                    MouseArea{
+                        anchors.fill: parent;
+                        anchors.margins: -10;
+                        onClicked: screenshot.state=="close"? screenshot.state="open" : screenshot.state="close";
+                    }
+                }
+                states: [
+                    State{
+                        name: "open";
+                        PropertyChanges {
+                            target: screenshot;
+                            height:285;
                         }
+                        PropertyChanges{
+                            target: screenshotmask;
+                            visible:false;
+                        }
+                        PropertyChanges{
+                            target: screenshotview;
+                            anchors.topMargin: 20;
+                        }
+                        PropertyChanges{
+                            target: morebutton;
+                            rotation:-90;
+                        }
+                    },
+                    State{
+                        name:"close";
+                        PropertyChanges {
+                            target: screenshot;
+                            height:120;
+                        }
+                        PropertyChanges{
+                            target: screenshotmask;
+                            visible:true;
+                        }
+                        PropertyChanges{
+                            target: screenshotview;
+                            anchors.topMargin: 15;
+                        }
+                        PropertyChanges{
+                            target: morebutton;
+                            rotation:90;
+                        }
+                    }
+
+                ]
+                transitions: [
+                    Transition{
+                        from: "close";
+                        to:"open";
+                        reversible: true;
+                        PropertyAnimation{
+                            target: screenshot;
+                            property: "height";
+                            duration: 250;
+                        }
+                        PropertyAnimation{
+                            target: screenshotview;
+                            property: "anchors.topMargin";
+                            duration: 250;
+                        }
+                        PropertyAnimation{
+                            target: morebutton;
+                            property: "rotation";
+                            duration: 250;
+                        }
+                    }
+                ]
+            }
+            MyListItem{
+                height: summ.height + 30;
+                enabled: false;
+                Text{
+                    id:summ;
+                    anchors{
+                        verticalCenter: parent.verticalCenter;
+                        left: parent.left;
+                        right: parent.right;
+                        leftMargin: 12;
+                        rightMargin: 12;
+                    }
+                    font.pixelSize: 15;
+                    wrapMode: Text.WrapAnywhere;
+                    text: summary;
+                }
+            }
+            MyListItem{
+                Row{
+                    anchors{
+                        verticalCenter: parent.verticalCenter;
+                        left: parent.left;
+                        leftMargin: 15;
+                    }
+                    Text{
+                        font.pixelSize: 21;
+                        text: qsTr("Reviews")+" ("+ comment_num +") ";
+                    }
                     RankStars{
-                        size: 24;
-                        ranknum: ratingnum==="0"?0:(scores/ratingnum).toFixed();
+                        size: 21;
+                        anchors.verticalCenter: parent.verticalCenter;
+                        ranknum: score_num === "0"? 0 : (scores / score_num);
                     }
                 }
                 Image{
-                    anchors.verticalCenter: parent.verticalCenter;
-                    anchors.right: parent.right;
-                    anchors.rightMargin: 9
-                    source: "../pic/icon-s-common-next.png";
+                    anchors{
+                        verticalCenter: parent.verticalCenter;
+                        right: parent.right;
+                        rightMargin: 15;
+                    }
+                    width: 20;
+                    height: 20;
+                    smooth: true;
+                    source: "../pic/General/icon-m-toolbar-next.png";
                 }
-                onClicked: pageStack.push(Qt.resolvedUrl("CommentPage.qml"),{appid:appid,ratingnum:ratingnum,size:size,author:author,icon:icon,scores:scores,title:title})
+                onClicked: pageStack.push(Qt.resolvedUrl("CommentPage.qml"),{_id:_id, score_num:score_num, size:size, developer:developer, type:type, category:category, icon:icon, scores:scores, title:title})
             }
-            ListItem{
-                platformInverted: true;
-                height: 60;
-                ListItemText{
-                    platformInverted: true;
+            MyListItem{
+                Text{
                     font.pixelSize: 24;
-                    text: "  "+author;
-                    anchors.verticalCenter: parent.verticalCenter;
+                    text: developer;
+                    anchors{
+                        left: parent.left;
+                        leftMargin: 15;
+                        verticalCenter: parent.verticalCenter;
+                    }
                 }
                 Image{
-                    anchors.verticalCenter: parent.verticalCenter;
-                    anchors.right: parent.right;
-                    anchors.rightMargin: 9
-                    source: "../pic/icon-s-common-next.png";
+                    anchors{
+                        verticalCenter: parent.verticalCenter;
+                        right: parent.right;
+                        rightMargin: 15;
+                    }
+                    width: 20;
+                    height: 20;
+                    smooth: true;
+                    source: "../pic/General/icon-m-toolbar-next.png";
                 }
-                onClicked: pageStack.push(Qt.resolvedUrl("SpecifiedAuthorAppPage.qml"),{title:author})
+                onClicked: pageStack.push(Qt.resolvedUrl("SpecifiedAuthorAppPage.qml"),{title:developer, specifiedAuthorModel:specifiedAuthorModel})
             }
-            ListHeading{
+            MyListHeading{
                 id: relatedAppsTitle;
-                platformInverted: true;
-                ListItemText{
-                    anchors.fill: parent.paddingItem
-                    role: "Heading"
-                    text: qsTr("Related APPs");
-                    color: "black"
-                }
+                text: qsTr("Related APPs");
             }
             Repeater{
                 model: relatedlistmodel;
                 delegate: ListComponent{}
             }
-            ListItem{
-                platformInverted: true;
-                height: 60;
-                ListItemText{
-                    platformInverted: true;
+            MyListItem{
+                Text{
                     font.pixelSize: 24;
-                    text: qsTr("  All related apps");
-                    anchors.verticalCenter: parent.verticalCenter;
+                    text: qsTr("All related apps");
+                    anchors{
+                        left: parent.left;
+                        leftMargin: 15;
+                        verticalCenter: parent.verticalCenter;
+                    }
                 }
                 Image{
-                    anchors.verticalCenter: parent.verticalCenter;
-                    anchors.right: parent.right;
-                    anchors.rightMargin: 9
-                    source: "../pic/icon-s-common-next.png";
+                    anchors{
+                        verticalCenter: parent.verticalCenter;
+                        right: parent.right;
+                        rightMargin: 15;
+                    }
+                    width: 20;
+                    height: 20;
+                    smooth: true;
+                    source: "../pic/General/icon-m-toolbar-next.png";
                 }
-                onClicked: pageStack.push(Qt.resolvedUrl("RelatedAppsPage.qml"),{appid:appid,category:category,title:title})
+                onClicked: pageStack.push(Qt.resolvedUrl("RelatedAppsPage.qml"),{category:category,title:title,relatedlistmodel:relatedlistmodel})
             }
         }
     }
+    DownloadButton{
+        id:downloadbutton2;
+        visible: flick.contentY > 145;
+    }
+    PathView{
+        id: screenshotgallary;
+        width: screen.width;
+        height: screen.height;
+        y: -26;
+        z: 2;
+        model: screenshotmodel;
+        clip: true;
+        preferredHighlightBegin: 0.5;
+        preferredHighlightEnd: 0.5;
+        state: "close";
+        delegate: ScreenShotsGalleryComponent{}
+        path: Path{
+            startX: -screenshotgallary.width*screenshotgallary.count/2+screenshotgallary.width/2;
+            startY: screenshotgallary.height/2;
+            PathLine{
+                x:screenshotgallary.width*screenshotgallary.count/2+screenshotgallary.width/2;
+                y:screenshotgallary.height/2;
+            }
+        }
+        states: [
+            State{
+                name: "close";
+                PropertyChanges{
+                    target: screenshotgallary;
+                    visible: false;
+                    scale: 0.5;
+                    opacity: 0;
+                }
+            },
+            State{
+                name: "open";
+                PropertyChanges{
+                    target: screenshotgallary;
+                    visible: true;
+                    scale: 1;
+                    opacity: 1;
+                }
+            }
+        ]
+        transitions: [
+            Transition {
+                from: "close"
+                to: "open"
+                reversible: true;
+                PropertyAnimation{
+                    target: screenshotgallary;
+                    properties: "scale";
+                    duration: 200;
+                }
+                PropertyAnimation{
+                    target: screenshotgallary;
+                    properties: "opacity";
+                    duration: 200;
+                }
+            }
+        ]
+        //onStateChanged: console.log("change")
+    }
+
     Connections{
         target: signalCenter;
-        onDlInfoSetted:{
-            category=Script.category;
-            summary=Script.summary;
-            size=Script.size;
-            Script.getrelatedlist("belle","1","3",appid,category);
-        }
         onCommentSendSuccessful:{
             signalCenter.showMessage(qsTr("Send successfully"))
         }
@@ -190,7 +377,6 @@ MyPage{
         }
     }
     Component.onCompleted:{
-        Script.screenshotmodel=screenshotmodel;
-        Script.relatedlistmodel=relatedlistmodel;
+        Script.infoPage = infopage
     }
 }

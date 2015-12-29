@@ -11,10 +11,12 @@ MyListItem{
         sourceSize.width: 60;
         height: sourceSize.height;
         width:sourceSize.width;
-        anchors.verticalCenter: parent.verticalCenter;
-        anchors.left: parent.left;
-        anchors.leftMargin: 12;
-        source: model.icon;
+        anchors{
+            verticalCenter: parent.verticalCenter;
+            left: parent.left;
+            leftMargin: 12;
+        }
+        source: "http://apps-images.9smart.cn/" + model.uploader.uid + "/i/" + model._id;
         Image{
             anchors.fill: parent;
             source: "../../pic/General/App_icon_Loading.svg";
@@ -27,26 +29,31 @@ MyListItem{
         }
     }
     Column{
-        anchors.verticalCenter: parent.verticalCenter;
-        anchors.left: icon.right;
-        anchors.leftMargin: 9;
+        anchors{
+            verticalCenter: parent.verticalCenter;
+            left: icon.right;
+            leftMargin: 9;
+        }
         spacing: 3;
         Text{
             text: model.appname;
-            font.pixelSize: 18;
+            font.pixelSize: 19;
             color: "#3c3c3c";
         }
         Text{
-            text: model.author;
-            font.pixelSize: 12;
+            text: model.developer;
+            font.pixelSize: 13;
             color: "#787878";
         }
         RankStars{
-            ranknum: model.ratingnum==="0"?0:(scores/ratingnum);
-            size: 13;
+            ranknum: model.score_num===0?0:(model.scores/model.score_num);
+            size: 15;
         }
+
     }
     onClicked:{
-        pageStack.push(Qt.resolvedUrl("../InfoPage.qml"),{appid:model.appid,title:model.appname,icon:model.icon,summary:model.summary,version:model.version,author:model.author,ratingnum:model.ratingnum,scores:model.scores});
+        pageStack.push(Qt.resolvedUrl("../InfoPage.qml"),
+                       {_id:model._id, title:model.appname, icon:icon.source, score_num:((model.score_num)?model.score_num:0), scores:((model.scores)?model.scores:0), developer:model.developer});
     }
+    //Component.onCompleted: console.log(model.score_num===0?0:(model.scores));
 }

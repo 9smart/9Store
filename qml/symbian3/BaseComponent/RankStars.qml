@@ -10,6 +10,7 @@ Row{
         Image{
             height: size;
             width: size;
+            smooth: true;
             source: {
                 if((ranknum-index)>=1)
                     return "../../pic/General/Score_1.svg";

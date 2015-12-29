@@ -44,10 +44,5 @@
         <file>qml/meego/SpecifiedAuthorAppPage/ListFooter.qml</file>
         <file>qml/pic/9-MeeGo.png</file>
         <file>qml/pic/9-Symbian.svg</file>
-        <file>qml/pic/down.svg</file>
-        <file>qml/pic/down_black.svg</file>
-        <file>qml/pic/edit.svg</file>
-        <file>qml/pic/icon-s-common-next.png</file>
-        <file>qml/pic/selector.svg</file>
     </qresource>
 </RCC>

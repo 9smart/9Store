@@ -1,63 +1,106 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.symbian 1.1
-import "Main"
-import "CommentPage"
+import "BaseComponent"
+import "InfoPage"
+import "Delegate"
+import "Dialog"
 import "../JavaScript/main.js" as Script
 MyPage{
     id:commentpage;
-    property string appid;
+    property string _id;
     property bool firstStart: true;
     property string size;
-    property string author;
+    property string developer;
+    property string type;
+    property string category;
     property string icon;
     property string scores;
-    property int ratingnum;
-    property int page: 1;
+    property int score_num;
+    property alias commentModel: commentmodel;
     onVisibleChanged: if (visible && firstStart) {
-        firstStart = false
-        Script.getComment(appid,page.toString());
-    }
-    tools: ToolBarLayout{
-        ToolButton{
-            platformInverted: true;
-            iconSource: "toolbar-back";
-            onClicked: pageStack.pop();
+                          firstStart = false;
+                          Script.commentListPage = "";
+                          Script.getComment(_id, Script.commentListPage);
+                      }
+    ToolBar{
+        id:toolbar;
+        z:1;
+        homeButtonVisible: false;
+        topChartsButtonVisible: false;
+        searchButtonVisible: false;
+        personalButtonVisible: true;
+        personalSource: "../pic/Details/edit.svg";
+        highlightItem: 0;
+        onBackButtonClicked: pageStack.pop();
+        onPersonalButtonClicked: {
+            if(user.userState){
+                sendcommentdialog.open();
+            }
+            else{
+                signalCenter.showMessage(qsTr("Please login"));
+            }
         }
     }
     ListModel{
         id:commentmodel;
     }
-    Head{
-        id:head;
-        z:1;
-        Image{
-            id:sicon;
-            anchors.verticalCenter: parent.verticalCenter;
-            anchors.left: parent.left;
-            anchors.leftMargin: 12;
-            height: 36;
-            width: 36;
-            source: icon;
+    Column{
+        InfoPageHead{
+            id:infopagehead;
         }
-        Text{
-            text: title;
-            font.pixelSize: 24;
-            anchors.verticalCenter: parent.verticalCenter;
-            anchors.left: sicon.right;
-            anchors.leftMargin: 12;
+        MainInfo{
+            id:maininfo;
+        }
+        Rectangle{
+            height: 15;
+            width: screen.width;
+            color: "#f5f5f5";
+            Image{
+                anchors.top: parent.bottom;
+                source: "../pic/General/HeadShadow.png";
+                opacity: 0.75;
+                z:1;
+            }
         }
     }
-    ListView{
-        id:commentview;
-        anchors.fill: parent;
-        anchors.topMargin: head.height;
-        delegate: CommentDelegate{}
-        model: commentmodel;
-        header:Headinfo{}
-        footer: ListFooter{}
+    Flickable{
+        id:flick;
+        flickableDirection: Flickable.VerticalFlick;
+        anchors{
+            fill: parent;
+            topMargin: infopagehead.height+maininfo.height+15;
+            bottomMargin: toolbar.height;
+        }
+        contentHeight: commentColumn.height;
+        clip: true;
+        Column{
+            id:commentColumn;
+            Repeater{
+                model: commentmodel;
+                delegate: CommentComponent{}
+            }
+            ListFooter{
+                visible: commentmodel.count > 0;
+                onClicked: {
+                    if(Script.commentListPage !== "NULL"){
+                        Script.getComment(_id, Script.commentListPage);
+                    }
+                    else{
+                        signalCenter.showMessage(qsTr("No next page aviliable..."))
+                    }
+                }
+            }
+        }
     }
+    SendCommentDialog{
+        id: sendcommentdialog;
+    }
+    SendReplyDialog{
+        id: sendreplydialog;
+    }
+
     Component.onCompleted:{
-        Script.commentmodel=commentmodel;
+        Script.commentPage = commentpage;
     }
 }

@@ -4,5 +4,7 @@
         <file>qml/JavaScript/base64.js</file>
         <file>qml/JavaScript/des.js</file>
         <file>qml/JavaScript/main.js</file>
+        <file>qml/JavaScript/api.js</file>
+        <file>qml/JavaScript/deviceModel.js</file>
     </qresource>
 </RCC>

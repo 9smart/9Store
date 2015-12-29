@@ -2,71 +2,78 @@
 #define QCURL_H
 #include <QObject>
 #include <QPointer>
+#include <QQueue>
 #include <curl/curl.h>
 class QCurlPerformer;
+class QDeclarativeView;
+class Settings;
+class FileOperate;
 
-struct QCurldl{
+struct QCurlTask{
     char* url;
     FILE *fp;
-    struct QCurldl *next;
 };
 class QCurl : public QObject{
 
     Q_OBJECT
 
-    Q_PROPERTY(int state READ state NOTIFY stateChanged)
-    Q_PROPERTY(char* currentUrl READ currentUrl NOTIFY currentUrlChanged)
+    Q_PROPERTY(QString currentUrl READ currentUrl NOTIFY currentUrlChanged)
+    Q_PROPERTY(QString currentFile READ currentFile NOTIFY currentFileChanged)
     Q_PROPERTY(double progress READ progress NOTIFY progressChanged)
 
 public:
     explicit QCurl(QObject *parent = 0);
+    explicit QCurl(QDeclarativeView *viewer, Settings *settings, FileOperate *fileoperate);
     ~QCurl();
 
-    int state() const;
-    char *currentUrl();
-    double progress();
+    QString currentUrl() const;
+    QString currentFile() const;
+    double progress() const;
 
     Q_INVOKABLE void appenddl(QString url, QString file);
-    //Q_INVOKABLE static double getProgress();
+
     Q_INVOKABLE bool isCurrentUrl(QString url);
     Q_INVOKABLE bool isFileExist(QString file);
+    Q_INVOKABLE bool isTaskExist(QString url);
 
     static size_t file_callback(void *ptr, size_t size, size_t nmemb, void *userp);
     static int progress_callback(void *clientp, double dltotal, double dlnow,double ultotal, double ulnow);
 
-signals:
-    void stateChanged();
-    void currentUrlChanged();
-    void progressChanged();
-
-    void dlSetted();
-    void startDl(CURL *curl);
-
 public:
     void setProgress(double progress);
 
+public slots:
+    void setCurrentUrl(QString url);
+    void setCurrentFile(QString file);
+    void downloadFinished(int result);
+
+signals:
+    void currentUrlChanged();
+    void currentFileChanged();
+    void progressChanged();
+
+    void startDownload(CURL *curl);
+
 private:
-    struct QCurldl *head;
-    struct QCurldl *current;
-    struct QCurldl *last;
-    CURL *curl;    
+    CURL *curl;
+
+    QQueue<QCurlTask> downloadQueue;
 
     QPointer<QThread> thread;
-    QPointer<QCurlPerformer> dl;
+    QPointer<QCurlPerformer> performer;
 
-private slots:
-    void startNextDl();
-
-    void setState(int state);
-    void setCurrentUrl(char *url);   
-
-private:
     int m_state;
     double m_progress;
-    char m_currentUrl[3000];
+    QString m_currentUrl;
+    QString m_currentFile;
+
+    QDeclarativeView *m_viewer;
+    Settings *m_settings;
+    FileOperate *m_fileOperate;
 };
 
-class QCurlPerformer : public QObject{
+class QCurlPerformer : public QObject
+{
 
     Q_OBJECT
 
@@ -74,13 +81,10 @@ public:
     QCurlPerformer(QObject *parent = 0);
     ~QCurlPerformer();
 signals:
-    void stateChanged(int state);
-    void finished();
+    void finished(int result);
 
 public slots:
     void start(CURL *curl);
 
-private:
-    CURLcode res;
 };
 #endif // QCURL_H

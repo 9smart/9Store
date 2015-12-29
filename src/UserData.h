@@ -1,9 +1,6 @@
 #ifndef USERDATA_H
 #define USERDATA_H
 #include <QObject>
-QT_BEGIN_NAMESPACE
-
-QT_END_NAMESPACE
 class UserData: public QObject
      {
       Q_OBJECT

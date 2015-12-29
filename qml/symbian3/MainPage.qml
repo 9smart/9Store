@@ -6,6 +6,13 @@ import "../JavaScript/main.js" as Script
 MyPage{
     id:mainpage;
     property string currentContent:"Home";
+    property alias coverModel: covermodel;
+    property alias featuredModel: featuredmodel;
+    property alias listmodel: listmodel;
+    property alias categorymodel: categorymodel;
+    property alias applicationModel: applicationmodel;
+    property alias gameModel: gamemodel;
+    property alias toolBar: toolbar;
     title: qsTr("Home");
     Head{
         id:head;
@@ -20,7 +27,11 @@ MyPage{
                 if(content.item.currentContent==="CategoryContent.qml"){
                     content.item.currentContent="LibraryContent.qml";
                 }
+                else if(content.item.currentContent==="ListContent.qml"){
+                    content.item.currentContent="CategoryContent.qml";
+                }
                 else if(quitTimer.running){
+                    settings.saveSettings();
                     saveDownloadData();
                     Qt.quit();
                 }
@@ -31,6 +42,7 @@ MyPage{
                 }
             }
             else if(quitTimer.running){
+                settings.saveSettings();
                 saveDownloadData();
                 Qt.quit();
             }
@@ -58,8 +70,16 @@ MyPage{
             title=qsTr("Library");
             currentContent="Search";
         }
-        Timer
-        {
+        onPersonalButtonClicked: {
+            if(user.userState !== false){
+                content.z=0;
+                content.source="MainPage/PersonalContent.qml";
+                title=qsTr("My Stuff");
+                currentContent="Personal";
+            }
+            else pageStack.push(Qt.resolvedUrl("LoginPage.qml"),{mainPage: mainpage})
+        }
+        Timer{
             id: quitTimer;
             interval: 3000;
             running: false;
@@ -83,9 +103,17 @@ MyPage{
     ListModel{
         id:listmodel;
     }
+    ListModel{
+        id:categorymodel;
+    }
+    ListModel{
+        id: gamemodel;
+    }
+    ListModel{
+        id: applicationmodel;
+    }
+
     Component.onCompleted: {
-        Script.covermodel=covermodel;
-        Script.featuredmodel=featuredmodel;
-        Script.listmodel=listmodel;
+        Script.mainPage = mainpage;
     }
 }

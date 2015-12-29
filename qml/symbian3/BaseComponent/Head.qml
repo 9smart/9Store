@@ -7,9 +7,11 @@ Image{
     height: 55;
     Text{
         id:headtext;
-        anchors.verticalCenter: parent.verticalCenter;
-        anchors.left: parent.left;
-        anchors.leftMargin: 15;
+        anchors{
+            verticalCenter: parent.verticalCenter;
+            left: parent.left;
+            leftMargin: 15;
+        }
         font.pixelSize: 28;
     }
     Image{
