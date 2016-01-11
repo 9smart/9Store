@@ -1,16 +1,16 @@
 TEMPLATE = app
 TARGET = 9Store
-VERSION = 1.0.0
+VERSION = 1.0.12
 DEFINES += VER=\\\"$$VERSION\\\"
 
-TRANSLATIONS = 9store_zh_CN.ts
+TRANSLATIONS = i18n/9store_zh.ts
 
 RESOURCES += \
     9Store.qrc
 
 QT += network webkit
 
-DEFINES += BUILDING_LIBCURL CURL_STATICLIB
+#DEFINES += BUILDING_LIBCURL CURL_STATICLIB
 
 SOURCES += main.cpp \
     src/Settings.cpp \
@@ -30,15 +30,6 @@ HEADERS += \
     src/MyImage.h \
     src/Downloader.h
 
-!simulator{
-    include(curl-7.37.0/lib/curl.pri)
-    include(curl-7.37.0/lib/vtls/vtls.pri)
-    SOURCES += \
-        src/QCurl.cpp
-
-    HEADERS += \
-        src/QCurl.h
-}
 
 include(selectfilesdialog/selectfilesdialog.pri)
 
@@ -64,6 +55,7 @@ simulator{
     CONFIG += mobility
 
     DEPLOYMENTFOLDERS +=  folder_Symbian folder_pic folder_JS
+    #DEPLOYMENTFOLDERS +=  folder_Meego folder_pic folder_JS
 
     RESOURCES += Symbian3-res.qrc
 }
@@ -89,7 +81,7 @@ symbian{
         #DEPLOYMENTFOLDERS -= folder_pic
         RESOURCES += Symbian1-res.qrc
     } else {
-        #DEPLOYMENTFOLDERS += folder_Symbian folder_pic folder_JS
+        DEPLOYMENTFOLDERS += folder_Symbian folder_pic folder_JS
         RESOURCES += Symbian3-res.qrc
     }
     CONFIG += mobility

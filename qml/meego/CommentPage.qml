@@ -4,22 +4,23 @@ import com.nokia.meego 1.1
 import "BaseComponent"
 import "InfoPage"
 import "Delegate"
+import "Dialog"
 import "../JavaScript/main.js" as Script
 MyPage{
     id:commentpage;
-    property string appid;
+    property string _id;
     property bool firstStart: true;
     property string size;
-    property string author;
+    property string developer;
     property string type;
     property string category;
     property string icon;
     property string scores;
-    property int ratingnum;
-    property int page: 1;
+    property int score_num;
+    property alias commentModel: commentmodel;
     onVisibleChanged: if (visible && firstStart) {
-                          firstStart = false
-                          Script.getComment(appid,page.toString());
+                          Script.commentListPage = "";
+                          Script.getComment(_id, Script.commentListPage);
                       }
     ToolBar{
         id:toolbar;
@@ -31,7 +32,14 @@ MyPage{
         personalSource: "../pic/Details/edit.svg";
         highlightItem: 0;
         onBackButtonClicked: pageStack.pop();
-        onPersonalButtonClicked: sendcommentdialog.open();
+        onPersonalButtonClicked: {
+            if(user.userState){
+                sendcommentdialog.open();
+            }
+            else{
+                signalCenter.showMessage(qsTr("Please login"));
+            }
+        }
     }
     ListModel{
         id:commentmodel;
@@ -49,6 +57,7 @@ MyPage{
             color: "#f5f5f5";
             Image{
                 anchors.top: parent.bottom;
+                width: parent.width;
                 source: "../pic/General/HeadShadow.png";
                 opacity: 0.75;
                 z:1;
@@ -71,9 +80,26 @@ MyPage{
                 model: commentmodel;
                 delegate: CommentComponent{}
             }
+            ListFooter{
+                visible: commentmodel.count > 0;
+                onClicked: {
+                    if(Script.commentListPage !== "NULL"){
+                        Script.getComment(_id, Script.commentListPage);
+                    }
+                    else{
+                        signalCenter.showMessage(qsTr("No next page aviliable..."))
+                    }
+                }
+            }
         }
     }
+    SendCommentDialog{
+        id: sendcommentdialog;
+    }
+    SendReplyDialog{
+        id: sendreplydialog;
+    }
     Component.onCompleted:{
-        Script.commentmodel=commentmodel;
+        Script.commentPage = commentpage;
     }
 }

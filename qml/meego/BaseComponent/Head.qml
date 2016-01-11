@@ -14,7 +14,7 @@ Image{
             left: parent.left;
             leftMargin: 20;
         }
-        font.pixelSize: 28;
+        font.pixelSize: 37;
     }
     Image{
         id:shadow;

@@ -1,8 +1,9 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.meego 1.1
+import "../../JavaScript/main.js" as Script
 Rectangle {
-    width: screen.width;
+    width: screen.displayWidth;
     height: 93;
     color: "#f5f5f5";
     Text{
@@ -28,11 +29,21 @@ Rectangle {
             rightMargin: 7;
         }
         //checked: true;
+        width: 200;
         text: qsTr("Download");
+        onClicked: {
+            if(user.userState){
+                Script.getDownloadUrl(_id, user.auth, title, icon, "symbian");
+            }
+            else{
+                signalCenter.showMessage(qsTr("Please login"));
+            }
+        }
     }
     Image{
         anchors.top: parent.bottom;
         source: "../../pic/General/HeadShadow.png";
+        width: parent.width;
         opacity: 0.75
     }
 }

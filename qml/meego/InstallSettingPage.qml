@@ -1,4 +1,4 @@
-import QtQuick 1.1
+﻿import QtQuick 1.1
 import com.nokia.meego 1.1
 import com.stars.widgets 1.0
 import "../JavaScript/main.js" as Script
@@ -35,65 +35,75 @@ MyPage{
             anchors.left: parent.left;
             anchors.leftMargin: 13;
             text: qsTr("Install autoly when download finish");
-            platformInverted: true;
-            checked: autoInstall;
+            //platformInverted: true;
+            checked: settings.autoInstall;
             onClicked: {
-                if(autoInstall){
-                    autoInstall = false;
+                if(settings.autoInstall){
+                    settings.autoInstall = false;
                 }
-                else autoInstall = true;
-                settings.setAutoInstall(autoInstall);
+                else settings.autoInstall = true;
             }
         }
-        SelectionListItem{
-            platformInverted: true;
+        Item{
+            height: 8;
+            width: 1
+        }
+
+        CheckBox{
+            id: silenceInstall;
+            anchors.left: parent.left;
+            anchors.leftMargin: 13;
+            text: qsTr("Install background");
+            //platformInverted: true;
+            checked: settings.silenceInstall;
+            onClicked: {
+                if(settings.silenceInstall){
+                    settings.silenceInstall = false;
+                }
+                else settings.silenceInstall = true;
+            }
+        }
+        SettingsItem{
+            //platformInverted: true;
             title: qsTr("Download save path");
-            subTitle: downloadpath;
+            subTitle: settings.downloadPath;
             onClicked:{
                 fileDialog.inverseTheme = true//设置主题模式
                 fileDialog.chooseMode = FilesDialog.IndividualChoice
                 fileDialog.chooseType = FilesDialog.FolderType
-                fileDialog.exec(downloadpath,FilesDialog.Dirs|FilesDialog.Drives)
+                fileDialog.exec(settings.downloadPath, FilesDialog.Dirs|FilesDialog.Drives)
                 var file = fileDialog.firstSelection()
-                if(file.filePath)
-                    downloadpath =file.filePath;
-                settings.setDownloadPath(downloadpath);
+                if(file)
+                    settings.downloadPath =file.filePath;
             }
         }
-        SelectionListItem{
-            platformInverted: true;
+        /*SettingsItem{
+            //platformInverted: true;
             title: qsTr("Installation driver");
-            subTitle: installdriver;
+            subTitle: settings.installDriver;
             onClicked:{
                 fileDialog.inverseTheme = true//设置主题模式
                 fileDialog.chooseMode = FilesDialog.IndividualChoice
                 fileDialog.chooseType = FilesDialog.DriveType
                 fileDialog.canOpenSystemDrive = false;
-                fileDialog.exec(installdriver,FilesDialog.Drives)
+                fileDialog.exec(settings.installDriver, FilesDialog.Drives)
                 var file = fileDialog.firstSelection()
-                if(file.filePath)
-                    installdriver =file.filePath;
-                settings.setInstallDriver(installdriver);
+                if(file)
+                    settings.installDriver =file.filePath;
             }
-        }
+        }*/
         Item{
-            height: 20;
+            height: 27;
             width: 1;
         }
         Button{
             //anchors.topMargin: 20;
             //platformInverted: true;
-            platformStyle: ButtonStyle{
-                inverted: false;
-            }
-
             width: 400;
             anchors.horizontalCenter: parent.horizontalCenter;
-            text: qsTr("Clear login data");
+            text: qsTr("Check new version");
             onClicked: {
-                userstate=0;
-                if(userdata.clearUserData("LoginData"))
-                    signalCenter.showMessage(qsTr("Clear successfully"));
+                Script.getversion();
             }
         }
     }

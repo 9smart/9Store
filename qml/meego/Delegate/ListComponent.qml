@@ -3,7 +3,7 @@ import QtQuick 1.1
 import "../BaseComponent"
 MyListItem{
     id:root;
-    width: screen.width;
+    width: screen.displayWidth;
     height: 107;
     Image{
         id:icon;
@@ -16,7 +16,7 @@ MyListItem{
             left: parent.left;
             leftMargin: 16;
         }
-        source: model.icon;
+        source: "http://apps-images.9smart.cn/" + model.uploader.uid + "/i/" + model._id;
         Image{
             anchors.fill: parent;
             source: "../../pic/General/App_icon_Loading.svg";
@@ -41,16 +41,17 @@ MyListItem{
             color: "#3c3c3c";
         }
         Text{
-            text: model.author;
+            text: model.developer;
             font.pixelSize: 17;
             color: "#787878";
         }
         RankStars{
-            ranknum: model.ratingnum==="0"?0:(scores/ratingnum);
+            ranknum: model.score_num === "0"?0:(model.scores/model.score_num);
             size: 20;
         }
     }
     onClicked:{
-        pageStack.push(Qt.resolvedUrl("../InfoPage.qml"),{appid:model.appid,title:model.appname,icon:model.icon,summary:model.summary,version:model.version,author:model.author,ratingnum:model.ratingnum,scores:model.scores});
+        pageStack.push(Qt.resolvedUrl("../InfoPage.qml"),
+                               {_id:model._id, title:model.appname, icon:icon.source, score_num:((model.score_num)?model.score_num:0), scores:((model.scores)?model.scores:0), developer:model.developer});
     }
 }

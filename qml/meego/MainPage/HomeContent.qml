@@ -77,9 +77,9 @@ Flickable{
     }
     Component.onCompleted: {
         if(covermodel.count===0)
-            Script.getcover();
+            Script.getcover("MeeGo");
         if(featuredmodel.count===0)
-            Script.getfeatured("belle");
+            Script.getfeatured("MeeGo");
     }
     NumberAnimation on opacity {
         from: 0;

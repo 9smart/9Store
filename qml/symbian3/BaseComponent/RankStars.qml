@@ -8,8 +8,9 @@ Row{
     Repeater{
         model: 5;
         Image{
-            height: size;
-            width: size;
+            //height: size;
+            //width: size;
+            sourceSize: Qt.size(size, size);
             smooth: true;
             source: {
                 if((ranknum-index)>=1)

@@ -86,7 +86,7 @@ PageStackWindow{
         }
     }
     StatusBar{
-        id:statusbar;
+        id:statusBar;
         visible: false;
     }
     FirstOpenSplash{

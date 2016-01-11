@@ -53,28 +53,5 @@ MyPage{
             }
         }
     }
-    QueryDialog{
-        id:verquerydia;
-        platformInverted: true;
-        titleText: qsTr("New version has been found")
-        message: qsTr("Whether to download the new version?");
-        acceptButtonText: qsTr("Yes");
-        rejectButtonText: qsTr("No");
-        onAccepted:{
-            var file=downloadpath+"105.sis";
-            downloadmodel.append({"icon":"http://yayabo-s1.stor.sinaapp.com/png/201410/14128173469x5.thumb.png","name":"久店","url":"http://api.9smart.cn/app/105?download=download","file":file});
-            qcurl.appenddl("http://api.9smart.cn/app/105?download=download",file);
-            signalCenter.showMessage(qsTr("Download appended!"));
-        }
-    }
-    Connections{
-        target: signalCenter;
-        onVersionGeted:{
-            newversion=Script.version;
-            if(Script.isnew(version,newversion)){
-                signalCenter.showMessage(qsTr("This version is the new newest version"));
-            }
-            else verquerydia.open()
-        }
-    }
+
 }

@@ -58,7 +58,7 @@ MyPage{
         }
         TextField{
             id:username;
-            width: 300;
+            width: 330;
         }
         Item{
             height: 10;
@@ -71,7 +71,7 @@ MyPage{
         }
         TextField{
             id:password;
-            width: 300;
+            width: 330;
             echoMode: TextInput.Password;
         }
         Item{

@@ -12,9 +12,6 @@
 #include "src/Downloader.h"
 #include "selectfilesdialog.h"
 
-#ifndef Q_WS_SIMULATOR
-#include "src/Qcurl.h"
-#endif
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
    {
@@ -51,12 +48,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     Downloader downloader(&viewer, &settings, &fileoperate);
 
 
-#ifndef Q_WS_SIMULATOR
-    //QCurl qcurl(&viewer, &settings, &fileoperate);
-    //viewer.rootContext()->setContextProperty("qcurl",&qcurl);
-#endif
     NetworkAccessManagerFactory factory;
-    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
+    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
     viewer.engine()->setNetworkAccessManagerFactory(&factory);
     viewer.rootContext()->setContextProperty("fileoperate",&fileoperate);
     viewer.rootContext()->setContextProperty("settings",&settings);
@@ -73,6 +66,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     viewer.setSource(QUrl("qrc:/qml/symbian3/main.qml"));
     #elif defined(Q_WS_SIMULATOR)
     viewer.setSource(QUrl("qrc:/qml/symbian3/main.qml"));
+    //viewer.setSource(QUrl("qml/meego/main.qml"));
     #else //Meego
     viewer.setSource(QUrl("qrc:/qml/meego/main.qml"));
     #endif

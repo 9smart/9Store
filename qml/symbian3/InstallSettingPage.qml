@@ -70,7 +70,7 @@ MyPage{
                 fileDialog.chooseType = FilesDialog.FolderType
                 fileDialog.exec(settings.downloadPath, FilesDialog.Dirs|FilesDialog.Drives)
                 var file = fileDialog.firstSelection()
-                if(file.filePath)
+                if(file)
                     settings.downloadPath =file.filePath;
             }
         }
@@ -85,7 +85,7 @@ MyPage{
                 fileDialog.canOpenSystemDrive = false;
                 fileDialog.exec(settings.installDriver, FilesDialog.Drives)
                 var file = fileDialog.firstSelection()
-                if(file.filePath)
+                if(file)
                     settings.installDriver =file.filePath;
             }
         }
@@ -111,7 +111,7 @@ MyPage{
             anchors.horizontalCenter: parent.horizontalCenter;
             text: qsTr("Check new version");
             onClicked: {
-                Script.getversion();
+                Script.getversion("Symbian%5e3", "0xE5735851");
             }
         }
     }

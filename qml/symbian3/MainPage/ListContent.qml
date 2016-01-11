@@ -13,7 +13,7 @@ ListView{
     footer: ListFooter{
         visible: listmodel.count > 0;
         onClicked: {
-            if(page !== "NULL"){
+            if(Script.listPage !== "NULL"){
                 Script.getlist("Symbian%5e3", root.category, "", Script.listPage,"12","");
             }
             else{

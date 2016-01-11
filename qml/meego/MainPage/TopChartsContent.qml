@@ -6,45 +6,49 @@ import "../Delegate"
 Item{
     id:root;
     property string order:"";
-    property int page:1;
-    width:screen.width;
+    width: screen.displayWidth;
     TopChartsButtons{
         id:topchartsbuttons;
         z:1;
         onNewestClicked: {
             order="";
-            page=1;
-            Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
+            Script.listPage = "";
+            Script.getlist("MeeGo", "", "", Script.listPage,"12",order);
         }
         onMostPopClicked: {
-            order="views";
-            page=1;
-            Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
+            order="comment_num";
+            Script.listPage = "";
+            Script.getlist("MeeGo", "", "", Script.listPage,"12",order);
         }
         onMostDlClicked: {
-            order="downloads";
-            page=1;
-            Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
+            order="download_num";
+            Script.listPage = "";
+            Script.getlist("MeeGo", "", "", Script.listPage,"12",order);
         }
     }
     ListView{
         id:mainview;
-        width: screen.width;
+        width: screen.displayWidth;
         anchors.top: topchartsbuttons.bottom;
         anchors.bottom: parent.bottom;
         model: listmodel;
         clip: true;
         delegate: ListComponent{}
         footer: ListFooter{
+            visible: listmodel.count > 0;
             onClicked: {
-                page++;
-                Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
+                if(Script.listPage !== "NULL"){
+                    Script.getlist("MeeGo", "", "", Script.listPage,"12",order);
+                }
+                else{
+                    signalCenter.showMessage(qsTr("No next page aviliable..."))
+                }
             }
         }
     }
     Component.onCompleted: {
-        if(listmodel.count===0)
-            Script.getlist("belle",page.toString(),"15","","","",order,"","appname,author,appid,icon,summary,version,scores,ratingnum");
+        Script.listPage = "";
+        Script.getlist("MeeGo", "", "", Script.listPage,"12",order);
     }
     NumberAnimation on opacity {
         from: 0;

@@ -18,7 +18,8 @@ QtObject
                   if (msg||false)
                     {
                      infoBanner.text = msg;
-                     infoBanner.open();
+                     //infoBanner.open();
+                      infoBanner.show();
                     }
                  }
         }

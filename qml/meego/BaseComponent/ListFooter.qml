@@ -2,13 +2,16 @@
 import QtQuick 1.1
 
 Item{
+    property string text: qsTr("Next page");
     signal clicked;
-    width: screen.width;
+    width: screen.displayWidth;
     height: 60;
     Text{
+        id: footertext;
         anchors.centerIn: parent;
-        text:app.loading?"Loading...":"Next page";
+        text:app.loading?"Loading...":parent.text;
         color: app.loading?"lightgray":"black";
+        font.pixelSize: 24;
     }
     MouseArea{
         id:mousearea;

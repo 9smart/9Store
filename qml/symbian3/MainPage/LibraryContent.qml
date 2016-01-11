@@ -4,7 +4,7 @@ import "../../JavaScript/main.js" as Script
 import "../BaseComponent"
 import "../Delegate"
 Flickable{
-    width: screen.width;
+    width: screen.displayWidth;
     height: 455;
     contentHeight: 120+applicationlist.height+gamelist.height;
     clip: true;
@@ -28,8 +28,9 @@ Flickable{
                 right: parent.right;
                 rightMargin: 15;
             }
-            height: 25;
-            width: 25;
+            //height: 25;
+            //width: 25;
+            sourceSize: Qt.size(25, 25);
             source: "../../pic/General/icon-m-toolbar-next.png";
             state: "Normal";
             MouseArea{
@@ -62,6 +63,23 @@ Flickable{
                     }
                 }
             ]
+            transitions: [
+                Transition {
+                    from: "Normal"
+                    to: "Hide"
+                    reversible: true;
+                    PropertyAnimation{
+                        target: application;
+                        properties: "rotation";
+                        duration: 300;
+                    }
+                    PropertyAnimation{
+                        target: applicationlist;
+                        properties: "height";
+                        duration: 300;
+                    }
+                }
+            ]
         }
         onClicked: {
             categorymodel.clear();
@@ -73,7 +91,7 @@ Flickable{
         id:applicationlist;
         anchors.top: applicationbutton.bottom;
         width: screen.width;
-        height: applicationrepeater.count*80;
+        height: applicationrepeater.count * 80;
         Repeater{
             id:applicationrepeater
             model: applicationmodel;
@@ -101,8 +119,9 @@ Flickable{
                 right: parent.right;
                 rightMargin: 15;
             }
-            height: 25;
-            width: 25;
+            //height: 25;
+            //width: 25;
+            sourceSize: Qt.size(25, 25);
             source: "../../pic/General/icon-m-toolbar-next.png";
             state: "Normal";
             MouseArea{
@@ -135,18 +154,35 @@ Flickable{
                     }
                 }
             ]
+            transitions: [
+                Transition {
+                    from: "Normal"
+                    to: "Hide"
+                    reversible: true;
+                    PropertyAnimation{
+                        target: game;
+                        properties: "rotation";
+                        duration: 300;
+                    }
+                    PropertyAnimation{
+                        target: gamelist;
+                        properties: "height";
+                        duration: 300;
+                    }
+                }
+            ]
         }
         onClicked: {
             categorymodel.clear();
             Script.getcategory("game");
-            root.currentContent="CategoryContent.qml";
+            root.currentContent = "CategoryContent.qml";
         }
     }
     Column{
         id:gamelist;
         anchors.top: gamebutton.bottom;
         width: screen.width;
-        height: gamerepeater.count*80;
+        height: gamerepeater.count * 80;
         Repeater{
             id:gamerepeater
             model: gamemodel;

@@ -166,7 +166,7 @@ function getfeatured(system){
 }
 function loadfeatured(oritxt){
     var obj = JSON.parse(oritxt);
-    console.log(oritxt);
+    //console.log(oritxt);
     if(obj.error === 0){
         mainPage.featuredModel.clear();
         for(var i in obj.apps){
@@ -212,6 +212,7 @@ function loadcategory(oritxt){
 
 function getlist(system, category, developer, page, pagesize, sort){
     var url = apps(system, category, developer, page, pagesize, sort);
+    //console.log(url);
     sendWebRequest(url,loadlist,"GET","");
 }
 function loadlist(oritxt){
@@ -292,7 +293,12 @@ function loadinfo(oritxt){
         infoPage.category = obj.app.category;
         infoPage.version = obj.app.version;
         infoPage.summary = obj.app.summary;
-        infoPage.comment_num = obj.app.comment_num;
+        if(!obj.app.comment_num){
+            infoPage.comment_num = 0;
+        }
+        else{
+            infoPage.comment_num = obj.app.comment_num;
+        }
         if(obj.app.size){
             var size = parseInt(obj.app.size);
             if(size < 1048576)
@@ -344,6 +350,10 @@ function loadrelatedlist(oritxt){
             infoPage.relatedAppsModel.clear();
         }
         for(var i in obj.apps){
+            if(!obj.apps[i].score_num){
+                obj.apps[i].score_num = 0;
+                obj.apps[i].scores = 0;
+            }
             infoPage.relatedAppsModel.append(obj.apps[i]);
         }
         if(obj.pager.next_page !== 0){
@@ -366,6 +376,10 @@ function loadSpecifiedAuthorList(oritxt){
             infoPage.specifiedAuthorModel.clear();
         }
         for(var i in obj.apps){
+            if(!obj.apps[i].score_num){
+                obj.apps[i].score_num = 0;
+                obj.apps[i].scores = 0;
+            }
             infoPage.specifiedAuthorModel.append(obj.apps[i]);
         }
         if(obj.pager.next_page !== 0){
@@ -388,12 +402,14 @@ function getComment(appid, page){
 }
 function loadComment(oritxt){
     var obj=JSON.parse(oritxt);
-
     if(obj.error === 0){
         if(obj.pager.page === 1){
             commentPage.commentModel.clear();
         }
         for(var i in obj.comments){
+            if(!obj.comments[i].reply_num){
+                obj.comments[i].reply_num = 0;
+            }
             commentPage.commentModel.append(obj.comments[i]);
         }
         if(obj.pager.next_page !== 0){
@@ -415,7 +431,7 @@ function sendCommentResult(oritxt){
     var obj=JSON.parse(oritxt);
     if(obj.error === 0){
         signalcenter.showMessage(qsTr("send successful!"));
-        if(commentPage){
+        if(commentPage.commentModel){
             commentListPage = ""
             getComment(commentPage._id, commentListPage);
         }
@@ -443,8 +459,9 @@ function sendReplyResult(oritxt){
 
 var installSettingPage;
 
-function getversion() {
-    var url = checkVersion("Symbian%5e3", "0xE5735851");
+function getversion(system, id) {
+    //var url = checkVersion("Symbian%5e3", "0xE5735851");
+    var url = checkVersion(system, id);
     sendWebRequest(url, loadversion, "GET", "");
 }
 function loadversion(oritxt){

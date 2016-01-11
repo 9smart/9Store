@@ -2,8 +2,11 @@
 import QtQuick 1.1
 import com.stars.widgets 1.0
 import "../BaseComponent"
+import "../Dialog"
 Flickable{
     width: screen.displayWidth;
+    flickableDirection: Flickable.VerticalFlick;
+    clip: true;
     Image{
         id:cover;
         width: parent.width;
@@ -32,8 +35,21 @@ Flickable{
             width: 107;
             height: 107;
             smooth: true;
-            source: app.avatar;
+            source: app.user.avatar;
             maskSource: "../../pic/Personal/HeadPortrait_Mask_x2.bmp";
+            MyImage{
+                anchors.fill: parent;
+                source: "../../pic/Details/App_Datail_Loading.svg";
+                maskSource: "../../pic/Personal/HeadPortrait_Mask_x2.bmp";
+                visible: parent.status == Image.Loading;
+            }
+            MyImage{
+                anchors.fill: parent;
+                source: "../../pic/Personal/defalt.png";
+                maskSource: "../../pic/Personal/HeadPortrait_Mask_x2.bmp";
+                smooth: true;
+                visible: parent.status == Image.Error;
+            }
         }
         Column{
             anchors{
@@ -42,9 +58,20 @@ Flickable{
                 bottom: parent.bottom;
                 bottomMargin: 13;
             }
-            Text{
-                font.pixelSize: 40;
-                text: app.nickname;
+            Row{
+                spacing: 7;
+                Text{
+                    font.pixelSize: 40;
+                    text: app.user.nickName;
+                    color: "#3c3c3c";
+                }
+                Text{
+                    font.pixelSize: 20;
+                    anchors.bottom: parent.bottom;
+                    anchors.bottomMargin: 6;
+                    color: "#787878";
+                    text: app.user.group;
+                }
             }
         }
 
@@ -76,6 +103,9 @@ Flickable{
                 height: 33;
                 width: 33;
                 source: "../../pic/General/icon-m-toolbar-next.png";
+            }
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("../DownloadPage.qml"));
             }
         }
         MyListHeading{
@@ -127,7 +157,26 @@ Flickable{
             }
             onClicked: pageStack.push(Qt.resolvedUrl("../AboutPage.qml"))
         }
+        MyListItem{
+            Text{
+                anchors{
+                    verticalCenter: parent.verticalCenter;
+                    left: parent.left;
+                    leftMargin: 15;
+                }
+                text: qsTr("Log out");
+                color: "#3c3c3c";
+                font.pixelSize: 32;
+            }
+            onClicked: {
+                logoutconfirmdialog.open();
+            }
+        }
     }
+    LogOutConfirmDialog{
+        id: logoutconfirmdialog;
+    }
+
     NumberAnimation on opacity {
         from: 0;
         to:1;

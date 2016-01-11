@@ -3,8 +3,8 @@ import QtQuick 1.1
 
 Rectangle {
     property alias text:headingtext.text;
-    width: screen.width;
-    height: 33;
+    width: screen.displayWidth;
+    height: 44;
     color: "#B4B4B4";
     opacity: 0.5;
     Rectangle{
@@ -18,11 +18,11 @@ Rectangle {
         id:headingtext;
         anchors{
             left: parent.left;
-            leftMargin: 20;
+            leftMargin: 27;
             verticalCenter: parent.verticalCenter;
             verticalCenterOffset: -1;
         }
-        font.pixelSize: 23;
+        font.pixelSize: 31;
         //color: "#3c3c3c";
         color: "#000000";
     }

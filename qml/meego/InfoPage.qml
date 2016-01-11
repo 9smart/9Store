@@ -8,23 +8,32 @@ import "InfoPage"
 import "../JavaScript/main.js" as Script
 MyPage{
     id:infopage;
-    property string appid;
+    property string _id;
     property string icon;
-    property string author;
-    property string summary;
-    property string version;
+    property int score_num;
+    property int scores;
+    property string developer;
     property string type;
     property string category;
+    property string version;
     property string size;
-    property string ratingnum;
-    property string scores;
-    property int dlnum:-1;
-    property string dlurl:"http://api.9smart.cn/app/"+appid+"?download=download";
+    property string summary;
+    property string comment_num
+
+    property string downloadUrl;
     property bool firstStart: true;
+
+    property alias screenShotsModel: screenshotmodel;
+    property alias relatedAppsModel: relatedlistmodel;
+    property alias specifiedAuthorModel: specifiedauthormodel;
+
     onVisibleChanged: if (visible && firstStart) {
                           firstStart = false
-                          Script.getinfo(appid);
+                          Script.getinfo(_id);
                       }
+    onCategoryChanged: if (category != ""){
+                           Script.getrelatedlist("MeeGo", category, "", "2");
+                       }
     ToolBar{
         id:toolbar;
         z:1;
@@ -35,13 +44,23 @@ MyPage{
         personalSource: "../pic/Details/edit.svg";
         highlightItem: 0;
         onBackButtonClicked: pageStack.pop();
-        onPersonalButtonClicked: sendcommentdialog.open();
+        onPersonalButtonClicked: {
+            if(user.userState){
+                sendcommentdialog.open();
+            }
+            else{
+                signalCenter.showMessage(qsTr("Please login"));
+            }
+        }
     }
     ListModel{
         id:screenshotmodel;
     }
     ListModel{
         id:relatedlistmodel;
+    }
+    ListModel{
+        id: specifiedauthormodel;
     }
     SendCommentDialog{
         id:sendcommentdialog;
@@ -77,7 +96,7 @@ MyPage{
                         leftMargin: 20;
                         right: parent.right;
                     }
-                    height: 215;
+                    height: 287;
                     contentWidth: screenshotmodel.count*173;
                     flickableDirection: Flickable.HorizontalFlick;
                     Row{
@@ -91,14 +110,17 @@ MyPage{
                 Image{
                     id:screenshotmask
                     anchors.bottom: parent.bottom;
-                    source: "../pic/Details/Details_Mask.png";                  
-                }      
+                    width: parent.width;
+                    source: "../pic/Details/Details_Mask.png";
+                }
                 Image{
                     anchors.top: parent.top;
+                    width: parent.width;
                     source: "../pic/Home/Poster_Shadow_01.png";
                 }
                 Image{
                     anchors.bottom: parent.bottom;
+                    width: parent.width;
                     source: "../pic/Home/Poster_Shadow_03.png";
                 }
                 Image{
@@ -110,10 +132,12 @@ MyPage{
                     }
                     source: "../pic/General/icon-m-toolbar-next.png";
                     //rotation: 90;
-                    height: 27;
-                    width: 27;
+                    //height: 27;
+                    //width: 27;
+                    sourceSize: Qt.size(27, 27);
                     MouseArea{
                         anchors.fill: parent;
+                        anchors.margins: -10;
                         onClicked: screenshot.state=="close"?screenshot.state="open":screenshot.state="close";
                     }
                 }
@@ -134,7 +158,7 @@ MyPage{
                         }
                         PropertyChanges{
                             target: morebutton;
-                            rotation:-120;
+                            rotation:-90;
                         }
                     },
                     State{
@@ -153,7 +177,7 @@ MyPage{
                         }
                         PropertyChanges{
                             target: morebutton;
-                            rotation:120;
+                            rotation:90;
                         }
                     }
 
@@ -167,7 +191,7 @@ MyPage{
                             target: screenshot;
                             property: "height";
                             duration: 250;
-                        }               
+                        }
                         PropertyAnimation{
                             target: screenshotview;
                             property: "anchors.topMargin";
@@ -182,7 +206,7 @@ MyPage{
                 ]
             }
             MyListItem{
-                height: summ.height+30;
+                height: summ.height + 40;
                 enabled:false;
                 Text{
                     id:summ;
@@ -190,10 +214,10 @@ MyPage{
                         verticalCenter: parent.verticalCenter;
                         left: parent.left;
                         right: parent.right;
-                        leftMargin: 12;
-                        rightMargin: 12;
+                        leftMargin: 16;
+                        rightMargin: 16;
                     }
-                    font.pixelSize: 15;
+                    font.pixelSize: 20;
                     wrapMode: Text.WrapAnywhere;
                     text: summary;
                 }
@@ -203,16 +227,16 @@ MyPage{
                     anchors{
                         verticalCenter: parent.verticalCenter;
                         left: parent.left;
-                        leftMargin: 15;
+                        leftMargin: 20;
                     }
                     Text{
-                        font.pixelSize: 21;
-                        text: qsTr("Reviews")+" ("+ratingnum+") ";
+                        font.pixelSize: 28;
+                        text: qsTr("Reviews")+" ("+comment_num+") ";
                     }
                     RankStars{
                         size: 21;
                         anchors.verticalCenter: parent.verticalCenter;
-                        ranknum: ratingnum==="0"?0:(scores/ratingnum);
+                        ranknum: score_num === "0"? 0 : (scores / score_num);
                     }
                 }
                 Image{
@@ -221,20 +245,21 @@ MyPage{
                         right: parent.right;
                         rightMargin: 15;
                     }
-                    width: 20;
-                    height: 20;
+                    //width: 20;
+                    //height: 20;
+                    sourceSize: Qt.size(27, 27);
                     smooth: true;
                     source: "../pic/General/icon-m-toolbar-next.png";
                 }
-                onClicked: pageStack.push(Qt.resolvedUrl("CommentPage.qml"),{appid:appid,ratingnum:ratingnum,size:size,author:author,type:type,category:category,icon:icon,scores:scores,title:title})
+                onClicked: pageStack.push(Qt.resolvedUrl("CommentPage.qml"),{_id:_id, score_num:score_num, size:size, developer:developer, type:type, category:category, icon:icon, scores:scores, title:title});
             }
             MyListItem{
                 Text{
-                    font.pixelSize: 24;
-                    text: author;
+                    font.pixelSize: 32;
+                    text: developer;
                     anchors{
                         left: parent.left;
-                        leftMargin: 15;
+                        leftMargin: 20;
                         verticalCenter: parent.verticalCenter;
                     }
                 }
@@ -242,14 +267,15 @@ MyPage{
                     anchors{
                         verticalCenter: parent.verticalCenter;
                         right: parent.right;
-                        rightMargin: 15;
+                        rightMargin: 20;
                     }
-                    width: 20;
-                    height: 20;
+                    //width: 20;
+                    //height: 20;
+                    sourceSize: Qt.size(27, 27);
                     smooth: true;
                     source: "../pic/General/icon-m-toolbar-next.png";
                 }
-                onClicked: pageStack.push(Qt.resolvedUrl("SpecifiedAuthorAppPage.qml"),{title:author})
+                onClicked: pageStack.push(Qt.resolvedUrl("SpecifiedAuthorAppPage.qml"),{title: developer, specifiedAuthorModel:specifiedAuthorModel})
             }
             MyListHeading{
                 id: relatedAppsTitle;
@@ -261,11 +287,11 @@ MyPage{
             }
             MyListItem{
                 Text{
-                    font.pixelSize: 24;
+                    font.pixelSize: 32;
                     text: qsTr("All related apps");
                     anchors{
                         left: parent.left;
-                        leftMargin: 15;
+                        leftMargin: 20;
                         verticalCenter: parent.verticalCenter;
                     }
                 }
@@ -275,28 +301,81 @@ MyPage{
                         right: parent.right;
                         rightMargin: 15;
                     }
-                    width: 20;
-                    height: 20;
+                    //width: 20;
+                    //height: 20;
+                    sourceSize: Qt.size(27, 27);
                     smooth: true;
                     source: "../pic/General/icon-m-toolbar-next.png";
                 }
-                onClicked: pageStack.push(Qt.resolvedUrl("RelatedAppsPage.qml"),{appid:appid,category:category,title:title})
+                onClicked: pageStack.push(Qt.resolvedUrl("RelatedAppsPage.qml"),{category:category,title:title,relatedlistmodel:relatedlistmodel});
             }
         }
     }
     DownloadButton{
         id:downloadbutton2;
-        visible: flick.contentY>145;
+        visible: flick.contentY > 193;
+    }
+    PathView{
+        id: screenshotgallary;
+        width: screen.displayWidth;
+        height: screen.displayHeight;
+        y: -36;
+        z: 2;
+        model: screenshotmodel;
+        clip: true;
+        preferredHighlightBegin: 0.5;
+        preferredHighlightEnd: 0.5;
+        state: "close";
+        delegate: ScreenShotsGalleryComponent{}
+        path: Path{
+            startX: -screenshotgallary.width*screenshotgallary.count/2+screenshotgallary.width/2;
+            startY: screenshotgallary.height/2;
+            PathLine{
+                x:screenshotgallary.width*screenshotgallary.count/2+screenshotgallary.width/2;
+                y:screenshotgallary.height/2;
+            }
+        }
+        states: [
+            State{
+                name: "close";
+                PropertyChanges{
+                    target: screenshotgallary;
+                    visible: false;
+                    scale: 0.5;
+                    opacity: 0;
+                }
+            },
+            State{
+                name: "open";
+                PropertyChanges{
+                    target: screenshotgallary;
+                    visible: true;
+                    scale: 1;
+                    opacity: 1;
+                }
+            }
+        ]
+        transitions: [
+            Transition {
+                from: "close"
+                to: "open"
+                reversible: true;
+                PropertyAnimation{
+                    target: screenshotgallary;
+                    properties: "scale";
+                    duration: 200;
+                }
+                PropertyAnimation{
+                    target: screenshotgallary;
+                    properties: "opacity";
+                    duration: 200;
+                }
+            }
+        ]
+        //onStateChanged: console.log("change")
     }
     Connections{
         target: signalCenter;
-        onDlInfoSetted:{
-            type=Script.type;
-            category=Script.category;
-            summary=Script.summary;
-            size=Script.size;
-            Script.getrelatedlist("belle","1","3",appid,category);
-        }
         onCommentSendSuccessful:{
             signalCenter.showMessage(qsTr("Send successfully"))
         }
@@ -305,7 +384,6 @@ MyPage{
         }
     }
     Component.onCompleted:{
-        Script.screenshotmodel=screenshotmodel;
-        Script.relatedlistmodel=relatedlistmodel;
+        Script.infoPage = infopage
     }
 }

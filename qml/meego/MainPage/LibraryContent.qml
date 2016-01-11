@@ -6,7 +6,7 @@ import "../Delegate"
 Flickable{
     width: screen.displayWidth;
     height: 607;
-    contentHeight: 136 + applicationlist.height + gamelist.height;
+    contentHeight: 160 + applicationlist.height + gamelist.height;
     clip: true;
     MyListItem{
         id:applicationbutton;
@@ -22,14 +22,64 @@ Flickable{
             font.pixelSize: 32;
         }
         Image{
+            id: application;
             anchors{
                 verticalCenter: parent.verticalCenter;
                 right: parent.right;
                 rightMargin: 20;
             }
-            height: 33;
-            width: 33;
+            //height: 33;
+            //width: 33;
+            sourceSize: Qt.size(33, 33);
             source: "../../pic/General/icon-m-toolbar-next.png";
+            state: "Normal";
+            MouseArea{
+                anchors.fill: parent;
+                onClicked: application.state==="Normal"?application.state="Hide":application.state="Normal";
+            }
+            states: [
+                State{
+                    name: "Normal";
+                    PropertyChanges{
+                        target: application;
+                        rotation: 90;
+                    }
+                    PropertyChanges{
+                        target: applicationlist;
+                        visible: true;
+                        height: applicationrepeater.count * 107;
+                    }
+                },
+                State{
+                    name: "Hide";
+                    PropertyChanges{
+                        target: application;
+                        rotation: 0;
+                    }
+                    PropertyChanges{
+                        target: applicationlist;
+                        visible: false;
+                        height: 0;
+                    }
+                }
+            ]
+transitions: [
+                Transition {
+                    from: "Normal"
+                    to: "Hide"
+                    reversible: true;
+                    PropertyAnimation{
+                        target: application;
+                        properties: "rotation";
+                        duration: 300;
+                    }
+                    PropertyAnimation{
+                        target: applicationlist;
+                        properties: "height";
+                        duration: 300;
+                    }
+                }
+            ]
         }
         onClicked: {
             categorymodel.clear();
@@ -64,19 +114,69 @@ Flickable{
             font.pixelSize: 32;
         }
         Image{
+            id: game;
             anchors{
                 verticalCenter: parent.verticalCenter;
                 right: parent.right;
                 rightMargin: 20;
             }
-            height: 33;
-            width: 33;
+            //height: 33;
+            //width: 33;
+            sourceSize: Qt.size(33, 33);
             source: "../../pic/General/icon-m-toolbar-next.png";
+            state: "Normal";
+            MouseArea{
+                anchors.fill: parent;
+                onClicked: game.state=="Normal"?game.state="Hide":game.state="Normal";
+            }
+            states: [
+                State{
+                    name: "Normal";
+                    PropertyChanges{
+                        target: game;
+                        rotation: 90;
+                    }
+                    PropertyChanges{
+                        target: gamelist;
+                        visible: true;
+                        height: gamerepeater.count * 107;
+                    }
+                },
+                State{
+                    name: "Hide";
+                    PropertyChanges{
+                        target: game;
+                        rotation: 0;
+                    }
+                    PropertyChanges{
+                        target: gamelist;
+                        visible: false;
+                        height: 0;
+                    }
+                }
+            ]
+transitions: [
+                Transition {
+                    from: "Normal"
+                    to: "Hide"
+                    reversible: true;
+                    PropertyAnimation{
+                        target: game;
+                        properties: "rotation";
+                        duration: 300;
+                    }
+                    PropertyAnimation{
+                        target: gamelist;
+                        properties: "height";
+                        duration: 300;
+                    }
+                }
+            ]
         }
         onClicked: {
             categorymodel.clear();
             Script.getcategory("game");
-            root.currentContent="CategoryContent.qml";
+            root.currentContent = "CategoryContent.qml";
         }
     }
     Column{

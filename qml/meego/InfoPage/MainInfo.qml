@@ -37,21 +37,21 @@ Rectangle{
             leftMargin: 20;
         }
         RankStars{
-            ranknum: ratingnum==="0"?0:(scores/ratingnum);
+            ranknum: score_num === 0? 0 : (scores / score_num);
             size: 28;
         }
         Text{
-            text: qsTr("By:")+author;
+            text: qsTr("By:") + developer;
             font.pixelSize: 20;
             color: "gray";
         }
         Text{
-            text: type+" > "+category;
+            text: type+" > "+ category;
             font.pixelSize: 20;
             color: "gray"
         }
         Text{
-            text: "v"+version+" - "+size;
+            text: "v"+version+" - "+ size;
             font.pixelSize: 20;
             color: "gray"
         }

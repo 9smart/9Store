@@ -33,7 +33,8 @@ ListView{
         onClicked: {
             root.category=model.category;
             listmodel.clear();
-            Script.getlist("belle","1","15",root.category,"","","","","appname,author,appid,icon,summary,version,scores,ratingnum");
+            Script.listPage = "";
+            Script.getlist("MeeGo", root.category, "", Script.listPage,"12","");
             root.currentContent="ListContent.qml";
         }
     }

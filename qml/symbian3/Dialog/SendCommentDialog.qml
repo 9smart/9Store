@@ -3,7 +3,6 @@ import QtQuick 1.1
 import com.nokia.symbian 1.1
 import "../BaseComponent"
 import "../../JavaScript/main.js" as Script
-import "../../JavaScript/des.js" as Des
 CommonDialog{
     id:root;
     platformInverted: true;

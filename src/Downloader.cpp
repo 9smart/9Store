@@ -46,7 +46,7 @@ qreal Downloader::progress() const
 
 void Downloader::appendDl(QByteArray url,  QString fileName)
 {
-    qDebug()<<"curl append: "<< url << " " << fileName;
+    qDebug()<<"download append: "<< url << " " << fileName;
 
     DownloadTask task;
     task.url = url;

@@ -5,8 +5,8 @@ Rectangle{
     signal clicked;
     property bool highlight:false;
     property alias enabled:mousearea.enabled;
-    width: screen.width;
-    height: 60;
+    width: screen.displayWidth;
+    height: 80;
     color: "#f5f5f5";    
     Rectangle{
         anchors.top: parent.top;
@@ -31,7 +31,7 @@ Rectangle{
     Rectangle{
         anchors.left: parent.left;
         height: parent.height;
-        width: 4;
+        width: 5;
         color: "#1080dd";
         visible: highlight;
     }

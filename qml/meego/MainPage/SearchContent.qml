@@ -12,14 +12,18 @@ Item{
             if(text==="")
                 signalCenter.showMessage(qsTr("Please input the key word"));
             else if(currentContent==="LibraryContent.qml"){
-                Script.getapplication("belle",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
-                Script.getgame("belle",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
+                Script.getapplication("MeeGo", text);
+                Script.getgame("MeeGo", text);
             }
             else if(currentContent==="CategoryContent.qml"){
-                Script.getlist("belle","1","15","","","","",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
+                Script.listPage = "";
+                Script.getSearch("MeeGo", text, "", Script.listPage);
                 root.currentContent="ListContent.qml";
             }
-            else Script.getlist("belle","1","15","","","","",text,"appname,author,appid,icon,summary,version,scores,ratingnum");
+            else {
+                Script.listPage = ""
+                Script.getlist("MeeGo", text, root.category, Script.listPage);
+            }
         }
     }
     Loader{
@@ -30,22 +34,6 @@ Item{
             right: parent.right;
         }
         source: currentContent;
-    }
-    ListModel{
-        id:categorymodel;
-    }    
-    ListModel{
-        id:applicationmodel;
-        //onCountChanged: console.log("modelcount:"+count);
-    }
-    ListModel{
-        id:gamemodel;
-    }
-    Component.onCompleted: {
-        Script.categorymodel=categorymodel;
-        Script.applicationmodel=applicationmodel;
-        Script.gamemodel=gamemodel;
-        //Script.listmodel=listmodel;
     }
     NumberAnimation on opacity {
         from: 0;

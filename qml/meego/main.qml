@@ -2,29 +2,42 @@
 import QtQuick 1.1
 import com.nokia.meego 1.1
 import com.nokia.extras 1.1
+import QtMobility.systeminfo 1.1
 import "../JavaScript/main.js" as Script
+import "../JavaScript/deviceModel.js" as Device
 import "BaseComponent"
+import "Delegate"
 PageStackWindow{
     id:app;
-    property string version:"0.5.1";
+    property string version:"1.0.0";
     property bool loading;
 
-    property string downloadpath: settings.getDownloadPath();
-    property string installdriver: settings.getInstallDriver();
-    property bool autoInstall:settings.autoInstall;
+    property string deviceModel: Device.deviceModel(deviceinfo.productName);
 
-    property int userstate:0;
-    property string uid;
-    property string accesstoken;
-    property string nickname;
-    property string avatar;
-    property string gender;
-    property string logintype;
+    property alias user: user;
+    property alias downloadModel: downloadmodel;
+
+    DeviceInfo{
+        id: deviceinfo;
+        Component.onCompleted: console.log(productName)
+    }
+
+    User{
+        id:user;
+    }
     InfoBanner{
         id: infoBanner;
+        z: statusbar.z + 1;
     }
+    StatusBar{
+        id: statusbar;
+    }
+
     LoadingIndicator{
         id:loadingind;
+    }
+    Splash{
+        id:splash;
     }
     SignalCenter{
         id: signalCenter;
@@ -33,6 +46,20 @@ PageStackWindow{
         id:processingtimer;
         interval: 60000;
         onTriggered: signalCenter.loadFailed("erro");
+    }
+    Timer{
+        id: noticetimer;
+        interval: 300000;
+        triggeredOnStart: true;
+        repeat: true;
+        //running: true;
+        running: false;
+        onTriggered: {
+            if(user.userState){
+                Script.noticeListPage = "";
+                Script.getNotices(user.auth, Script.noticeListPage, "12");
+            }
+        }
     }
     ListModel{
         id:downloadmodel;
@@ -56,11 +83,26 @@ PageStackWindow{
             signalCenter.showMessage(errorstring);
         }
     }
+    FirstOpenSplash{
+        id: firestopensplash;
+    }
 
     Component.onCompleted:{
-        Script.setsignalcenter(signalCenter);
-        loadLoginData(userdata.getUserData("LoginData"));
-        loadDownloadData(userdata.getUserData("DownloadData"));        
+        Script.initialize(signalCenter, utility, userdata, settings, downloader);
+        Script.application = app;
+
+        if(settings.versionCode < 1){
+            splash.visible = false;
+            firestopensplash.open();
+            userdata.clearUserData("UserData");         //1.0.0
+            settings.versionCode = 1;
+            settings.saveSettings();
+        }
+
+        Script.loadUserInfo(userdata.getUserData("UserData"));
+
+
+        loadDownloadData(userdata.getUserData("DownloadData"));
         pageStack.push(Qt.resolvedUrl("MainPage.qml"));
     }
 
@@ -81,17 +123,5 @@ PageStackWindow{
             downloadmodel.append(obj.statuses[i]);
         }
     }
-    function loadLoginData(oritxt) {
-        if(!oritxt) {
-            return;
-        }
-        var obj=JSON.parse(oritxt);
-        uid=obj.uid;
-        accesstoken=obj.accesstoken;
-        nickname=obj.nickname;
-        avatar=obj.avatar;
-        gender=obj.gender;
-        logintype=obj.logintype;
-        userstate=1;
-    }
+
 }

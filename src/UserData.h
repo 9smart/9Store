@@ -1,8 +1,7 @@
 #ifndef USERDATA_H
 #define USERDATA_H
 #include <QObject>
-class UserData: public QObject
-     {
+class UserData: public QObject{
       Q_OBJECT
       public:
             Q_INVOKABLE void setUserData(const QString &key, const QString &data);

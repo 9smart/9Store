@@ -6,8 +6,9 @@ Image{
     property alias text:searchtext.text;
     property alias deafaltText:deafalttext.text;
     signal clicked;
-    width: parent.displayWidth;
-    height: 60;
+    //width: parent.displayWidth;
+    //height: 60;
+    sourceSize: Qt.size(screen.displayWidth, 60);
     source: "../../pic/Library/Search_Input_Background.svg"
     TextInput{
         id:searchtext;
@@ -26,11 +27,13 @@ Image{
             right: parent.right;
             rightMargin: 13;
         }
-        source: "../../pic/Library/Search_Input_Search.svg"
+        source: "../../pic/Library/Search_Input_Search.svg";
+        sourceSize: Qt.size(40, 40);
         MouseArea{
             anchors.fill: parent;
             onClicked: searchfiled.clicked();
         }
+        //Component.onCompleted: console.log(sourceSize.height)
     }
     Text{
         id:deafalttext;

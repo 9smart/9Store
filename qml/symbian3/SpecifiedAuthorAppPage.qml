@@ -6,7 +6,6 @@ import "BaseComponent"
 import "Delegate"
 MyPage{
     id:relatedappspage;
-    property int page:1;
     property bool firstStart: true;
 
     property ListModel specifiedAuthorModel;

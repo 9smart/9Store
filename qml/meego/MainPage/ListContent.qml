@@ -4,7 +4,6 @@ import "../../JavaScript/main.js" as Script
 import "../BaseComponent"
 import "../Delegate"
 ListView{
-    property int page:1;
     width: screen.displayWidth;
     height: 607;
     contentHeight: listmodel.count * 107;
@@ -13,8 +12,12 @@ ListView{
     delegate: ListComponent{}
     footer: ListFooter{
         onClicked: {
-            page++;
-            Script.getlist("belle",page.toString(),"15",root.category,"","","",searchfiled.text,"appname,author,appid,icon,summary,version,scores,ratingnum");
+            if(Script.listPage !== "NULL"){
+                Script.getlist("MeeGo", root.category, "", Script.listPage,"12","");
+            }
+            else{
+                signalCenter.showMessage(qsTr("No next page aviliable..."))
+            }
         }
     }
     NumberAnimation on x{

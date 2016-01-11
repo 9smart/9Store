@@ -139,7 +139,53 @@ void FileOperate::symbianInstallFinished(int result)
         QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(currentInstallFile() + tr(" was installed successfully"))));
     }
     else {
-        QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(currentInstallFile() + tr(" installation was failed"))));
+        switch(result){
+        case -28:
+            QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr("Illegal path"))));
+            break;
+        case -30471:
+            QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr("User cancelled the operation"))));
+            break;
+        case -30472:
+            QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr("File is corrupted"))));
+            break;
+        case -30473:
+            QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr("Insufficient free memory in the drive to perform the operation"))));
+            break;
+        case -30474:
+            QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr("Installation of the package is not supported"))));
+            break;
+        case -30475:
+            QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr("Package cannot be installed due to security error"))));
+            break;
+        case -30476:
+            QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr("Package cannot be installed due to missing dependency"))));
+            break;
+        case -30477:
+            QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr("Mandatory file is in use and prevents the operation"))));
+            break;
+        case -30478:
+            QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr("Unknown error"))));
+            break;
+        case -30479:
+            QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr("The package has no rights to perform the operation"))));
+            break;
+        case -30480:
+            QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr("Indicates that network failure aborted the operation"))));
+            break;
+        case -30481:
+            QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr("Installer is busy doing some other operation"))));
+            break;
+        case -30482:
+            QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr("Target location of package is not accessible"))));
+            break;
+        case -30483:
+            QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(tr("The package is an invalid upgrade"))));
+            break;
+        default:
+            QMetaObject::invokeMethod(signalCenter, "showMessage", Qt::QueuedConnection, Q_ARG(QVariant, QVariant(currentInstallFile() + tr(" installation was failed"))));
+            break;
+        }
     }
     setCurrentInstallFile("");
     if(!installQueue.isEmpty()){

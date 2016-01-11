@@ -6,13 +6,12 @@ import "BaseComponent"
 import "Delegate"
 MyPage{
     id:relatedappspage;
-    property string appid;
     property string category;
-    property int page:1;
     property bool firstStart: true;
+    property ListModel relatedlistmodel;
     onVisibleChanged: if (visible && firstStart) {
-                          firstStart = false
-                          Script.getrelatedlist("belle",page.toString(),"15",appid,category);
+                          Script.infoListPage = "";
+                          Script.getrelatedlist("Symbian%5e3", category, Script.infoListPage, "12");
                       }
     title: qsTr("Related apps");
     ToolBar{
@@ -36,11 +35,18 @@ MyPage{
         anchors.topMargin: head.height;
         anchors.bottomMargin: toolbar.height;
         clip:true;
-        model: ListModel{ id:relatedlistmodel; }
+        model: relatedlistmodel;
         delegate:ListComponent{ id:listdelegate; }
-        footer: ListFooter{ id: listfooter; }
-    }
-    Component.onCompleted:{
-        Script.relatedlistmodel=relatedlistmodel;
+        footer: ListFooter{
+            id: listfooter;
+            onClicked: {
+                if(Script.infoListPage !== "NULL"){
+                    Script.getrelatedlist("MeeGo", category, Script.infoListPage, "12");
+                }
+                else{
+                    signalCenter.showMessage(qsTr("No next page aviliable..."))
+                }
+            }
+        }
     }
 }

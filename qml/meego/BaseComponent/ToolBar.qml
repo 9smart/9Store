@@ -56,19 +56,22 @@ Image {
         platformStyle: ButtonStyle{
             inverted: false;
         }
-        width: 75;
-        height: 75;
-        iconSource:  "../../pic/General/Toolbar_icon_back.svg";
+
+        width: height;
+        height: 56;
+        iconSource:  "../../pic/General/Toolbar_icon_Back_meego.svg";
         anchors.verticalCenter: parent.verticalCenter;
-        x:11;
+        x:20;
         onClicked: {
             root.backButtonClicked();
         }
+        //Component.onCompleted: console.log(height);
     }
     Image{
         id:home;
         source: "../../pic/General/Toolbar_icon_Home.svg";
         anchors.verticalCenter: parent.verticalCenter;
+        sourceSize: Qt.size(40, 40);
         x:124;
         MouseArea{
             id:homeMouseArea;
@@ -79,11 +82,13 @@ Image {
                 highlightItem=1;
             }
         }
+        //Component.onCompleted: console.log(sourceSize.height);
     }
     Image{
         id:topcharts;
-        source: "../../pic/General/Toolbar_icon_Topcharts.svg";
+        source: "../../pic/General/Toolbar_icon_TopCharts.svg";
         anchors.verticalCenter: parent.verticalCenter;
+        sourceSize: Qt.size(40, 40);
         x:220;
         MouseArea{
             id:topchartsMouseArea;
@@ -99,6 +104,7 @@ Image {
         id:search;
         source: "../../pic/General/Toolbar_icon_Search.svg";
         anchors.verticalCenter: parent.verticalCenter;
+        sourceSize: Qt.size(40, 40);
         x:316;
         MouseArea{
             id:searchMouseArea;
@@ -114,6 +120,7 @@ Image {
         id:personal;
         source: "../../pic/General/Toolbar_icon_Personal.svg";
         anchors.verticalCenter: parent.verticalCenter;
+        sourceSize: Qt.size(40, 40);
         x:412;
         MouseArea{
             id:personalMouseArea;

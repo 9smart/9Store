@@ -6,11 +6,11 @@ import "BaseComponent"
 import "Delegate"
 MyPage{
     id:relatedappspage;
-    property int page:1;
     property bool firstStart: true;
+    property ListModel specifiedAuthorModel;
     onVisibleChanged: if (visible && firstStart) {
-                          firstStart = false
-                          Script.getlist("belle",page.toString(),"15","","",title,"","","appname,author,appid,icon,summary,version,scores,ratingnum");
+                          Script.infoListPage = "";
+                          Script.getSpecifiedAuthorList("MeeGo", title, Script.infoListPage, "12");
                       }
     title: qsTr("Related apps");
     ToolBar{
@@ -34,11 +34,18 @@ MyPage{
         anchors.topMargin: head.height;
         anchors.bottomMargin: toolbar.height;
         clip:true;
-        model: ListModel{ id:listmodel; }
+        model: specifiedAuthorModel;
         delegate:ListComponent{ id:listdelegate; }
-        footer: ListFooter{ id: listfooter}
-    }
-    Component.onCompleted:{
-        Script.listmodel=listmodel;
+        footer: ListFooter{
+            id: listfooter
+            onClicked: {
+                if(Script.infoListPage !== "NULL"){
+                    Script.getSpecifiedAuthorList("MeeGo", title, Script.infoListPage, "12");
+                }
+                else{
+                    signalCenter.showMessage(qsTr("No next page aviliable..."))
+                }
+            }
+        }
     }
 }

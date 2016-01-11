@@ -3,10 +3,10 @@ import QtQuick 1.1
 import com.nokia.meego 1.1
 import "../JavaScript/main.js" as Script
 import "BaseComponent"
+
 MyPage{
-    id:loginpage;
-    title:qsTr("log in");
-    property MyPage mainPage;
+    id:registerpage;
+    title: qsTr("Register");
     ToolBar{
         id:toolbar;
         z:1;
@@ -27,10 +27,10 @@ MyPage{
         Row{
             spacing: 20;
             Image{
-                //height: 67;
-                //width: 67;
+                //height: 50;
+                //width: 50;
                 sourceSize: Qt.size(67, 67);
-                source: "../pic/9-MeeGo.png";
+                source: "../pic/9-Symbian2.svg";
                 smooth: true;
             }
             Text{
@@ -45,7 +45,7 @@ MyPage{
         }
         Text{
             font.pixelSize: 32;
-            text: qsTr("Login to your account");
+            text: qsTr("Creat a new account");
             color: "#3c3c3c";
         }
         Item{
@@ -59,6 +59,20 @@ MyPage{
         }
         TextField{
             id:username;
+            placeholderText: qsTr("e-mail address");
+            width: 440;
+        }
+        Item{
+            height: 13;
+            width: parent.width;
+        }
+        Text{
+            text: qsTr("User name");
+            font.pixelSize: 19;
+            color: "#777777";
+        }
+        TextField{
+            id:nickname;
             width: 440;
         }
         Item{
@@ -70,10 +84,19 @@ MyPage{
             font.pixelSize: 19;
             color: "#777777";
         }
-        TextField{
-            id:password;
-            width: 440;
-            echoMode: TextInput.Password;
+        Row{
+            spacing: 16;
+            TextField{
+                id:password;
+                width: 373;
+                echoMode: showpassword.checked? TextInput.Normal:TextInput.Password;
+            }
+            CheckBox{
+                id: showpassword;
+                //platformInverted: true;
+                //Component.onCompleted: console.log(width);
+                anchors.verticalCenter: parent.verticalCenter;
+            }
         }
         Item{
             height: 13;
@@ -81,9 +104,9 @@ MyPage{
         }
         Text{
             font.pixelSize: 19;
-            color: "#1080dd";
-            font.underline: true;
-            //text: qsTr("Forgot your password?");
+            color: "#777777";
+            anchors.right: parent.right;
+            text: qsTr("Show password");
         }
         Item{
             height: 40;
@@ -92,10 +115,15 @@ MyPage{
         Button{
             anchors.horizontalCenter: parent.horizontalCenter;
             //platformInverted: true;
-            text: qsTr("Log in");
+            text: qsTr("Continue");
             width: 353;
             onClicked: {
-                Script.logIn(username.text, password.text);
+                if(Script.isEmail(username.text)){
+                    Script.sendRegister(username.text, nickname.text, password.text);
+                }
+                else{
+                    signalCenter.showMessage(qsTr("Please input the correct e-mail address"));
+                }
             }
         }
         Item{
@@ -106,18 +134,17 @@ MyPage{
             anchors.horizontalCenter: parent.horizontalCenter;
             font.pixelSize: 19;
             color: "#777777";
-            text: qsTr("Don't have an account yet?");
+            text: qsTr("Have an account?");
         }
         Text{
             anchors.horizontalCenter: parent.horizontalCenter;
             font.pixelSize: 19;
             color: "#1080dd";
             font.underline: true;
-            text: qsTr("Get one here");
+            text: qsTr("Click to login");
             MouseArea{
                 anchors.fill: parent;
-                anchors.margins: -10;
-                onClicked: pageStack.push(Qt.resolvedUrl("RegisterPage.qml"));
+                onClicked: pageStack.pop();
             }
         }
     }
@@ -125,7 +152,7 @@ MyPage{
         target: app.user;
         onUserStateChanged:{
             if(app.user.userState === true){
-                mainPage.toolBar.personalButtonClicked();
+                //mainPage.toolBar.personalButtonClicked();
                 pageStack.pop();
             }
         }
