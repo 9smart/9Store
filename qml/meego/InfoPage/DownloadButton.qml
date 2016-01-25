@@ -3,7 +3,8 @@ import QtQuick 1.1
 import com.nokia.meego 1.1
 import "../../JavaScript/main.js" as Script
 Rectangle {
-    width: screen.displayWidth;
+    //width: screen.displayWidth;
+    width: 480;
     height: 93;
     color: "#f5f5f5";
     Text{
@@ -33,7 +34,8 @@ Rectangle {
         text: qsTr("Download");
         onClicked: {
             if(user.userState){
-                Script.getDownloadUrl(_id, user.auth, title, icon, "symbian");
+                //Script.getDownloadUrl(_id, user.auth, title, icon, "symbian");
+                Script.getDownloadUrl(_id, user.auth, title, icon);
             }
             else{
                 signalCenter.showMessage(qsTr("Please login"));

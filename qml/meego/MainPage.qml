@@ -13,6 +13,7 @@ MyPage{
     property alias applicationModel: applicationmodel;
     property alias gameModel: gamemodel;
     property alias toolBar: toolbar;
+    //property alias content: content;
     title: qsTr("Home");
     Head{
         id:head;

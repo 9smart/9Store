@@ -11,25 +11,32 @@ Dialog{
     //titleText: qsTr("Review");
     //buttonTexts: [qsTr("Send"),qsTr("Cancle")];
     content: Column{
-        anchors.left: parent.left;
-        anchors.right: parent.right;
-        spacing: 16;
+        anchors.horizontalCenter: parent.horizontalCenter;
+        spacing: 24;
         RankStars{
             id:rankstars;
             anchors.left: parent.left;
-            anchors.leftMargin: 24;
             size: 44;
             optional: true;
         }
-        TextField{
+        TextArea{
             id:comments
             //platformInverted: true;
-            anchors{
-                left: parent.left;
-                right: parent.right;
-                margins: 24;
+            width: 400;
+        }
+        Button{
+            text: qsTr("Send");
+            anchors.horizontalCenter: parent.horizontalCenter;
+            onClicked: {
+                Script.sendComment(user.auth, _id, "app", comments.text, rankstars.ranknum, app.deviceModel);
+                close();
             }
         }
+        /*Button{
+            text: qsTr("Cancle");
+            anchors.horizontalCenter: parent.horizontalCenter;
+            onClicked: close();
+        }*/
     }
     /*onButtonClicked: {
         if(index===0) {

@@ -8,8 +8,9 @@ QueryDialog{
     rejectButtonText: qsTr("Cancle");
     content: Text{
         text: qsTr("Are you sure you want to log out?");
-        anchors.left: parent.left;
-        anchors.leftMargin: 20;
+        color: "white";
+        font.pixelSize: 36;
+        anchors.horizontalCenter: parent.horizontalCenter;
     }
 
     onAccepted: {

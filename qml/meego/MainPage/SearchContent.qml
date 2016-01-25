@@ -5,7 +5,8 @@ Item{
     id:root;
     property string currentContent:"LibraryContent.qml";
     property string category;
-    width: screen.displayWidth;
+    //width: screen.displayWidth;
+    width: 480;
     SearchFiled{
         id:searchfiled;
         onClicked: {

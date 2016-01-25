@@ -49,7 +49,7 @@ MyPage{
                 width: 300;
                 anchors.horizontalCenter: parent.horizontalCenter;
                 text: qsTr("Check for new version");
-                onClicked: Script.getversion();
+                onClicked: Script.getversion("Symbian%5e3", "0xE5735851");
             }
         }
     }

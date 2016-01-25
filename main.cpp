@@ -34,7 +34,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     //translator
     QString locale = QLocale::system().name();
     QTranslator translator;
-    translator.load( QString("9store_") + locale,":/");
+    translator.load( QString("9store_") + locale,":/i18n");
     app->installTranslator(&translator);
 
     qmlRegisterType<SelectFilesDialog>("com.stars.widgets",1,0,"FilesDialog");
@@ -65,7 +65,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     #elif defined(Q_OS_SYMBIAN) //Symbian^3
     viewer.setSource(QUrl("qrc:/qml/symbian3/main.qml"));
     #elif defined(Q_WS_SIMULATOR)
-    viewer.setSource(QUrl("qrc:/qml/symbian3/main.qml"));
+    viewer.setSource(QUrl("qml/symbian3/main.qml"));
     //viewer.setSource(QUrl("qml/meego/main.qml"));
     #else //Meego
     viewer.setSource(QUrl("qrc:/qml/meego/main.qml"));

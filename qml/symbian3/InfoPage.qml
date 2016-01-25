@@ -132,7 +132,7 @@ MyPage{
                     width: 20;
                     MouseArea{
                         anchors.fill: parent;
-                        anchors.margins: -10;
+                        anchors.margins: -20;
                         onClicked: screenshot.state=="close"? screenshot.state="open" : screenshot.state="close";
                     }
                 }
@@ -245,7 +245,7 @@ MyPage{
                     smooth: true;
                     source: "../pic/General/icon-m-toolbar-next.png";
                 }
-                onClicked: pageStack.push(Qt.resolvedUrl("CommentPage.qml"),{_id:_id, score_num:score_num, size:size, developer:developer, type:type, category:category, icon:icon, scores:scores, title:title})
+                onClicked: pageStack.push(Qt.resolvedUrl("CommentPage.qml"),{_id:_id, score_num:score_num, size:size, developer:developer, type:type, category:category, icon:icon, scores:scores, title:title, version:version})
             }
             MyListItem{
                 Text{

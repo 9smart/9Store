@@ -6,7 +6,8 @@ import "../../JavaScript/main.js" as Script
 Item{
     id: root;
     property string nickname: model.author.nickname;
-    width: screen.displayWidth;
+    //width: screen.displayWidth;
+    width: 480;
     height: column.height + 13 + replyscolumn.height;
     Column{
         id:column;
@@ -61,7 +62,8 @@ Item{
         Rectangle{
             anchors.left: parent.left;
             anchors.leftMargin: -20;
-            width: screen.displayWidth;
+            //width: screen.displayWidth;
+            width: 480;
             height: 1;
             color: replyscolumn.height===0?Qt.rgba(0,0,0,0.1):Qt.rgba(1,1,1,1)
             Image{
@@ -102,7 +104,8 @@ Item{
             }
 
             Item{
-                width: screen.displayWidth;
+                //width: screen.displayWidth;
+                width: 480;
                 height: replycolumn.height + 13;
                 //color: "#010101";
                 Column{
@@ -158,7 +161,8 @@ Item{
                     Rectangle{
                         anchors.left: parent.left;
                         anchors.leftMargin: -20;
-                        width: screen.displayWidth;
+                        //width: screen.displayWidth;
+                        width: 480;
                         height: 1;
                         color: "#000000";
                         opacity:0.1;
@@ -186,7 +190,8 @@ Item{
         }
         Item{
             height: 1;
-            width: screen.displayWidth;
+            //width: screen.displayWidth;
+            width: 480;
             visible: reperter.count > 0;
             Image{
                 rotation: 180;

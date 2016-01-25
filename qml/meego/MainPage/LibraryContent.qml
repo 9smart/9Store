@@ -4,7 +4,8 @@ import "../../JavaScript/main.js" as Script
 import "../BaseComponent"
 import "../Delegate"
 Flickable{
-    width: screen.displayWidth;
+    //width: screen.displayWidth;
+    width: 480;
     height: 607;
     contentHeight: 160 + applicationlist.height + gamelist.height;
     clip: true;
@@ -91,7 +92,8 @@ transitions: [
     Column{
         id:applicationlist;
         anchors.top: applicationbutton.bottom;
-        width: screen.displayWidth;
+        //width: screen.displayWidth;
+        width: 480;
         height: applicationrepeater.count * 107;
         Repeater{
             id:applicationrepeater
@@ -182,7 +184,8 @@ transitions: [
     Column{
         id:gamelist;
         anchors.top: gamebutton.bottom;
-        width: screen.displayWidth;
+        //width: screen.displayWidth;
+        width: 480;
         height: gamerepeater.count * 107;
         Repeater{
             id:gamerepeater

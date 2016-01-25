@@ -4,7 +4,8 @@ import com.nokia.meego 1.1
 import "../BaseComponent"
 MyListItem{
     id:wrapper;
-    width: screen.displayWidth;
+    //width: screen.displayWidth;
+    width: 480;
     height: 107;
     Image{
         id:sicon;
@@ -53,8 +54,10 @@ MyListItem{
             right: parent.right;
             rightMargin: 20;
         }
-        height: sourceSize.height;
-        width: sourceSize.width;
+        sourceSize: Qt.size(40, 40);
+        //height: sourceSize.height;
+        //width: sourceSize.width;
+        //Component.onCompleted: console.log(height + " " + width);
     }
     onClicked:{
         if(state === "Erro"){

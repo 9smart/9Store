@@ -30,6 +30,7 @@ MyPage{
         id: emptyLabel;
         text: qsTr("The download list is empty");
         color: "Grey";
+        font.pixelSize: 36;
         anchors.centerIn: parent;
     }
     ListView{

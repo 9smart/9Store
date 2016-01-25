@@ -12,7 +12,7 @@ Image{
             left: parent.left;
             leftMargin: 15;
         }
-        font.pixelSize: 28;
+        font.pixelSize: 24;
     }
     Image{
         id:shadow;

@@ -3,7 +3,8 @@ import QtQuick 1.1
 import "../BaseComponent"
 import "../../JavaScript/main.js" as Script
 ListView{
-    width: screen.displayWidth;
+    //width: screen.displayWidth;
+    width: 480;
     height: 607;
     contentHeight:categorymodel.count * 80;
     clip: true;

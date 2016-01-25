@@ -14,6 +14,7 @@ CommonDialog{
     content: TextArea{
         id:comments
         platformInverted: true;
+        text: "@" + target + "：";
         anchors{
             top: parent.top;
             left: parent.left;

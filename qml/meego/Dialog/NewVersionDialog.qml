@@ -8,10 +8,11 @@ QueryDialog{
     rejectButtonText: qsTr("Cancle");
     content: Text{
         text: qsTr("Find new version, download now?");
-        anchors.left: parent.left;
-        anchors.leftMargin: 20;
+        color: "white";
+        font.pixelSize: 36;
+        anchors.horizontalCenter: parent.horizontalCenter;
     }
     onAccepted: {
-        Script.getDownloadUrl("567bf5897632d31254955cd8", app.user.auth, "9Store", "http://apps-images.9smart.cn/565060f95f9ad8de5a4e0674/i/567bf5897632d31254955cd8", "symbian");
+        Script.getDownloadUrl("567bf5897632d31254955cd8", app.user.auth, "9Store", "http://apps-images.9smart.cn/565060f95f9ad8de5a4e0674/i/567bf5897632d31254955cd8");
     }
 }

@@ -4,8 +4,10 @@ import com.stars.widgets 1.0
 import "../BaseComponent"
 import "../Dialog"
 Flickable{
-    width: screen.displayWidth;
+    //width: screen.displayWidth;
+    width: 480;
     flickableDirection: Flickable.VerticalFlick;
+    contentHeight: cover.height + maincolumn.height + 40;
     clip: true;
     Image{
         id:cover;
@@ -77,9 +79,11 @@ Flickable{
 
     }
     Column{
+        id: maincolumn;
         anchors.top: cover.bottom;
         anchors.topMargin: 40;
-        width: screen.displayWidth;
+        //width: screen.displayWidth;
+        width: 480;
         MyListHeading{
             text: qsTr("More");
         }
@@ -175,6 +179,9 @@ Flickable{
     }
     LogOutConfirmDialog{
         id: logoutconfirmdialog;
+        onAccepted: {
+            mainpage.toolBar.homeButtonClicked()
+        }
     }
 
     NumberAnimation on opacity {

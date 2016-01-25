@@ -18,7 +18,7 @@ ListView{
             }
             text: model.category;
             color: "#3c3c3c";
-            font.pixelSize: 24;
+            font.pixelSize: 21;
         }
         Image{
             anchors{
@@ -26,8 +26,8 @@ ListView{
                 right: parent.right;
                 rightMargin: 15;
             }
-            height: 25;
-            width: 25;
+            height: 24;
+            width: 24;
             source: "../../pic/General/icon-m-toolbar-next.png";
         }
         onClicked: {

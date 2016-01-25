@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = 9Store
-VERSION = 1.0.12
+VERSION = 1.0.13
 DEFINES += VER=\\\"$$VERSION\\\"
 
 TRANSLATIONS = i18n/9store_zh.ts
@@ -57,13 +57,13 @@ simulator{
     DEPLOYMENTFOLDERS +=  folder_Symbian folder_pic folder_JS
     #DEPLOYMENTFOLDERS +=  folder_Meego folder_pic folder_JS
 
-    RESOURCES += Symbian3-res.qrc
+    #RESOURCES += Symbian3-res.qrc
 }
 
 contains(MEEGO_EDITION,harmattan){
          DEFINES += Q_OS_HARMATTAN
          CONFIG += qdeclarative-boostable meegotouch
-         DEPLOYMENTFOLDERS +=  folder_JS folder_Meego folder_pic
+         #DEPLOYMENTFOLDERS +=  folder_JS folder_Meego folder_pic
          RESOURCES += Meego-res.qrc
          OTHER_FILES += \
                        qtc_packaging/debian_harmattan/rules \
@@ -81,7 +81,7 @@ symbian{
         #DEPLOYMENTFOLDERS -= folder_pic
         RESOURCES += Symbian1-res.qrc
     } else {
-        DEPLOYMENTFOLDERS += folder_Symbian folder_pic folder_JS
+        #DEPLOYMENTFOLDERS += folder_Symbian folder_pic folder_JS
         RESOURCES += Symbian3-res.qrc
     }
     CONFIG += mobility

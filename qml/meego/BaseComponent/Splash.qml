@@ -4,8 +4,10 @@ import com.nokia.meego 1.1
 
 Rectangle{
     id:root;
-    height: screen.displayHeight;
-    width: screen.displayWidth;
+    //height: screen.displayHeight;
+    height: 854;
+    //width: screen.displayWidth;
+    width: 480;
     color: "#000000";
     Column{
         anchors{

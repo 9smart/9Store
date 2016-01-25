@@ -23,7 +23,7 @@ Item{
             }
             else {
                 Script.listPage = ""
-                Script.getlist("Symbian%5e3", text, root.category, Script.listPage);
+                Script.getSearch("Symbian%5e3", text, root.category, Script.listPage);
             }
         }
     }

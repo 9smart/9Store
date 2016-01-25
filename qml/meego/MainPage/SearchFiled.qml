@@ -8,7 +8,7 @@ Image{
     signal clicked;
     //width: parent.displayWidth;
     //height: 60;
-    sourceSize: Qt.size(screen.displayWidth, 60);
+    sourceSize: Qt.size(480, 60);
     source: "../../pic/Library/Search_Input_Background.svg"
     TextInput{
         id:searchtext;

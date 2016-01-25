@@ -162,7 +162,7 @@ var mainPage;
 var listPage;
 function getfeatured(system){
     var url = getRecommendation(system);
-    sendWebRequest(url,loadfeatured,"GET","");
+    sendWebRequest(url, loadfeatured, "GET", "");
 }
 function loadfeatured(oritxt){
     var obj = JSON.parse(oritxt);
@@ -320,13 +320,20 @@ var downloadName;
 var downloadIcon;
 var downloadid;
 function getDownloadUrl(id, auth, name, icon, system){
-    var url = download(id, auth, "", system);
+    var url = download(id, auth, "", "symbian");
+    //console.log(system);
     downloadName = name;
     downloadIcon = icon;
     downloadid = id;
-    sendWebRequest(url, loadDownloadUrl, "GET", "");
+    if(system){
+        sendWebRequest(url, loadDownloadUrlSymbian, "GET", "");
+    }
+    else{
+        sendWebRequest(url, loadDownloadUrlMeego, "GET", "");
+    }
 }
-function loadDownloadUrl(oritxt){
+function loadDownloadUrlSymbian(oritxt){
+    //console.log(oritxt);
     var obj = JSON.parse(oritxt);
     if(obj.error === 0){
         //console.log(oritxt);
@@ -334,6 +341,16 @@ function loadDownloadUrl(oritxt){
                                              "filename": settings.downloadPath + "/" +downloadName + ".sis", "icon": downloadIcon});
         //qCurl.appenddl(obj.down_url, downloadName + ".sis");
         downloader.appendDl(obj.down_url, downloadName + ".sis");
+        signalcenter.showMessage(qsTr("Task added!"));
+    }
+    else signalcenter.showMessage(obj.error);
+}
+function loadDownloadUrlMeego(oritxt){
+    var obj = JSON.parse(oritxt);
+    if(obj.error === 0){
+        application.downloadModel.append({"id": downloadid, "name": downloadName, "url": obj.down_url,
+                                             "filename": settings.downloadPath + "/" +downloadName + ".deb", "icon": downloadIcon});
+        downloader.appendDl(obj.down_url, downloadName + ".deb");
         signalcenter.showMessage(qsTr("Task added!"));
     }
     else signalcenter.showMessage(obj.error);
@@ -401,6 +418,7 @@ function getComment(appid, page){
     sendWebRequest(url,loadComment,"GET","");
 }
 function loadComment(oritxt){
+    //console.log(oritxt);
     var obj=JSON.parse(oritxt);
     if(obj.error === 0){
         if(obj.pager.page === 1){
@@ -423,15 +441,19 @@ function loadComment(oritxt){
 }
 function sendComment(auth, id, type, content, score, model) {
     var url = sendcomments(auth, id, type);
+    //console.log(url);
+
     var postData = commentsData(content, score, model);
+    //console.log(postData);
     sendWebRequest(url, sendCommentResult, "POST", postData);
 }
 
 function sendCommentResult(oritxt){
     var obj=JSON.parse(oritxt);
+    //console.log(oritxt);
     if(obj.error === 0){
         signalcenter.showMessage(qsTr("send successful!"));
-        if(commentPage.commentModel){
+        if(commentPage){
             commentListPage = ""
             getComment(commentPage._id, commentListPage);
         }
@@ -441,18 +463,21 @@ function sendCommentResult(oritxt){
 
 function sendReply(auth, cid, content, model){
     var url = reply(auth, cid);
-    //console.log(url);
-    var postData = encodeURIComponent(replyData(content, model));
-    //console.log(postData);
+    //console.log(url)
+    var postData = replyData(content, model);
     sendWebRequest(url, sendReplyResult, "POST", postData);
 }
 
 function sendReplyResult(oritxt){
     console.log(oritxt);
     var obj = JSON.parse(oritxt);
-
     if(obj.error === 0){
         signalcenter.showMessage(qsTr("send successful!"));
+        if(commentPage){
+            commentListPage = ""
+            getComment(commentPage._id, commentListPage);
+        }
+        console.log("ddd");
     }
     else signalcenter.showMessage(obj.error);
 }
@@ -462,14 +487,34 @@ var installSettingPage;
 function getversion(system, id) {
     //var url = checkVersion("Symbian%5e3", "0xE5735851");
     var url = checkVersion(system, id);
-    sendWebRequest(url, loadversion, "GET", "");
+
+    switch(system){
+    case "Symbian%5e3":
+        sendWebRequest(url, loadSymbianVersion, "GET", "");
+    case "Meego":
+        sendWebRequest(url, loadMeegoVersion, "GET", "");
+    }
+
+    //sendWebRequest(url, loadversion, "GET", "");
 }
-function loadversion(oritxt){
+function loadSymbianVersion(oritxt){
     var obj = JSON.parse(oritxt);
-    //console.log(oritxt);
     if(obj.error === 0){
         var version = obj.apps[0].version;
-        if(isnew(version, "1.0.0")){
+        if(isnew(version, "1.1.0")){
+            installSettingPage.newVersionDialog.open();
+        }
+        else{
+            signalcenter.showMessage(qsTr("Current version is the latest version"));
+        }
+    }
+    else signalcenter.showMessage(obj.error);
+}
+function loadMeegoVersion(oritxt){
+    var obj = JSON.parse(oritxt);
+    if(obj.error === 0){
+        var version = obj.apps[0].version;
+        if(isnew(version, "1.1.0")){
             installSettingPage.newVersionDialog.open();
         }
         else{

@@ -20,7 +20,7 @@ Image{
             Text{
                 anchors.centerIn: parent;
                 text: qsTr("Newest");
-                font.pixelSize: 21
+                font.pixelSize: 21;
             }
             MouseArea{
                 anchors.fill: parent;

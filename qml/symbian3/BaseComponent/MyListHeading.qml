@@ -20,7 +20,7 @@ Rectangle {
             left: parent.left;
             leftMargin: 15;
             verticalCenter: parent.verticalCenter;
-            verticalCenterOffset: -1;
+            //verticalCenterOffset: -1;
         }
         font.pixelSize: 17;
         //color: "#3c3c3c";

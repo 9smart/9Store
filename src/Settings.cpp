@@ -17,7 +17,7 @@ void Settings::loadSettings()
 #ifdef Q_OS_HARMATTAN
         m_downloadPath = settings->value("downloadPath", "/home/user/MyDocs/").toString();
 #elif defined(Q_OS_SYMBIAN) | defined(Q_WS_SIMULATOR)
-        m_downloadPath = settings->value("downloadPath", "E:/download").toString();
+        m_downloadPath = settings->value("downloadPath", "E:/Installs").toString();
         m_installDriver = settings->value("installDriver", "E:/").toString();
 #endif
         m_autoInstall = settings->value("autoInstall", false).toBool();

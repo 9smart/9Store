@@ -317,8 +317,10 @@ MyPage{
     }
     PathView{
         id: screenshotgallary;
-        width: screen.displayWidth;
-        height: screen.displayHeight;
+        //width: screen.displayWidth;
+        width: 480;
+        //height: screen.displayHeight;
+        height: 854;
         y: -36;
         z: 2;
         model: screenshotmodel;

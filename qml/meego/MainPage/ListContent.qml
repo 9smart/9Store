@@ -4,7 +4,8 @@ import "../../JavaScript/main.js" as Script
 import "../BaseComponent"
 import "../Delegate"
 ListView{
-    width: screen.displayWidth;
+    //width: screen.displayWidth;
+    width: 480;
     height: 607;
     contentHeight: listmodel.count * 107;
     model: listmodel;

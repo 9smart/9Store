@@ -7,9 +7,10 @@ QueryDialog{
     acceptButtonText: qsTr("Yes");
     rejectButtonText: qsTr("Cancle");
     content: Text{
+        color: "white";
         text: qsTr("Clear all the task?");
-        anchors.left: parent.left;
-        anchors.leftMargin: 20;
+        font.pixelSize: 36;
+        anchors.horizontalCenter: parent.horizontalCenter;
     }
 
     onAccepted: {

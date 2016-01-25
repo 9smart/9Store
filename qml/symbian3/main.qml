@@ -9,7 +9,7 @@ import "BaseComponent"
 import "Delegate"
 PageStackWindow{
     id: app;
-    property string version:"0.5.1";
+    property string version:"1.1.0";
     property bool loading;
 
     property string deviceModel: Device.deviceModel(deviceinfo.productName);
@@ -97,11 +97,11 @@ PageStackWindow{
         Script.initialize(signalCenter, utility, userdata, settings, downloader/*, qcurl*/);
         Script.application = app;
         //console.log(settings.versionCode);
-        if(settings.versionCode < 1){
+        if(settings.versionCode < 3){
             splash.visible = false;
             firestopensplash.open();
             userdata.clearUserData("UserData");         //1.0.0
-            settings.versionCode = 1;
+            settings.versionCode = 3;
             settings.saveSettings();
         }
         Script.loadUserInfo(userdata.getUserData("UserData"));

@@ -19,7 +19,7 @@ Flickable{
             }
             text: qsTr("Applications");
             color: "#3c3c3c";
-            font.pixelSize: 24;
+            font.pixelSize: 21;
         }
         Image{
             id: application;
@@ -30,11 +30,12 @@ Flickable{
             }
             //height: 25;
             //width: 25;
-            sourceSize: Qt.size(25, 25);
+            sourceSize: Qt.size(24, 24);
             source: "../../pic/General/icon-m-toolbar-next.png";
             state: "Normal";
             MouseArea{
                 anchors.fill: parent;
+                anchors.margins: -10;
                 onClicked: application.state=="Normal"?application.state="Hide":application.state="Normal";
             }
             states: [
@@ -110,7 +111,7 @@ Flickable{
             }
             text: qsTr("Games");
             color: "#3c3c3c";
-            font.pixelSize: 24;
+            font.pixelSize: 21;
         }
         Image{
             id: game;
@@ -121,11 +122,12 @@ Flickable{
             }
             //height: 25;
             //width: 25;
-            sourceSize: Qt.size(25, 25);
+            sourceSize: Qt.size(24, 24);
             source: "../../pic/General/icon-m-toolbar-next.png";
             state: "Normal";
             MouseArea{
                 anchors.fill: parent;
+                anchors.margins: -10;
                 onClicked: game.state=="Normal"?game.state="Hide":game.state="Normal";
             }
             states: [

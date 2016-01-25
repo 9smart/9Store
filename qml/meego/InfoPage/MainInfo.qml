@@ -4,7 +4,8 @@ import com.nokia.meego 1.1
 import "../BaseComponent"
 Rectangle{
     id: maininfo;
-    width: screen.displayWidth;
+    //width: screen.displayWidth;
+    width: 480;
     height: 120;
     color: "#f5f5f5";
     Image{

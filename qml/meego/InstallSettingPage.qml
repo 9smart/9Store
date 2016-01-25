@@ -5,7 +5,8 @@ import "../JavaScript/main.js" as Script
 import "BaseComponent"
 import "Dialog"
 MyPage{
-    id:downloadpage;
+    id: installsettingpage;
+    property alias newVersionDialog: newversiondialog;
     title: qsTr("Installation preferences");
     ToolBar{
         id:toolbar;
@@ -103,8 +104,15 @@ MyPage{
             anchors.horizontalCenter: parent.horizontalCenter;
             text: qsTr("Check new version");
             onClicked: {
-                Script.getversion();
+                Script.getversion("Meego", "9store");
             }
         }
     }
+    NewVersionDialog{
+            id: newversiondialog;
+        }
+
+        Component.onCompleted: {
+            Script.installSettingPage = installsettingpage;
+        }
 }

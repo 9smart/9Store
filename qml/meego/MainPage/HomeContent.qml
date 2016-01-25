@@ -8,7 +8,8 @@ Flickable{
     id:root;
     clip: true;
     contentHeight: cover.height+heading.height+featuredapp.height;
-    width:screen.displayWidth; //height
+    //width:screen.displayWidth; //height
+    width: 480;
     flickableDirection: Flickable.VerticalFlick;
     PathView{
         id:cover;

@@ -3,7 +3,8 @@ import QtQuick 1.1
 
 Rectangle {
     property alias text:headingtext.text;
-    width: screen.displayWidth;
+    //width: screen.displayWidth;
+    width: 480;
     height: 44;
     color: "#B4B4B4";
     opacity: 0.5;

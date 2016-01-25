@@ -55,7 +55,7 @@ MyPage{
                 width: 400;
                 anchors.horizontalCenter: parent.horizontalCenter;
                 text: qsTr("Check for new version");
-                onClicked: Script.getversion();
+                onClicked: Script.getversion("Meego", "9store");
             }
         }
     }    

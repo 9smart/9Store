@@ -11,17 +11,17 @@ Rectangle{
             left: parent.left;
             leftMargin: 20;
             bottom: parent.bottom;
-            bottomMargin: 100;
+            bottomMargin: 96;
         }
         Text {
             text: "Welcome to";
             color: "#FFFFFF";
-            font.pixelSize: 27;
+            font.pixelSize: 33;
         }
         Text{
             text: "9Store";
             color: "#1994FF";
-            font.pixelSize: 27;
+            font.pixelSize: 33;
         }
     }
 
@@ -31,6 +31,7 @@ Rectangle{
         anchors.margins: 20;
         text: "9Smart";
         color: "#B4B4B4";
+        font.pixelSize: 15;
     }
     BusyIndicator{
         anchors.bottom: parent.bottom;

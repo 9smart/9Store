@@ -53,7 +53,8 @@ MyPage{
         }
         Rectangle{
             height: 20;
-            width: screen.displayWidth;
+            //width: screen.displayWidth;
+            width: 480;
             color: "#f5f5f5";
             Image{
                 anchors.top: parent.bottom;

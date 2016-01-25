@@ -3,7 +3,8 @@ import QtQuick 1.1
 import "../BaseComponent"
 MyListItem{
     id:root;
-    width: screen.displayWidth;
+    //width: screen.displayWidth;
+    width: 480;
     height: 107;
     Image{
         id:icon;

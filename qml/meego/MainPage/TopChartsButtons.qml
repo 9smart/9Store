@@ -3,7 +3,7 @@ import QtQuick 1.1
 Image{
     id:root;
     source: "../../pic/TopCharts/ButtonRow_Background.svg";
-    sourceSize: Qt.size(screen.displayWidth, 60);
+    sourceSize: Qt.size(480, 60);
     property int highlightItem:1;
     signal newestClicked;
     signal mostPopClicked;

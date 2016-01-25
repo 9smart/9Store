@@ -5,7 +5,8 @@ Rectangle{
     signal clicked;
     property bool highlight:false;
     property alias enabled:mousearea.enabled;
-    width: screen.displayWidth;
+    //width: screen.displayWidth;
+    width: 480;
     height: 80;
     color: "#f5f5f5";    
     Rectangle{

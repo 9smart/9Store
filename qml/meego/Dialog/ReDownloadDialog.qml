@@ -12,11 +12,12 @@ QueryDialog{
     rejectButtonText: qsTr("Cancle");
     content: Text{
         text: qsTr("Download again?");
-        anchors.left: parent.left;
-        anchors.leftMargin: 20;
+        color: "white";
+        font.pixelSize: 36;
+        anchors.horizontalCenter: parent.horizontalCenter;
     }
     onAccepted: {
-        Script.getDownloadUrl(id, app.user.auth, name, icon, "symbian");
+        Script.getDownloadUrl(id, app.user.auth, name, icon);
         downloadmodel.remove(index);
     }
     function openDia(id, name, icon, index){

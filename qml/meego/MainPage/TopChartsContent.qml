@@ -6,7 +6,8 @@ import "../Delegate"
 Item{
     id:root;
     property string order:"";
-    width: screen.displayWidth;
+    //width: screen.displayWidth;
+    width: 480;
     TopChartsButtons{
         id:topchartsbuttons;
         z:1;

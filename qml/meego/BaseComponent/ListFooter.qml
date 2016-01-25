@@ -4,7 +4,8 @@ import QtQuick 1.1
 Item{
     property string text: qsTr("Next page");
     signal clicked;
-    width: screen.displayWidth;
+    //width: screen.displayWidth;
+    width: 480;
     height: 60;
     Text{
         id: footertext;
