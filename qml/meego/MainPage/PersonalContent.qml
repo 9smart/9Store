@@ -24,7 +24,9 @@ Flickable{
         }
         Image{
             source: "../../pic/Personal/DEV.svg";
-            visible: false;
+            visible: app.user.group === "开发者";
+            sourceSize: Qt.size(67, 67);
+            //Component.onCompleted: console.log(height + " " + width)
         }
         MyImage{
             id:avatar;

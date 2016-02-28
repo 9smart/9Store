@@ -10,20 +10,29 @@ Dialog{
     property string target;
     //titleText: qsTr("Reply to ") + target;
     //buttonTexts: [qsTr("Send"),qsTr("Cancle")];
-    content: TextArea{
-        id:comments
-        anchors{
-            top: parent.top;
-            left: parent.left;
-            right: parent.right;
-            margins: 18;
+    content: Column{
+        anchors.horizontalCenter: parent.horizontalCenter;
+        spacing: 24;
+        RankStars{
+            id:rankstars;
+            anchors.left: parent.left;
+            size: 44;
+            optional: true;
+        }
+        TextArea{
+            id:comments
+            text: "@" + target + ": ";
+            width: 400;
+        }
+        Button{
+            text: qsTr("Send");
+            anchors.horizontalCenter: parent.horizontalCenter;
+            onClicked: {
+                Script.sendReply(user.auth, cid, comments.text, app.deviceModel);
+                close();
+            }
         }
     }
-
-    /*onButtonClicked: {
-        if(index === 0)
-            Script.sendReply(user.auth, cid, comments.text, app.deviceModel);
-    }*/
     function openDialog(cid, target){
         root.cid = cid;
         root.target = target;

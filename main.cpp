@@ -12,7 +12,6 @@
 #include "src/Downloader.h"
 #include "selectfilesdialog.h"
 
-
 Q_DECL_EXPORT int main(int argc, char *argv[])
    {
     QScopedPointer<QApplication> app(createApplication(argc, argv));
@@ -65,8 +64,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     #elif defined(Q_OS_SYMBIAN) //Symbian^3
     viewer.setSource(QUrl("qrc:/qml/symbian3/main.qml"));
     #elif defined(Q_WS_SIMULATOR)
-    viewer.setSource(QUrl("qml/symbian3/main.qml"));
-    //viewer.setSource(QUrl("qml/meego/main.qml"));
+    //viewer.setSource(QUrl("qml/symbian3/main.qml"));
+    viewer.setSource(QUrl("qml/meego/main.qml"));
     #else //Meego
     viewer.setSource(QUrl("qrc:/qml/meego/main.qml"));
     #endif

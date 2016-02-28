@@ -119,7 +119,7 @@ MyPage{
             width: 353;
             onClicked: {
                 if(Script.isEmail(username.text)){
-                    Script.sendRegister(username.text, nickname.text, password.text);
+                    Script.sendRegister(username.text, nickname.text, password.text, "From Meego client");
                 }
                 else{
                     signalCenter.showMessage(qsTr("Please input the correct e-mail address"));

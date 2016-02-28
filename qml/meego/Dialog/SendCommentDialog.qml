@@ -32,15 +32,5 @@ Dialog{
                 close();
             }
         }
-        /*Button{
-            text: qsTr("Cancle");
-            anchors.horizontalCenter: parent.horizontalCenter;
-            onClicked: close();
-        }*/
     }
-    /*onButtonClicked: {
-        if(index===0) {
-            Script.sendComment(user.auth, _id, "app", comments.text, rankstars.ranknum, app.deviceModel);
-        }
-    }*/
 }

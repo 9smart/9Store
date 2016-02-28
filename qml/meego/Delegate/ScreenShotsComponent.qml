@@ -20,6 +20,7 @@ Component{
             anchors.fill: parent;
             onClicked: {
                 screenshotgallary.state = "open";
+                app.showStatusBar = false;
                 //console.log("here");
             }
         }

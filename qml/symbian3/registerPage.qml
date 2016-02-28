@@ -117,7 +117,7 @@ MyPage{
             width: 265;
             onClicked: {
                 if(Script.isEmail(username.text)){
-                    Script.sendRegister(username.text, nickname.text, password.text);
+                    Script.sendRegister(username.text, nickname.text, password.text, "From Symbian client");
                 }
                 else{
                     signalCenter.showMessage(qsTr("Please input the correct e-mail address"));

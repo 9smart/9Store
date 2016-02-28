@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = 9Store
-VERSION = 1.0.13
+VERSION = 1.1.0
 DEFINES += VER=\\\"$$VERSION\\\"
 
 TRANSLATIONS = i18n/9store_zh.ts

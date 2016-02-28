@@ -21,6 +21,7 @@ Image{
         anchors.fill: parent;
         onClicked: {
             screenshotgallary.state = "close";
+            app.showStatusBar = true;
         }
     }
 }

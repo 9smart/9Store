@@ -127,9 +127,9 @@ function savaUserData(){
     }
 }
 
-function sendRegister(userName, nickname, password){
+function sendRegister(userName, nickname, password, reason){
     var url = register();
-    var postData = registerData(userName, nickname, password, password, "From Symbian client");
+    var postData = registerData(userName, nickname, password, password, reason);
     sendWebRequest(url, loadRegisterResult, "POST", postData);
 }
 function loadRegisterResult(oritxt){
@@ -514,6 +514,7 @@ function loadMeegoVersion(oritxt){
     var obj = JSON.parse(oritxt);
     if(obj.error === 0){
         var version = obj.apps[0].version;
+        console.log(version)
         if(isnew(version, "1.1.0")){
             installSettingPage.newVersionDialog.open();
         }

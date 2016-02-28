@@ -14,7 +14,7 @@ CommonDialog{
     content: TextArea{
         id:comments
         platformInverted: true;
-        text: "@" + target + "：";
+        text: "@" + target + ": ";
         anchors{
             top: parent.top;
             left: parent.left;
@@ -24,8 +24,10 @@ CommonDialog{
     }
 
     onButtonClicked: {
-        if(index === 0)
+        if(index === 0){
+            console.log(comments.text)
             Script.sendReply(user.auth, cid, comments.text, app.deviceModel);
+        }
     }
     function openDialog(cid, target){
         root.cid = cid;

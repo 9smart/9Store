@@ -16,6 +16,7 @@ MyPage{
     property string category;
     property string icon;
     property string scores;
+    property string version;
     property int score_num;
     property alias commentModel: commentmodel;
     onVisibleChanged: if (visible && firstStart) {

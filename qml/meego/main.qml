@@ -9,7 +9,7 @@ import "BaseComponent"
 import "Delegate"
 PageStackWindow{
     id:app;
-    property string version:"1.0.0";
+    property string version:"1.1.0";
     property bool loading;
 
     property string deviceModel: Device.deviceModel(deviceinfo.productName);
@@ -27,12 +27,12 @@ PageStackWindow{
     }
     InfoBanner{
         id: infoBanner;
-        z: statusbar.z + 1;
+        z: 1011;
     }
     StatusBar{
         id: statusbar;
+        //Component.onCompleted: console.log(statusbar.z)
     }
-
     LoadingIndicator{
         id:loadingind;
     }
@@ -91,11 +91,12 @@ PageStackWindow{
         Script.initialize(signalCenter, utility, userdata, settings, downloader);
         Script.application = app;
 
-        if(settings.versionCode < 1){
+        console.log(settings.versionCode)
+        if(settings.versionCode < 3){
             splash.visible = false;
             firestopensplash.open();
-            userdata.clearUserData("UserData");         //1.0.0
-            settings.versionCode = 1;
+            userdata.clearUserData("UserData");         //1.1.0
+            settings.versionCode = 2;
             settings.saveSettings();
         }
 
@@ -104,6 +105,8 @@ PageStackWindow{
 
         loadDownloadData(userdata.getUserData("DownloadData"));
         pageStack.push(Qt.resolvedUrl("MainPage.qml"));
+
+        //app.showStatusBar = false
     }
 
     function saveDownloadData() {

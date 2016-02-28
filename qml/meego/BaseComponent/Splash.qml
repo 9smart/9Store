@@ -23,7 +23,7 @@ Rectangle{
         }
         Text{
             text: "9Store";
-            color: "#1994FF";
+            color: "#B41EAA";
             font.pixelSize: 36;
         }
     }
